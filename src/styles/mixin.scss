@@ -1,0 +1,27 @@
+$div-border: 1px solid #b8b8bd;
+$border-color:1px solid #eee;
+
+$border-radius: 4px;
+
+$box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+
+$font-color: #444444;
+$color-primary: rgb(9, 194, 166);
+
+$input-border: 1px solid rgb(220, 223, 230);
+$input-focus-border: 1px solid $color-primary;
+
+$lj-color: rgb(0, 0, 0);
+$lj-font: normal;
+
+@mixin fontstes {
+  color: $font-color;
+  font-size: 12px;
+  font-weight: $lj-font !important;
+}
+
+@mixin redstes {
+  color: red !important;
+  font-size: 12px;
+  font-weight: $lj-font !important;
+}
