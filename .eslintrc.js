@@ -67,6 +67,7 @@ module.exports = {
         }
       }
     ],
+    camelcase: 0,
     'no-restricted-syntax': 0,
     'no-extra-boolean-cast': 0,
     'array-callback-return': 0,

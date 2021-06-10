@@ -22,6 +22,7 @@
           :class="[{'ly-table__show':visibility}, tableClass]"
         >
           <el-table
+            ref="elRef"
             :data="filterList"
             border
             height="100%"
@@ -56,9 +57,9 @@ export default defineComponent({
   setup(props, ctx) {
     const wrapperRef = ref<HTMLElement>(null as any);
     const tableRef = ref<HTMLElement>(null as any);
-
+    const elRef = ref<HTMLElement>(null as any);
     return {
-      ...useDropTable(props as ILyDropTableProps, ctx as any, wrapperRef, tableRef)
+      ...useDropTable(props as ILyDropTableProps, ctx as any, wrapperRef, tableRef, elRef)
     };
   }
 });

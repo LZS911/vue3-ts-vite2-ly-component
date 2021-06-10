@@ -12,7 +12,8 @@ export default function useDropTable(
   props: ILyDropTableProps,
   { emit }: SetupContext<EmitType[]>,
   wrapperRef: Ref<HTMLElement>,
-  tableRef: Ref<HTMLElement>
+  tableRef: Ref<HTMLElement>,
+  elRef: Ref<any>
 ) {
   const filterList = ref<any[]>([]);
   const inputStyle = getSize(props.inputWidth, ISizeCorrespondHeight, props.size);
@@ -31,7 +32,9 @@ export default function useDropTable(
   const visibility = ref(false);
   const show = () => {
     if (!props.disable) {
-      filterList.value = props.tableList;
+      if ($(filterList).length !== props.tableList.length) {
+        filterList.value = props.tableList;
+      }
       visibility.value = true;
       emit('visible-change', true);
     }
@@ -61,6 +64,7 @@ export default function useDropTable(
   watch(
     () => props.tableList,
     () => {
+      filterList.value = props.tableList;
       props.tableList.forEach((item) => {
         sourceMap.set(item[props.valueKey], item[props.labelKey]);
       });
@@ -88,11 +92,16 @@ export default function useDropTable(
        */
       emit('onChange', val);
       emit('update:modelValue', val);
-      /**
-       * issus: table currentRow show bug
-       */
+      currentRow.value = findListByKey($(filterList), $(tableValue), props.valueKey);
+    },
+    { immediate: true }
+  );
+
+  watch(
+    () => $(currentRow),
+    () => {
       nextTick(() => {
-        currentRow.value = findListByKey($(filterList), $(tableValue), props.valueKey);
+        $(elRef).setCurrentRow($(currentRow) ?? {});
       });
     },
     { immediate: true }
@@ -134,7 +143,7 @@ export default function useDropTable(
     }
   };
 
-  /** filterable and default-first-row =================================================================================== */
+  /** filterable and default-first-row keyboard-switch=================================================================================== */
 
   return {
     inputStyle,
@@ -143,6 +152,7 @@ export default function useDropTable(
     toggleState,
     wrapperRef,
     tableRef,
+    elRef,
     show,
     hide,
     columnList,
