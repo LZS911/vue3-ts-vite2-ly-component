@@ -86,6 +86,7 @@ export default function useDropTable(
     () => $(tableValue),
     (val) => {
       emit('change', val);
+      emit('update:modelValue', val);
       /**
        * issus: table currentRow show bug
        */
