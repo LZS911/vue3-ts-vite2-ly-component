@@ -75,7 +75,6 @@ export default function useDropTable(
 
   /**  disabled  visibility  hide or show =================================================================================== */
 
-  // type T = props.multiple ? [] : number | string;
   const currentRow = ref<ITable>(null as any)!;
   const currentRowIndex = ref<number>(-1);
   const sourceMap = new Map<number | string, number | string>();
