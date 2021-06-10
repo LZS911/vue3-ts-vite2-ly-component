@@ -1,7 +1,7 @@
 import { SizeEnum } from './enum';
 import { isString, toRawType } from '@vue/shared';
 import { Ref, computed } from 'vue';
-import { ITable } from '../components/LyDroptable/type';
+import { ComponentSize, ITable } from '../components/LyDroptable/type';
 
 export const isBool = (val: unknown): val is boolean => typeof val === 'boolean';
 export const isNumber = (val: unknown): val is number => typeof val === 'number';
@@ -30,7 +30,7 @@ export const getWidthOrHeight = (initValue: string, defaultVal: number): number 
   return defaultVal;
 };
 
-export const getSize = (width: number | string, map: Map<string, number>, size: SizeEnum) => {
+export const getSize = (width: number | string, map: Map<string, number>, size: ComponentSize) => {
   const style = computed(() => ({
     width: isString(width) && isNaN(Number(width)) ? `${width}` : `${width}px`,
     height: isEnum<SizeEnum>(size, Object.values(SizeEnum)) ? `${map.get(size!)}px` : `${map.get('small')}px`

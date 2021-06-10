@@ -1,4 +1,4 @@
-import { ITable, ITableColumn } from '../type/index.d';
+import { ComponentSize, ITable, ITableColumn } from '../type/index.d';
 
 import { SizeEnum } from '../../../utils/enum';
 import { PropType } from 'vue';
@@ -34,7 +34,7 @@ export const defaultProps = {
     type: [String, Number]
   },
   size: {
-    type: String as PropType<SizeEnum>,
+    type: String as PropType<ComponentSize>,
     default: SizeEnum.Small
   },
   tableList: {

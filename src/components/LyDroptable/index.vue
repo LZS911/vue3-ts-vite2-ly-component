@@ -1,14 +1,14 @@
 <template>
-  <div class="ly-drop-table" :style="inputStyle" ref="wrapperRef" @mouseover='wrapperMouseOver' @mouseleave='wrapperMouseLeave'>
+  <div class="ly-drop-table" :style="inputStyle" ref="wrapperRef" @mouseover="wrapperHovering=true" @mouseleave="wrapperHovering=false">
     <div
       class="ly-input"
       @click="toggleState"
       :class="{'ly-drop-table__show':visibility, 'ly-drop-table__disable':disable}"
     >
-      <input :placeholder='placeholder' @keyup.enter="setFirstRow" @input="filterMethod" :disabled="disable || !filterable" ref="inputRef" :value="inputValue" :class="{'ly-input__disable':!filterable}"/>
+      <input :placeholder='placeholder' @keyup.enter="setFirstRow" @input="filterMethod" :disabled="readonly" ref="inputRef" :value="inputValue" :class="{'ly-input__disable':readonly}"/>
       <div :class="visibility ? 'arrow-up' : 'arrow-down'">
-        <i v-show='clearable && isWrapperHover' :class="clearIcon" @click="clearValue"></i>
-        <i v-show='!(clearable && isWrapperHover)' :class="arrowIcon"></i>
+        <i v-show='showClose' :class="clearIcon" @click="clearValue"></i>
+        <i v-show='!showClose' :class="arrowIcon"></i>
       </div>
     </div>
     <teleport to="body">
@@ -114,6 +114,7 @@ export default defineComponent({
     background:#fff !important;
   }
 }
+
 .ly-table {
   box-sizing: border-box;
   position: absolute;

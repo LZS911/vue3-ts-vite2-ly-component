@@ -4,10 +4,10 @@ export enum SizeEnum {
   Medium = 'medium'
 }
 
-export /**
+/**
  * 键盘对应键盘码
  */
-enum KeyCodeEnum {
+export enum KeyCodeEnum {
   BackSpace = 8,
   Tab = 9,
   Clear = 12,

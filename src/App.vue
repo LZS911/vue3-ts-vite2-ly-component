@@ -36,7 +36,7 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, reactive, toRefs, ref, nextTick } from 'vue';
+import { defineComponent, reactive, toRefs, ref } from 'vue';
 import { LyDroptable, testFunction } from './components';
 
 interface ITable{
