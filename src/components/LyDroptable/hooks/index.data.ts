@@ -85,5 +85,9 @@ export const defaultProps = {
   },
   placeholder: {
     type: String
+  },
+  multiple: {
+    type: Boolean,
+    default: false
   }
 };

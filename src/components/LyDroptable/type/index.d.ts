@@ -40,4 +40,5 @@ export interface ILyDropTableProps {
   defaultFirstRow?: boolean;
   placeholder?: string;
   tableClass?: string;
+  multiple?: boolean;
 }

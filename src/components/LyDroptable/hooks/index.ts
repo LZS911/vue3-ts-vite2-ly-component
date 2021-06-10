@@ -149,7 +149,8 @@ export default function useDropTable(
   const blur = () => {
     $(inputRef).blur();
   };
-  /** focus =================================================================================== */
+
+  /** focus and blur =================================================================================== */
   return {
     inputStyle,
     tableStyle,
