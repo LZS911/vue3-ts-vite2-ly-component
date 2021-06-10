@@ -5,10 +5,10 @@
       @click="toggleState"
       :class="{'ly-drop-table__show':visibility, 'ly-drop-table__disable':disable}"
     >
-      <input :disabled="disable || !filterable" ref="inputRef" :value="labelValue" :class="{'ly-input__disable':!filterable}"/>
+      <input :disabled="disable || !filterable" ref="inputRef" :value="inputValue" :class="{'ly-input__disable':!filterable}"/>
       <div :class="visibility ? 'arrow-up' : 'arrow-down'">
-        <i v-if='clearable && isWarpperHover' :class="clearIcon" @click="clearValue"></i>
-        <i v-else :class="arrowIcon"></i>
+        <i v-show='clearable && isWrapperHover' :class="clearIcon" @click="clearValue"></i>
+        <i v-show='!(clearable && isWrapperHover)' :class="arrowIcon"></i>
       </div>
     </div>
     <teleport to="body">

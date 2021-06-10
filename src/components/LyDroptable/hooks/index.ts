@@ -52,7 +52,7 @@ export default function useDropTable(
 
   const listIndexMap = new Map<number | string, number | string>();
   const tableValue = ref<string | number>(null as any);
-  const labelValue = computed({
+  const inputValue = computed({
     get() {
       return listIndexMap.get($(tableValue));
     },
@@ -98,12 +98,12 @@ export default function useDropTable(
 
   /** v-model and emit change =================================================================================== */
 
-  const isWarpperHover = ref(false);
+  const isWrapperHover = ref(false);
   const wrapperMouseOver = () => {
-    isWarpperHover.value = true;
+    isWrapperHover.value = true;
   };
   const wrapperMouseLeave = () => {
-    isWarpperHover.value = false;
+    isWrapperHover.value = false;
   };
 
   const clearValue = (e: MouseEvent) => {
@@ -112,7 +112,6 @@ export default function useDropTable(
   };
 
   /** clearable =================================================================================== */
-
   /** filterable =================================================================================== */
 
   return {
@@ -127,8 +126,8 @@ export default function useDropTable(
     columnList,
     currentRow,
     currentRowChange,
-    labelValue,
-    isWarpperHover,
+    inputValue,
+    isWrapperHover,
     wrapperMouseOver,
     wrapperMouseLeave,
     clearValue
