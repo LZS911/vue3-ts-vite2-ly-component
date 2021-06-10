@@ -65,6 +65,9 @@ export const defaultProps = {
     type: Object,
     default: () => ({ backgroundColor: 'rgba(244, 245, 250, 1)' })
   },
+  tableClass: {
+    type: String
+  },
   clearable: {
     type: Boolean,
     default: false

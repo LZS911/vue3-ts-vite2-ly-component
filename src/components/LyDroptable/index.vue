@@ -19,7 +19,7 @@
           class="ly-table"
           v-show="visibility"
           v-clickoutside:[wrapperRef]="hide"
-          :class="{'ly-table__show':visibility}"
+          :class="[{'ly-table__show':visibility}, tableClass]"
         >
           <el-table
             :data="filterList"

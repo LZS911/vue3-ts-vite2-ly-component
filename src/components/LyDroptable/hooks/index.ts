@@ -53,7 +53,6 @@ export default function useDropTable(
   /**  hide or show =================================================================================== */
 
   const currentRow = ref<ITable>(null as any)!;
-
   const sourceMap = new Map<number | string, number | string>();
   const tableValue = ref<string | number>(null as any);
   const inputValue = computed(() => sourceMap.get($(tableValue)));
@@ -129,8 +128,6 @@ export default function useDropTable(
   };
 
   const setFirstRow = (e: any) => {
-    e.preventDefault();
-
     if ($(visibility)) {
       tableValue.value = '';
       tableValue.value = $(filterList).length ? $(filterList)[0][props.valueKey] : '';

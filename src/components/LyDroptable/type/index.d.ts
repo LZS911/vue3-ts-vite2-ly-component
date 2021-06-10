@@ -39,4 +39,5 @@ export interface ILyDropTableProps {
   filterMethod?: (query: string | number) => any[];
   defaultFirstRow?: boolean;
   placeholder?: string;
+  tableClass?: string;
 }
