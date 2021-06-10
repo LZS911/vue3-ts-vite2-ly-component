@@ -70,13 +70,9 @@ export default function useDropTable(
     },
     { immediate: true }
   );
-  watch(
-    () => props.modelValue,
-    () => {
-      tableValue.value = props.modelValue;
-    },
-    { immediate: true }
-  );
+  watchEffect(() => {
+    tableValue.value = props.modelValue;
+  });
 
   const currentRowChange = (row: any) => {
     if (row) {
