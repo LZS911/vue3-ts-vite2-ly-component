@@ -50,11 +50,11 @@ export default function useDropTable(
   const currentRow = ref<ITable>(null as any)!;
   const columnList = computed(() => props.columnList.filter((item) => !item.hide));
 
-  const listIndexMap = new Map<number | string, number | string>();
+  const sourceMap = new Map<number | string, number | string>();
   const tableValue = ref<string | number>(null as any);
   const inputValue = computed({
     get() {
-      return listIndexMap.get($(tableValue));
+      return sourceMap.get($(tableValue));
     },
     set() {}
   });
@@ -63,9 +63,9 @@ export default function useDropTable(
     () => props.tableList,
     () => {
       props.tableList.forEach((item) => {
-        listIndexMap.set(item[props.valueKey], item[props.labelKey]);
+        sourceMap.set(item[props.valueKey], item[props.labelKey]);
       });
-      listIndexMap.set('', '');
+      sourceMap.set('', '');
     },
     { immediate: true }
   );
