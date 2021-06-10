@@ -1,6 +1,6 @@
 import { SizeEnum } from '../../../utils/enum';
 
-export type EmitType = 'focus' | 'change' | 'update:modelValue';
+export type EmitType = 'focus' | 'onChange' | 'update:modelValue' | 'visible-change';
 
 export interface ITableColumn {
   width: number | string;
@@ -34,6 +34,9 @@ export interface ILyDropTableProps {
   arrowIcon?: string;
   clearIcon?: string;
   headerCellStyle?: string;
-  filterable?: boolean;
   clearable?: boolean;
+  filterable?: boolean;
+  filterMethod?: (query: string | number) => any[];
+  defaultFirstRow?: boolean;
+  placeholder?: string;
 }

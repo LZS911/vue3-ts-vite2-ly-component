@@ -1,10 +1,11 @@
-import { findListByKey, getWidthOrHeight, getSize } from '../../../utils/index';
+import { filterListByKey, findListByKey, getWidthOrHeight, getSize } from '../../../utils/index';
+
 import { on, setPositionByParent } from '../../../utils/dom';
 
 import { ISizeCorrespondHeight, defaultTableHeight, defaultTableWidth, TSizeCorrespondHeight } from './index.data';
 
 import { ILyDropTableProps, EmitType, ITable } from '../type';
-import { ref, Ref, SetupContext, onMounted, computed, watch, watchEffect, nextTick } from 'vue';
+import { ref, Ref, SetupContext, onMounted, computed, watch, watchEffect, nextTick, InputHTMLAttributes } from 'vue';
 import { $ } from '../../../utils';
 
 export default function useDropTable(
@@ -13,6 +14,7 @@ export default function useDropTable(
   wrapperRef: Ref<HTMLElement>,
   tableRef: Ref<HTMLElement>
 ) {
+  const filterList = ref<any[]>([]);
   const inputStyle = getSize(props.inputWidth, ISizeCorrespondHeight, props.size);
   const tableStyle = getSize(props.tableWidth ?? props.inputWidth, TSizeCorrespondHeight, props.size);
   onMounted(() => {
@@ -29,12 +31,15 @@ export default function useDropTable(
   const visibility = ref(false);
   const show = () => {
     if (!props.disable) {
+      filterList.value = props.tableList;
       visibility.value = true;
+      emit('visible-change', true);
     }
   };
 
   const hide = () => {
     visibility.value = false;
+    emit('visible-change', false);
   };
 
   const toggleState = () => {
@@ -48,16 +53,11 @@ export default function useDropTable(
   /**  hide or show =================================================================================== */
 
   const currentRow = ref<ITable>(null as any)!;
-  const columnList = computed(() => props.columnList.filter((item) => !item.hide));
 
   const sourceMap = new Map<number | string, number | string>();
   const tableValue = ref<string | number>(null as any);
-  const inputValue = computed({
-    get() {
-      return sourceMap.get($(tableValue));
-    },
-    set() {}
-  });
+  const inputValue = computed(() => sourceMap.get($(tableValue)));
+  const columnList = computed(() => props.columnList.filter((item) => !item.hide));
 
   watch(
     () => props.tableList,
@@ -84,13 +84,16 @@ export default function useDropTable(
   watch(
     () => $(tableValue),
     (val) => {
-      emit('change', val);
+      /**
+       * issus: change => onChange because input change default emit change
+       */
+      emit('onChange', val);
       emit('update:modelValue', val);
       /**
        * issus: table currentRow show bug
        */
       nextTick(() => {
-        currentRow.value = findListByKey(props.tableList, $(tableValue), props.valueKey);
+        currentRow.value = findListByKey($(filterList), $(tableValue), props.valueKey);
       });
     },
     { immediate: true }
@@ -112,7 +115,29 @@ export default function useDropTable(
   };
 
   /** clearable =================================================================================== */
-  /** filterable =================================================================================== */
+
+  /**
+   * issus: inputValue reduction after hover leave
+   */
+  const filterMethod = (e: any) => {
+    const query = e.target.value;
+    if (!!props.filterMethod) {
+      filterList.value = props.filterMethod(query);
+      return;
+    }
+    filterList.value = filterListByKey(props.tableList, query);
+  };
+
+  const setFirstRow = (e: any) => {
+    e.preventDefault();
+
+    if ($(visibility)) {
+      tableValue.value = '';
+      tableValue.value = $(filterList).length ? $(filterList)[0][props.valueKey] : '';
+    }
+  };
+
+  /** filterable and default-first-row =================================================================================== */
 
   return {
     inputStyle,
@@ -130,6 +155,9 @@ export default function useDropTable(
     isWrapperHover,
     wrapperMouseOver,
     wrapperMouseLeave,
-    clearValue
+    clearValue,
+    filterMethod,
+    filterList,
+    setFirstRow
   };
 }

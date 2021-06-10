@@ -8,6 +8,8 @@
       :tableList="tableList"
       :columnList="columnList"
       v-model="table1"
+      size="123"
+      placeholder='31231'
     />
     <LyDroptable
       valueKey="prgNo"
@@ -18,7 +20,7 @@
       :tableList="tableList"
       :columnList="columnList"
       v-model="table2"
-      @change="change"
+      @onChange="change"
       filterable
       clearable
     />
@@ -87,7 +89,7 @@ export default defineComponent({
       data.table2 = 2;
     };
     const change = (val) => {
-      console.log(val, 'change');
+      console.log(val, 'onChange');
     };
     return {
       ...toRefs(data),

@@ -67,6 +67,9 @@ module.exports = {
         }
       }
     ],
+    'no-restricted-syntax': 0,
+    'no-extra-boolean-cast': 0,
+    'array-callback-return': 0,
     'implicit-arrow-linebreak': 0,
     'operator-linebreak': 0,
     'func-names': 0,

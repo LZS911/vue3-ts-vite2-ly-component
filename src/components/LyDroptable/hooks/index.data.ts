@@ -1,4 +1,5 @@
 import { ITable, ITableColumn } from '../type/index.d';
+
 import { SizeEnum } from '../../../utils/enum';
 import { PropType } from 'vue';
 
@@ -27,24 +28,26 @@ export const defaultProps = {
   },
   inputWidth: {
     type: [String, Number],
-    required: true
+    default: '100%'
   },
   tableWidth: {
     type: [String, Number]
   },
   size: {
-    type: Object as PropType<SizeEnum>
+    type: String as PropType<SizeEnum>,
+    default: SizeEnum.Small
   },
   tableList: {
     type: Object as PropType<ITable[]>,
-    required: true
+    default: () => []
   },
   columnList: {
     type: Object as PropType<ITableColumn[]>,
-    required: true
+    default: () => []
   },
   disable: {
-    type: Boolean
+    type: Boolean,
+    default: false
   },
   transitionName: {
     type: String,
@@ -62,12 +65,22 @@ export const defaultProps = {
     type: Object,
     default: () => ({ backgroundColor: 'rgba(244, 245, 250, 1)' })
   },
+  clearable: {
+    type: Boolean,
+    default: false
+  },
   filterable: {
     type: Boolean,
     default: false
   },
-  clearable: {
+  filterMethod: {
+    type: Object as PropType<(query: string) => any[]>
+  },
+  defaultFirstRow: {
     type: Boolean,
     default: false
+  },
+  placeholder: {
+    type: String
   }
 };

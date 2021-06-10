@@ -39,5 +39,17 @@ export const getSize = (width: number | string, map: Map<string, number>, size: 
   return style;
 };
 
-export const findListByKey = (tableList: ITable[], value: number | string, key: string) =>
+export const findListByKey = (tableList: any[], value: number | string, key: string) =>
   tableList.find((item) => item[key] === value) ?? {};
+export const filterListByKey = (tableList: any[], query: string | number) => {
+  if (!query) {
+    return tableList;
+  }
+  const arrays = tableList.filter((item) => {
+    for (const key of Object.keys(item)) {
+      if (item[key] && item[key].toString().toUpperCase().includes(query.toString().toUpperCase())) return true;
+    }
+  });
+
+  return arrays;
+};
