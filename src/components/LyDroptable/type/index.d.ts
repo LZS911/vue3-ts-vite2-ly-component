@@ -17,11 +17,11 @@ export interface IStyle {
   left?: string;
 }
 export interface ITable {
-  [key: string]: string;
+  [key: string]: string | number;
 }
 
 export interface ILyDropTableProps {
-  modelValue: unknown;
+  modelValue: string | number;
   valueKey: string;
   labelKey: string;
   inputWidth: number | string;
@@ -35,4 +35,5 @@ export interface ILyDropTableProps {
   clearIcon?: string;
   headerCellStyle?: string;
   filterable?: boolean;
+  clearable?: boolean;
 }

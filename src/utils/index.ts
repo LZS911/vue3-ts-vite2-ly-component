@@ -1,6 +1,7 @@
 import { SizeEnum } from './enum';
 import { isString, toRawType } from '@vue/shared';
 import { Ref, computed } from 'vue';
+import { ITable } from '../components/LyDroptable/type';
 
 export const isBool = (val: unknown): val is boolean => typeof val === 'boolean';
 export const isNumber = (val: unknown): val is number => typeof val === 'number';
@@ -37,3 +38,6 @@ export const getSize = (width: number | string, map: Map<string, number>, size: 
 
   return style;
 };
+
+export const findListByKey = (tableList: ITable[], value: number | string, key: string) =>
+  tableList.find((item) => item[key] === value) ?? {};

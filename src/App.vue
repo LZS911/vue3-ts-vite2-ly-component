@@ -20,6 +20,7 @@
       v-model="table2"
       @change="change"
       filterable
+      clearable
     />
     <testFunction>
       <template #test>
@@ -78,10 +79,11 @@ export default defineComponent({
         }
       ],
       table1: 1,
-      table2: 1
+      table2: 3
     });
     const test = () => {
       data.disable = !data.disable;
+      console.log(data.table2, 'oldVal');
       data.table2 = 2;
     };
     const change = (val) => {

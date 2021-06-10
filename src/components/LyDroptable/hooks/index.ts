@@ -1,10 +1,10 @@
-import { setPositionByParent } from '../../../utils/dom';
-import { getWidthOrHeight, getSize } from '../../../utils/index';
+import { findListByKey, getWidthOrHeight, getSize } from '../../../utils/index';
+import { on, setPositionByParent } from '../../../utils/dom';
 
 import { ISizeCorrespondHeight, defaultTableHeight, defaultTableWidth, TSizeCorrespondHeight } from './index.data';
 
-import { ILyDropTableProps, EmitType } from '../type';
-import { ref, Ref, SetupContext, onMounted, computed, watch, watchEffect } from 'vue';
+import { ILyDropTableProps, EmitType, ITable } from '../type';
+import { ref, Ref, SetupContext, onMounted, computed, watch, watchEffect, nextTick } from 'vue';
 import { $ } from '../../../utils';
 
 export default function useDropTable(
@@ -24,23 +24,17 @@ export default function useDropTable(
     );
   });
 
+  /** size and position =================================================================================== */
+
   const visibility = ref(false);
-  const _show = () => {
+  const show = () => {
     if (!props.disable) {
       visibility.value = true;
     }
   };
 
-  const _hide = () => {
-    visibility.value = false;
-  };
-
-  const show = () => {
-    _show();
-  };
-
   const hide = () => {
-    _hide();
+    visibility.value = false;
   };
 
   const toggleState = () => {
@@ -51,35 +45,80 @@ export default function useDropTable(
     }
   };
 
-  const currentRow = ref(null)!;
+  /**  hide or show =================================================================================== */
+
+  const currentRow = ref<ITable>(null as any)!;
   const columnList = computed(() => props.columnList.filter((item) => !item.hide));
 
-  const listIndexMap = new Map<unknown, unknown>();
+  const listIndexMap = new Map<number | string, number | string>();
+  const tableValue = ref<string | number>(null as any);
+
+  const labelValue = computed({
+    get() {
+      return listIndexMap.get($(tableValue));
+    },
+    set() {}
+  });
+
   watch(
     () => props.tableList,
     () => {
       props.tableList.forEach((item) => {
         listIndexMap.set(item[props.valueKey], item[props.labelKey]);
       });
+      listIndexMap.set('', '');
     },
     { immediate: true }
   );
+  watch(
+    () => props.modelValue,
+    () => {
+      tableValue.value = props.modelValue;
+    },
+    { immediate: true }
+  );
+
   const currentRowChange = (row: any) => {
     if (row) {
       currentRow.value = row;
-      emit('update:modelValue', $(currentRow) ? $(currentRow)![props.valueKey] : '');
+      tableValue.value = $(currentRow) ? $(currentRow)![props.valueKey] : '';
       hide();
     }
   };
 
   watch(
-    () => props.modelValue,
+    () => $(tableValue),
     (val) => {
       emit('change', val);
+      /**
+       * issus: table currentRow show bug
+       */
+      nextTick(() => {
+        currentRow.value = findListByKey(props.tableList, $(tableValue), props.valueKey);
+      });
     },
     { immediate: true }
   );
-  const labelValue = computed(() => listIndexMap.get(props.modelValue));
+
+  /** v-model and emit change =================================================================================== */
+
+  const isHover = ref(false);
+  const wrapperMouseOver = () => {
+    isHover.value = true;
+  };
+  const wrapperMouseLeave = () => {
+    isHover.value = false;
+  };
+
+  const clearValue = (e: MouseEvent) => {
+    e.stopPropagation();
+    tableValue.value = '';
+  };
+
+  /** clearable =================================================================================== */
+
+  /** filterable =================================================================================== */
+
   return {
     inputStyle,
     tableStyle,
@@ -92,6 +131,10 @@ export default function useDropTable(
     columnList,
     currentRow,
     currentRowChange,
-    labelValue
+    labelValue,
+    isHover,
+    wrapperMouseOver,
+    wrapperMouseLeave,
+    clearValue
   };
 }

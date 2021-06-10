@@ -16,7 +16,7 @@ export const defaultTableHeight = TSizeCorrespondHeight.get('mini')!;
 export const defaultTableWidth = ISizeCorrespondHeight.get('mini')!;
 
 export const defaultProps = {
-  modelValue: {},
+  modelValue: { type: [Number, String] },
   valueKey: {
     type: String,
     required: true
@@ -63,6 +63,10 @@ export const defaultProps = {
     default: () => ({ backgroundColor: 'rgba(244, 245, 250, 1)' })
   },
   filterable: {
+    type: Boolean,
+    default: false
+  },
+  clearable: {
     type: Boolean,
     default: false
   }

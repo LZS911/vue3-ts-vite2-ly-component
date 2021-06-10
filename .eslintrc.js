@@ -67,6 +67,7 @@ module.exports = {
         }
       }
     ],
+    'implicit-arrow-linebreak': 0,
     'operator-linebreak': 0,
     'func-names': 0,
     'no-return-assign': 0,

@@ -1,5 +1,5 @@
 <template>
-  <div class="ly-drop-table" :style="inputStyle" ref="wrapperRef">
+  <div class="ly-drop-table" :style="inputStyle" ref="wrapperRef" @mouseover='wrapperMouseOver' @mouseleave='wrapperMouseLeave'>
     <div
       class="ly-input"
       @click="toggleState"
@@ -7,7 +7,8 @@
     >
       <input :disabled="disable || !filterable" ref="inputRef" :value="labelValue" :class="{'ly-input__disable':!filterable}"/>
       <div :class="visibility ? 'arrow-up' : 'arrow-down'">
-        <i :class="arrowIcon"></i>
+        <i v-if='clearable && isHover' :class="clearIcon" @click="clearValue"></i>
+        <i v-else :class="arrowIcon"></i>
       </div>
     </div>
     <teleport to="body">
