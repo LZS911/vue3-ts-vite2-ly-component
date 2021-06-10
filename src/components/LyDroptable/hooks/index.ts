@@ -1,11 +1,8 @@
 import { filterListByKey, findListByKey, getWidthOrHeight, getSize } from '../../../utils/index';
-
-import { on, setPositionByParent } from '../../../utils/dom';
-
+import { setPositionByParent } from '../../../utils/dom';
 import { ISizeCorrespondHeight, defaultTableHeight, defaultTableWidth, TSizeCorrespondHeight } from './index.data';
-
 import { ILyDropTableProps, EmitType, ITable } from '../type';
-import { ref, Ref, SetupContext, onMounted, computed, watch, watchEffect, nextTick, InputHTMLAttributes } from 'vue';
+import { ref, Ref, SetupContext, onMounted, computed, watch, watchEffect, nextTick } from 'vue';
 import { $ } from '../../../utils';
 
 export default function useDropTable(
@@ -13,7 +10,8 @@ export default function useDropTable(
   { emit }: SetupContext<EmitType[]>,
   wrapperRef: Ref<HTMLElement>,
   tableRef: Ref<HTMLElement>,
-  elRef: Ref<any>
+  elRef: Ref<any>,
+  inputRef: Ref<HTMLElement>
 ) {
   const filterList = ref<any[]>([]);
   const inputStyle = getSize(props.inputWidth, ISizeCorrespondHeight, props.size);
@@ -145,6 +143,13 @@ export default function useDropTable(
 
   /** filterable and default-first-row keyboard-switch=================================================================================== */
 
+  const focus = () => {
+    $(inputRef).focus();
+  };
+  const blur = () => {
+    $(inputRef).blur();
+  };
+  /** focus =================================================================================== */
   return {
     inputStyle,
     tableStyle,
@@ -152,6 +157,7 @@ export default function useDropTable(
     toggleState,
     wrapperRef,
     tableRef,
+    inputRef,
     elRef,
     show,
     hide,
@@ -165,6 +171,8 @@ export default function useDropTable(
     clearValue,
     filterMethod,
     filterList,
-    setFirstRow
+    setFirstRow,
+    focus,
+    blur
   };
 }

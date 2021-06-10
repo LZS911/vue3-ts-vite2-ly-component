@@ -58,8 +58,9 @@ export default defineComponent({
     const wrapperRef = ref<HTMLElement>(null as any);
     const tableRef = ref<HTMLElement>(null as any);
     const elRef = ref<HTMLElement>(null as any);
+    const inputRef = ref<HTMLElement>(null as any);
     return {
-      ...useDropTable(props as ILyDropTableProps, ctx as any, wrapperRef, tableRef, elRef)
+      ...useDropTable(props as ILyDropTableProps, ctx as any, wrapperRef, tableRef, elRef, inputRef)
     };
   }
 });

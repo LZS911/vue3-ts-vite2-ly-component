@@ -23,6 +23,7 @@
       @onChange="change"
       filterable
       clearable
+      ref="refTable"
     />
     <testFunction>
       <template #test>
@@ -35,7 +36,7 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, reactive, toRefs } from 'vue';
+import { defineComponent, reactive, toRefs, ref, nextTick } from 'vue';
 import { LyDroptable, testFunction } from './components';
 
 interface ITable{
@@ -48,6 +49,7 @@ export default defineComponent({
   components: { LyDroptable, testFunction },
   props: {},
   setup() {
+    const refTable = ref(null);
     const data = reactive({
       disable: true,
       inputWidth: 300,
@@ -94,7 +96,8 @@ export default defineComponent({
     return {
       ...toRefs(data),
       test,
-      change
+      change,
+      refTable
     };
   }
 });
