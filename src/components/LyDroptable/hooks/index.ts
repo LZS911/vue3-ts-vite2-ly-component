@@ -1,11 +1,17 @@
+import { isEmpty, filterListByKey, findListByKey, getWidthOrHeight, getSize } from '../../../utils/index';
 import { ElFormContext, ElFormItemContext } from '../type/index.d';
-import { filterListByKey, findListByKey, getWidthOrHeight, getSize } from '../../../utils/index';
+
 import { setPositionByParent } from '../../../utils/dom';
 import { ISizeCorrespondHeight, defaultTableHeight, defaultTableWidth, TSizeCorrespondHeight } from './index.data';
 import { ILyDropTableProps, EmitType, ITable } from '../type';
 import { ref, Ref, SetupContext, onMounted, computed, watch, watchEffect, nextTick, inject, InjectionKey } from 'vue';
 import { $ } from '../../../utils';
 import _ from 'lodash';
+
+enum SwitchEnum {
+  next = 'next',
+  prev = 'prev'
+}
 
 // TODO: change it to symbol
 export const elFormKey: InjectionKey<ElFormContext> = 'elForm' as any;
@@ -43,10 +49,9 @@ export default function useDropTable(
   /** size and position =================================================================================== */
 
   const dropDisable = !!props.disable || !!elForm.disabled;
-
   const visibility = ref(false);
   const show = () => {
-    if (dropDisable) {
+    if (!dropDisable) {
       if ($(filterList).length !== props.tableList.length) {
         filterList.value = props.tableList;
       }
@@ -68,10 +73,11 @@ export default function useDropTable(
     }
   };
 
-  /**  disabled   hide or show =================================================================================== */
+  /**  disabled  visibility  hide or show =================================================================================== */
 
   // type T = props.multiple ? [] : number | string;
   const currentRow = ref<ITable>(null as any)!;
+  const currentRowIndex = ref<number>(-1);
   const sourceMap = new Map<number | string, number | string>();
   const tableValue = ref<string | number>(null as any);
   const inputValue = computed(() => sourceMap.get($(tableValue)));
@@ -116,8 +122,15 @@ export default function useDropTable(
   watch(
     () => $(currentRow),
     () => {
+      currentRowIndex.value = $(filterList).findIndex((item) => item === $(currentRow));
+    },
+    { immediate: true }
+  );
+  watch(
+    () => $(currentRowIndex),
+    (val) => {
       nextTick(() => {
-        $(elRef).setCurrentRow($(currentRow) ?? {});
+        $(elRef).setCurrentRow($(filterList)[val] ?? {});
       });
     },
     { immediate: true }
@@ -130,10 +143,11 @@ export default function useDropTable(
   const clearValue = (e: MouseEvent) => {
     e.stopPropagation();
     tableValue.value = '';
+    $(inputRef).focus();
   };
 
   const showClose = computed(() => {
-    const hasValue = !_.isUndefined($(tableValue)) && !_.isNull($(tableValue));
+    const hasValue = !isEmpty($(tableValue));
     const criteria = hasValue && props.clearable && $(wrapperHovering);
     return criteria;
   });
@@ -157,7 +171,20 @@ export default function useDropTable(
   const setFirstRow = (e: any) => {
     if ($(visibility)) {
       tableValue.value = '';
-      tableValue.value = $(filterList).length ? $(filterList)[0][props.valueKey] : '';
+      if (!!props.defaultFirstRow) {
+        tableValue.value = $(filterList).length ? $(filterList)[0][props.valueKey] : '';
+      } else {
+        tableValue.value = $(currentRow)[props.valueKey] ?? '';
+      }
+      hide();
+    }
+  };
+
+  const navigateOptions = (type: SwitchEnum) => {
+    if (type === SwitchEnum.next && $(currentRowIndex) !== $(filterList).length - 1) {
+      currentRowIndex.value = $(currentRowIndex) + 1;
+    } else if (type === SwitchEnum.prev && $(currentRowIndex) !== 0) {
+      currentRowIndex.value = $(currentRowIndex) - 1;
     }
   };
 
@@ -195,6 +222,8 @@ export default function useDropTable(
     focus,
     blur,
     readonly,
-    dropDisable
+    dropDisable,
+    navigateOptions,
+    SwitchEnum
   };
 }

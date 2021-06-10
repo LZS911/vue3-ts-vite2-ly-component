@@ -9,6 +9,8 @@ export const isHTMLElement = (val: unknown): val is HTMLElement => toRawType(val
 export function $<T>(ref: Ref<T>) {
   return ref.value;
 }
+
+export const isEmpty = (val: unknown) => !val && val !== 0;
 export const isEnum = <T>(val: unknown, arr: T[]): val is T => arr.some((e) => e === val);
 export const isPercentage = (val: string) => val.includes('%') && !isNaN(Number(val.slice(0, val.length - 1)));
 export const percentageToNumber = (val: string, fixed: number = 2): number => {
