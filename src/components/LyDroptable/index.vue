@@ -3,15 +3,15 @@
     <div
       class="ly-input"
       @click="toggleState"
-      :class="{'input-focus':visibility, 'input-disable':disable}"
+      :class="{'ly-drop-table__show':visibility, 'ly-drop-table__disable':disable}"
     >
-      <input :disabled="disable" ref="inputRef" :value="labelValue" />
+      <input :disabled="disable || !filterable" ref="inputRef" :value="labelValue" :class="{'ly-input__disable':!filterable}"/>
       <div :class="visibility ? 'arrow-up' : 'arrow-down'">
-        <i :class="icon"></i>
+        <i :class="arrowIcon"></i>
       </div>
     </div>
     <teleport to="body">
-      <transition :name="transition">
+      <transition :name="transitionName">
         <div
           :style="tableStyle"
           ref="tableRef"
@@ -42,59 +42,16 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, PropType, ref } from 'vue';
-import { ITableColumn, ILyDropTableProps } from './type';
+import { defineComponent, ref } from 'vue';
+import { ILyDropTableProps } from './type';
 import useDropTable from './hooks';
-import { SizeEnum } from '../../utils/enum';
 import { clickOutSide } from '../../directives';
+import { defaultProps } from './hooks/index.data.ts';
 
 export default defineComponent({
   directives: { clickoutside: clickOutSide },
   components: {},
-  props: {
-    modelValue: {},
-    valueKey: {
-      type: String,
-      required: true
-    },
-    labelKey: {
-      type: String,
-      required: true
-    },
-    inputWidth: {
-      type: [String, Number],
-      required: true
-    },
-    tableWidth: {
-      type: [String, Number]
-    },
-    size: {
-      type: Object as PropType<SizeEnum>
-    },
-    tableList: {
-      type: Object as PropType<Object[]>,
-      required: true
-    },
-    columnList: {
-      type: Object as PropType<ITableColumn[]>,
-      required: true
-    },
-    disable: {
-      type: Boolean
-    },
-    transition: {
-      type: String,
-      default: 'el-fade-in-linear'
-    },
-    icon: {
-      type: String,
-      default: 'el-icon-arrow-down'
-    },
-    headerCellStyle: {
-      type: Object,
-      default: () => ({ backgroundColor: 'rgba(244, 245, 250, 1)' })
-    }
-  },
+  props: defaultProps,
   setup(props, ctx) {
     const wrapperRef = ref<HTMLElement>(null as any);
     const tableRef = ref<HTMLElement>(null as any);
@@ -141,14 +98,17 @@ export default defineComponent({
       transition: transform 0.5s;
     }
   }
-  .input-focus {
+  .ly-drop-table__show {
     border: $input-focus-border;
   }
-  .input-disable {
+  .ly-drop-table__disable {
     background: #f5f7fa !important;
     input {
       background: #f5f7fa !important;
     }
+  }
+  .ly-input__disable{
+    background:#fff !important;
   }
 }
 .ly-table {

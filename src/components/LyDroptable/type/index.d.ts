@@ -30,4 +30,9 @@ export interface ILyDropTableProps {
   tableList: ITable[];
   columnList: ITableColumn[];
   disable?: boolean;
+  transitionName?: string;
+  arrowIcon?: string;
+  clearIcon?: string;
+  headerCellStyle?: string;
+  filterable?: boolean;
 }

@@ -19,6 +19,7 @@
       :columnList="columnList"
       v-model="table2"
       @change="change"
+      filterable
     />
     <testFunction>
       <template #test>
@@ -81,11 +82,10 @@ export default defineComponent({
     });
     const test = () => {
       data.disable = !data.disable;
-      // data.table2 = 2;
-      console.log(data.table2);
+      data.table2 = 2;
     };
     const change = (val) => {
-      console.log(val, '23');
+      console.log(val, 'change');
     };
     return {
       ...toRefs(data),
