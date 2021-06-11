@@ -21,7 +21,7 @@
         @input="filterMethod"
         :disabled="readonly"
         ref="inputRef"
-        :value="inputValue"
+        :value="dropLabel"
         :class="{'ly-input__disable':readonly}"
       />
       <div :class="visibility ? 'arrow-up' : 'arrow-down'">

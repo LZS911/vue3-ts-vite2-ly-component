@@ -78,8 +78,8 @@ export default function useDropTable(
   const currentRow = ref<ITable>(null as any)!;
   const currentRowIndex = ref<number>(-1);
   const sourceMap = new Map<number | string, number | string>();
-  const tableValue = ref<string | number>(null as any);
-  const inputValue = computed(() => sourceMap.get($(tableValue)));
+  const dropValue = ref<string | number>(null as any);
+  const dropLabel = computed(() => sourceMap.get($(dropValue)));
   const columnList = computed(() => props.columnList.filter((item) => !item.hide));
 
   watch(
@@ -94,26 +94,26 @@ export default function useDropTable(
     { immediate: true }
   );
   watchEffect(() => {
-    tableValue.value = props.modelValue;
+    dropValue.value = props.modelValue;
   });
 
   const currentRowChange = (row: any) => {
     if (row) {
       currentRow.value = row;
-      tableValue.value = !_.isEmpty($(currentRow)) ? $(currentRow)![props.valueKey] : '';
+      dropValue.value = !_.isEmpty($(currentRow)) ? $(currentRow)![props.valueKey] : '';
       hide();
     }
   };
 
   watch(
-    () => $(tableValue),
+    () => $(dropValue),
     (val) => {
       /**
        * issus: change => onChange because input change default emit change
        */
       emit('onChange', val);
       emit('update:modelValue', val);
-      currentRow.value = findListByKey($(filterList), $(tableValue), props.valueKey);
+      currentRow.value = findListByKey($(filterList), $(dropValue), props.valueKey);
     },
     { immediate: true }
   );
@@ -141,12 +141,12 @@ export default function useDropTable(
 
   const clearValue = (e: MouseEvent) => {
     e.stopPropagation();
-    tableValue.value = '';
+    dropValue.value = '';
     $(inputRef).focus();
   };
 
   const showClose = computed(() => {
-    const hasValue = !isEmpty($(tableValue));
+    const hasValue = !isEmpty($(dropValue));
     const criteria = hasValue && props.clearable && $(wrapperHovering);
     return criteria;
   });
@@ -156,7 +156,7 @@ export default function useDropTable(
   /** clearable readonly =================================================================================== */
 
   /**
-   * issus: inputValue reduction after hover leave
+   * issus: dropLabel reduction after hover leave
    */
   const filterMethod = (e: any) => {
     const query = e.target.value;
@@ -169,11 +169,11 @@ export default function useDropTable(
 
   const setFirstRow = (e: any) => {
     if ($(visibility)) {
-      tableValue.value = '';
+      dropValue.value = '';
       if (!!props.defaultFirstRow) {
-        tableValue.value = $(filterList).length ? $(filterList)[0][props.valueKey] : '';
+        dropValue.value = $(filterList).length ? $(filterList)[0][props.valueKey] : '';
       } else {
-        tableValue.value = $(currentRow)[props.valueKey] ?? '';
+        dropValue.value = $(currentRow)[props.valueKey] ?? '';
       }
       hide();
     }
@@ -182,7 +182,7 @@ export default function useDropTable(
   const navigateOptions = (type: SwitchEnum) => {
     if (type === SwitchEnum.next && $(currentRowIndex) !== $(filterList).length - 1) {
       currentRowIndex.value = $(currentRowIndex) + 1;
-    } else if (type === SwitchEnum.prev && $(currentRowIndex) !== 0) {
+    } else if (type === SwitchEnum.prev && $(currentRowIndex) > 0) {
       currentRowIndex.value = $(currentRowIndex) - 1;
     }
   };
@@ -211,7 +211,7 @@ export default function useDropTable(
     columnList,
     currentRow,
     currentRowChange,
-    inputValue,
+    dropLabel,
     showClose,
     wrapperHovering,
     clearValue,
