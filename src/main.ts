@@ -1,11 +1,11 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-import { ElButton, ElInput, ElTable, ElTableColumn, ElCollapseTransition } from 'element-plus';
+import { ElButton, ElInput, ElTable, ElTableColumn, ElCollapseTransition, ElSelect, ElOption } from 'element-plus';
 import 'element-plus/packages/theme-chalk/src/base.scss';
 import './styles/element-variables.scss';
 
 //按需加载el-ui
-const elComponents = [ElButton, ElInput, ElTable, ElTableColumn, ElCollapseTransition];
+const elComponents = [ElButton, ElInput, ElTable, ElTableColumn, ElCollapseTransition, ElSelect, ElOption];
 // const elPlugins = [ElMessage];
 
 const app = createApp(App);

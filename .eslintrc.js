@@ -54,19 +54,24 @@ module.exports = {
     // https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin/docs/rules
     '@typescript-eslint/camelcase': 0, // 目前埋点有部分字段无法更换
     '@typescript-eslint/no-non-null-assertion': 0, // 允许非空断言运算符
-    '@typescript-eslint/member-delimiter-style': [
-      2,
-      {
-        multiline: {
-          delimiter: 'semi',
-          requireLast: true
-        },
-        singleline: {
-          delimiter: 'semi',
-          requireLast: true
-        }
-      }
-    ],
+    // '@typescript-eslint/member-delimiter-style': [
+    //   2,
+    //   {
+    //     multiline: {
+    //       delimiter: 'semi',
+    //       requireLast: true
+    //     },
+    //     singleline: {
+    //       delimiter: 'semi',
+    //       requireLast: true
+    //     }
+    //   }
+    // ],
+    'function-paren-newline': 0,
+    'no-confusing-arrow': 0,
+    '@typescript-eslint/member-delimiter-style': 0,
+    eqeqeq: 0,
+    radix: 0,
     camelcase: 0,
     'no-restricted-syntax': 0,
     'no-extra-boolean-cast': 0,

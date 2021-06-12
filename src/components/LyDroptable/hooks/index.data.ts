@@ -3,21 +3,21 @@ import { ComponentSize, ITable, ITableColumn } from '../type/index.d';
 import { SizeEnum } from '../../../utils/enum';
 import { PropType } from 'vue';
 
-export const ISizeCorrespondHeight = new Map<string, number>([
+export const ISizeMap = new Map<string, number>([
   ['mini', 30],
   ['small', 40],
   ['Medium', 50]
 ]);
-export const TSizeCorrespondHeight = new Map<string, number>([
+export const TSizeMap = new Map<string, number>([
   ['mini', 300],
   ['small', 400],
   ['Medium', 500]
 ]);
-export const defaultTableHeight = TSizeCorrespondHeight.get('mini')!;
-export const defaultTableWidth = ISizeCorrespondHeight.get('mini')!;
+export const defaultTableHeight = TSizeMap.get('mini')!;
+export const defaultTableWidth = ISizeMap.get('mini')!;
 
 export const defaultProps = {
-  modelValue: { type: [Number, String] },
+  modelValue: { type: [Number, String, Array] },
   valueKey: {
     type: String,
     required: true

@@ -12,17 +12,17 @@
       :class="{'ly-drop-table__show':visibility, 'ly-drop-table__disable':disable}"
     >
       <input
-        :placeholder='placeholder'
-        @keyup.enter="setFirstRow"
+        :placeholder="currentPlaceholder"
+        @keyup.enter="setRow"
         @keydown.esc.stop.prevent="visibility = false"
         @keydown.tab="visibility = false"
         @keydown.down.stop.prevent="navigateOptions(SwitchEnum.next)"
         @keydown.up.stop.prevent="navigateOptions(SwitchEnum.prev)"
         @input="filterMethod"
-        :disabled="readonly"
+        :readonly="readonly"
         ref="inputRef"
-        :value="dropLabel"
-        :class="{'ly-input__disable':readonly}"
+        v-model="dropLabel"
+        :class="{'ly-input__readonly':readonly}"
       />
       <div :class="visibility ? 'arrow-up' : 'arrow-down'">
         <i v-show='showClose' :class="clearIcon" @click="clearValue"></i>
@@ -46,8 +46,8 @@
             height="100%"
             highlight-current-row
             :header-cell-style="headerCellStyle"
-            @row-click="currentRowChange"
-            @current-change="(row) => currentRow = row "
+            @row-click="currentRowClick"
+            :row-class-name="setMultipleBack"
           >
             <el-table-column
               v-for="column in columnList"

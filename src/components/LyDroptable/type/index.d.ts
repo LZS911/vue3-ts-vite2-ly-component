@@ -1,7 +1,7 @@
 import type { Emitter } from 'mitt';
 import type { FieldErrorList } from 'async-validator';
 
-export type EmitType = 'focus' | 'onChange' | 'update:modelValue' | 'visible-change';
+export type EmitType = 'focus' | 'blur' | 'onChange' | 'update:modelValue' | 'visible-change' | 'update:modelValue';
 
 export interface ITableColumn {
   width: number | string;
@@ -23,7 +23,7 @@ export interface ITable {
 }
 
 export interface ILyDropTableProps {
-  modelValue: string | number;
+  modelValue: any;
   valueKey: string;
   labelKey: string;
   inputWidth: number | string;

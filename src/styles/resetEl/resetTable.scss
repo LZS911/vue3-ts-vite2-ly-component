@@ -1,8 +1,14 @@
 @import '../mixin.scss';
 
-.el-table__body tr.current-row>td {
-  background-color: #8aecde !important;
+.el-table__body tr.multiple-row>td {
+  background-color: $ly1-color !important;
 }
+
+.el-table__body tr.current-row>td {
+  background-color: $ly-color !important;
+}
+
+
 
 
 // 超出表格单元截断

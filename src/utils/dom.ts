@@ -60,6 +60,18 @@ export const setPositionByParent = (
   currentDom.value.style.left = `${current.left}px`;
 };
 
+export const setTableScrollIntoView = (currentIndex: number, lineHeight: number, currentDom: any, count: number) => {
+  if (currentDom.$refs.bodyWrapper.scrollTop === 0) {
+    if (currentIndex > count) {
+      currentDom.$refs.bodyWrapper.scrollTop = currentIndex * lineHeight;
+    }
+  } else {
+    currentDom.$refs.bodyWrapper.scrollTop = currentIndex * lineHeight;
+  }
+};
+export const calcTableCount = (wrapperHeight: number, lineHeight: number) =>
+  parseInt(((wrapperHeight - lineHeight - 20) / lineHeight).toString());
+
 export const addClass = () => {};
 export const removeClass = () => {};
 

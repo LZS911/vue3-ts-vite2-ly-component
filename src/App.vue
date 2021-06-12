@@ -24,13 +24,29 @@
       filterable
       clearable
       ref="refTable"
+      multiple
+      defaultFirstRow
     />
     <testFunction>
       <template #test>
         <h1>hello</h1>
       </template>
     </testFunction>
-
+    <el-select multiple v-model='select' clearable  filterable  @change="change" default-first-option>
+      <el-option label="test1" :value="1"/>
+      <el-option label="test2" :value="2"/>
+      <el-option label="test3" :value="3"/>
+      <el-option label="test4" :value="5"/>
+      <el-option label="test5" :value="6"/>
+      <el-option label="test6" :value="7"/>
+      <el-option label="test7" :value="8"/>
+      <el-option label="test8" :value="9"/>
+      <el-option label="test9" :value="10"/>
+      <el-option label="test10" :value="11"/>
+      <el-option label="test11" :value="12"/>
+      <el-option label="test12" :value="13"/>
+      <el-option label="test13" :value="14"/>
+    </el-select>
     <el-button @click="test">test</el-button>
   </div>
 </template>
@@ -51,6 +67,7 @@ export default defineComponent({
   setup() {
     const refTable = ref(null);
     const data = reactive({
+      select: [1],
       disable: true,
       inputWidth: 300,
       tableList: [
@@ -79,11 +96,11 @@ export default defineComponent({
         {
           width: 100,
           label: 'url',
-          prop: 'prgUrl'
+          prop: 'prgUrl',
         }
       ],
       table1: 1,
-      table2: 3
+      table2: [2, 3],
     });
     const test = () => {
       data.disable = !data.disable;
