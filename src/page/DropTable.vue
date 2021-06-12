@@ -27,31 +27,14 @@
       multiple
       defaultFirstRow
     />
-     <el-select multiple v-model='select' clearable  filterable  @change="change" default-first-option>
-      <el-option label="test1" :value="1"/>
-      <el-option label="test2" :value="2"/>
-      <el-option label="test3" :value="3"/>
-      <el-option label="test4" :value="5"/>
-      <el-option label="test5" :value="6"/>
-      <el-option label="test6" :value="7"/>
-      <el-option label="test7" :value="8"/>
-      <el-option label="test8" :value="9"/>
-      <el-option label="test9" :value="10"/>
-      <el-option label="test10" :value="11"/>
-      <el-option label="test11" :value="12"/>
-      <el-option label="test12" :value="13"/>
-      <el-option label="test13" :value="14"/>
-    </el-select>
     <el-button @click="test">test</el-button>
  </div>
 </template>
 
 <script lang='ts'>
 import { defineComponent, reactive, toRefs, ref } from 'vue';
-import { LyDroptable } from '../components';
 
 export default defineComponent({
-  components: { LyDroptable },
   props: {},
   setup() {
     const refTable = ref(null);

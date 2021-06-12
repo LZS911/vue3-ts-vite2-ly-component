@@ -5,6 +5,9 @@
         <h1>hello</h1>
       </template>
     </testFunction> -->
+    <router-link to='/dropTable'>dropTable</router-link>
+    <router-link to='/modal'>modal</router-link>
+    <router-view/>
 
   </div>
 </template>

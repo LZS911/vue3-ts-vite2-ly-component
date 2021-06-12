@@ -63,13 +63,18 @@
 </template>
 
 <script lang='ts'>
+
 import { defineComponent, ref } from 'vue';
 import { ILyDropTableProps } from './type';
 import useDropTable from './hooks';
 import { clickOutSide } from '../../directives';
 import { defaultProps } from './hooks/index.data.ts';
 
+const NAME = 'LyDroptable';
+
 export default defineComponent({
+  name: NAME,
+  componentName: NAME,
   directives: { clickoutside: clickOutSide },
   components: {},
   props: defaultProps,

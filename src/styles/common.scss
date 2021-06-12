@@ -1,10 +1,18 @@
 @import './resetEl/resetTable.scss';
+@import './mixin.scss';
 
 body {
   padding: 0 !important;
   margin: 0 !important;
   min-width: 1200px;
   scroll-behavior: smooth
+}
+
+a {
+  color: $color-primary;
+  text-decoration: none;
+  margin: 10px;
+
 }
 
 html {
