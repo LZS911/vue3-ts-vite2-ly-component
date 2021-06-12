@@ -9,7 +9,8 @@ import {
   getSize,
   $,
   arrRemove,
-  findListByIndex
+  findListByIndex,
+  findIndexListByKey
 } from '../../../utils';
 
 import { calcTableCount, setPositionByParent, setTableScrollIntoView } from '../../../utils/dom';
@@ -167,7 +168,7 @@ export default function useDropTable(
     if ($(isMultiple)) {
       currentRowIndexSet.value = new Set();
       val.forEach((item: any) => {
-        currentRowIndexSet.value.add($(filterList).findIndex((t) => t[props.valueKey] === item));
+        currentRowIndexSet.value.add(findIndexListByKey($(filterList), item, props.valueKey));
       });
     } else {
       currentRow.value = findListByKey($(filterList), val as string | number, props.valueKey);
@@ -183,6 +184,7 @@ export default function useDropTable(
 
   const currentRowClick = (row: any) => {
     if (row) {
+      currentRow.value = row;
       if ($(isMultiple) && !isEmpty(row[props.valueKey]) && isArray(props.modelValue)) {
         if (props.modelValue.includes(row[props.valueKey])) {
           watchModelValue(arrRemove(props.modelValue, row[props.valueKey]));
@@ -191,7 +193,6 @@ export default function useDropTable(
         }
         return;
       }
-      currentRow.value = row;
       watchModelValue(row[props.valueKey] ?? EMPTY_STR);
       hide();
     }

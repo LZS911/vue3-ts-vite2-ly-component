@@ -48,7 +48,7 @@ export const getSize = (width: number | string, sizeMap: Map<string, number>, si
   return style;
 };
 
-export const findListByKey = (tableList: any[], value: number | string, key: string) =>
+export const findListByKey = (tableList: any[], value: any, key: string) =>
   tableList.find((item) => item[key] === value) ?? {};
 
 export const findListByIndex = (tableList: any[], index: number, key: string) => {
@@ -57,6 +57,8 @@ export const findListByIndex = (tableList: any[], index: number, key: string) =>
   }
   return tableList[index][key];
 };
+export const findIndexListByKey = (tableList: any[], value: any, key: string) =>
+  tableList.findIndex((item) => item[key] === value);
 
 export const filterListByValue = (tableList: any[], query: string) => {
   if (!query) {
