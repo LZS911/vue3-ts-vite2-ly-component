@@ -77,7 +77,6 @@ export default defineComponent({
     const test = () => {
       data.disable = !data.disable;
       console.log(data.table2, 'oldVal');
-      data.table2 = 2;
     };
     const change = (val) => {
       console.log(val, 'onChange');
