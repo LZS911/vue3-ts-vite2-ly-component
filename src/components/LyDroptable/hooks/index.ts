@@ -128,6 +128,9 @@ export default function useDropTable(
       currentRowIndex.value = -1;
       $(elRef).setCurrentRow($(currentRow) ?? {});
     }
+    if ($(isMultiple)) {
+      currentRow.value = {};
+    }
     if (!!props.filterable) {
       if ($(isMultiple)) {
         dropLabel.value = props.modelValue.map((item: number | string) => sourceMap.get(item)).toString();
@@ -201,9 +204,7 @@ export default function useDropTable(
   watch(
     () => $(currentRow),
     () => {
-      currentRowIndex.value = $(filterList).findIndex(
-        (item) => item[props.valueKey] === $(currentRow)?.[props.valueKey]
-      );
+      currentRowIndex.value = findIndexListByKey($(filterList), $(currentRow)?.[props.valueKey], props.valueKey);
     },
     { immediate: true }
   );
