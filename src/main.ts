@@ -1,12 +1,31 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-import { ElButton, ElInput, ElTable, ElTableColumn, ElCollapseTransition, ElSelect, ElOption } from 'element-plus';
+import {
+  ElButton,
+  ElInput,
+  ElTable,
+  ElTableColumn,
+  ElCollapseTransition,
+  ElSelect,
+  ElOption,
+  ElTooltip
+} from 'element-plus';
 import 'element-plus/packages/theme-chalk/src/base.scss';
 import './styles/element-variables.scss';
 import router from './router';
 import { LyDroptable } from './components';
 
-const elComponents = [ElButton, ElInput, ElTable, ElTableColumn, ElCollapseTransition, ElSelect, ElOption, LyDroptable];
+const elComponents = [
+  ElButton,
+  ElInput,
+  ElTable,
+  ElTableColumn,
+  ElCollapseTransition,
+  ElSelect,
+  ElOption,
+  ElTooltip,
+  LyDroptable
+];
 
 const app = createApp(App);
 

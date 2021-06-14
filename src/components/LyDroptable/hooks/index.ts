@@ -1,3 +1,4 @@
+import { RefElement } from '../../../utils/types';
 import { ElFormContext, ElFormItemContext } from '../type/index.d';
 import {
   isArray,
@@ -46,14 +47,12 @@ export const elFormEvents = {
   removeField: 'el.form.removeField'
 } as const;
 
-export default function useDropTable(
-  props: ILyDropTableProps,
-  { emit }: SetupContext<EmitType[]>,
-  wrapperRef: Ref<HTMLElement>,
-  tableRef: Ref<HTMLElement>,
-  elRef: Ref<any>,
-  inputRef: Ref<HTMLElement>
-) {
+export default function useDropTable(props: ILyDropTableProps, { emit }: SetupContext<EmitType[]>) {
+  const wrapperRef = ref<Ref<HTMLElement>>(null as any);
+  const tableRef = ref<Ref<HTMLElement>>(null as any);
+  const elRef = ref<Ref<any>>(null as any);
+  const inputRef = ref<Ref<HTMLElement>>(null as any);
+
   const elForm = inject(elFormKey, {} as ElFormContext);
   const columnList = computed(() => props.columnList.filter((item) => !item.hide));
 
