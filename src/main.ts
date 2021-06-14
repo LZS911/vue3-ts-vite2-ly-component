@@ -8,12 +8,13 @@ import {
   ElCollapseTransition,
   ElSelect,
   ElOption,
-  ElTooltip
+  ElTooltip,
+  ElPopover
 } from 'element-plus';
 import 'element-plus/packages/theme-chalk/src/base.scss';
 import './styles/element-variables.scss';
 import router from './router';
-import { LyDroptable } from './components';
+import { LyDropTable } from './components';
 
 const elComponents = [
   ElButton,
@@ -24,7 +25,8 @@ const elComponents = [
   ElSelect,
   ElOption,
   ElTooltip,
-  LyDroptable
+  LyDropTable,
+  ElPopover
 ];
 
 const app = createApp(App);

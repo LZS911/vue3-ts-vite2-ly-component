@@ -7,19 +7,28 @@
     </testFunction> -->
     <router-link to='/dropTable'>dropTable</router-link>
     <router-link to='/modal'>modal</router-link>
-    <router-view/>
+    <!-- <router-view/> -->
 
-  <el-tooltip manualMode  :disabled="disabled" content="点击关闭 tooltip 功能" placement="bottom" effect="light">
-    <el-button @click="disabled = !disabled">点击{{disabled ? '开启' : '关闭'}} tooltip 功能</el-button>
-  </el-tooltip>
+   <el-popover
+    placement="top-start"
+    title="标题"
+    :width="200"
+    trigger="hover"
+    content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。"
+  >
+    <template #reference>
+     <DropTable/>
+    </template>
+  </el-popover>
   </div>
 </template>
 
 <script lang='ts'>
 import { defineComponent } from 'vue';
+import DropTable from './page/DropTable.vue';
 
 export default defineComponent({
-  components: { },
+  components: { DropTable },
   props: {},
   setup() {
     return {

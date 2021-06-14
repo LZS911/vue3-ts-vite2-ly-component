@@ -1,4 +1,4 @@
-import LyDroptable from './LyDroptable';
+import LyDropTable from './ly-dropTable';
 import testFunction from './testFunction/index.vue';
 
-export { LyDroptable, testFunction };
+export { LyDropTable, testFunction };

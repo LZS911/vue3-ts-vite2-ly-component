@@ -1,7 +1,7 @@
 import { SizeEnum } from './enum';
 import { isString, toRawType } from '@vue/shared';
 import { Ref, computed } from 'vue';
-import { ComponentSize } from '../components/LyDroptable/type';
+import { ComponentSize } from '../components/ly-dropTable/type';
 import _ from 'lodash';
 
 export const isBool = (val: unknown): val is boolean => typeof val === 'boolean';
