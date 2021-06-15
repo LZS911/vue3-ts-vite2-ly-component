@@ -1,4 +1,6 @@
-import { usePositionByParent } from '../../../utils/dom';
+import { PlacementEnum, usePositionByParent } from '../../../utils/dom';
+import { DEFAULT } from '../../../utils/constants';
+
 import { renderSlot, createVNode, ref, Ref, Slot, cloneVNode, onMounted } from 'vue';
 import { getFirstNode } from '../../../utils/vnode';
 import throwError from '../../../utils/error';
@@ -20,14 +22,14 @@ export function usePopper() {
   const popperRef = ref<Ref<HTMLElement>>(null as any);
 
   onMounted(() => {
-    usePositionByParent(triggerRef, popperRef, 'right');
+    usePositionByParent(triggerRef, popperRef, undefined, undefined, PlacementEnum.Right);
   });
 
   return { triggerRef, popperRef };
 }
 
 export function useRenderPopper(slots: Readonly<InternalSlots>, { popperRef = 'popperRef' }: IRenderPopperProps) {
-  const children = renderSlot(slots, 'default');
+  const children = renderSlot(slots, DEFAULT);
   const popper = createVNode('div', { ref: popperRef }, [children]);
   return popper;
 }

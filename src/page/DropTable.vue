@@ -29,16 +29,16 @@
     />
     <el-tooltip :content="qwr" placement="top">
       <div>
-        <h1>trigger</h1>
+        <div style="width:300px;">trigger</div>
       </div>
     </el-tooltip>
     <LyPopper>
       <template #trigger>
-        <h1>trigg321er</h1>
+        <div style="width:300px;margin-left:880px">trigg321er</div>
         <h1>trigger</h1>
       </template>
       <template #default>
-        <h2>{{qwr}}</h2>
+        <div>{{qwr}}</div>
       </template>
     </LyPopper>
   </div>

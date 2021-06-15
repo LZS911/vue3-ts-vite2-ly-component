@@ -2,6 +2,8 @@
 import { Placement } from '../components/ly-popper/hooks/index.data';
 import { Ref } from 'vue';
 import { $ } from '.';
+import { camelCase, isObject } from 'lodash';
+import { camelize } from '@vue/shared';
 
 export enum PlacementEnum {
   Bottom = 'bottom',
@@ -35,9 +37,9 @@ export const off = (
 export const usePositionByParent = (
   parentDom: Ref<HTMLElement>,
   currentDom: Ref<HTMLElement>,
+  currentHeight: number = 50,
+  currentWidth: number = 50,
   placement: Placement = 'bottom' as Placement,
-  currentHeight: number = 150,
-  currentWidth: number = 150,
 ) => {
   const sizeObj = $(parentDom).getBoundingClientRect();
   const parent = { top: 0, left: 0 };
@@ -50,40 +52,48 @@ export const usePositionByParent = (
 
   switch (placement) {
     case PlacementEnum.Bottom:
-      current.top = parent.top + sizeObj.height;
+      if (bodyHeight - sizeObj.height - parent.top < currentHeight) {
+        current.top = parent.top - sizeObj.height;
+      } else {
+        current.top = parent.top + sizeObj.height;
+      }
       current.left = parent.left;
       break;
     case PlacementEnum.Top:
-      current.top = parent.top - sizeObj.height;
+      if (parent.top < currentHeight) {
+        current.top = parent.top + sizeObj.height;
+      } else {
+        current.top = parent.top - sizeObj.height;
+      }
       current.left = parent.left;
       break;
     case PlacementEnum.Left:
-      current.top = parent.top + sizeObj.height / 2;
-      current.left = parent.left - 30;
-
+      if (parent.left < currentWidth) {
+        current.top = parent.top + sizeObj.height;
+        current.left = parent.left;
+      } else {
+        current.top = parent.top;
+        current.left = parent.left - currentWidth;
+      }
       break;
     case PlacementEnum.Right:
-      current.top = parent.top + sizeObj.height / 2;
-      current.left = parent.left;
-      console.log(current.top);
+      if (bodyWidth - parent.left - sizeObj.width < currentWidth) {
+        current.top = parent.top + sizeObj.height;
+        current.left = parent.left;
+      } else {
+        current.top = parent.top;
+        current.left = parent.left + sizeObj.width;
+      }
       break;
     default: break;
   }
 
-  if (bodyHeight - parent.top < currentHeight) {
-    if (parent.top < currentHeight) {
-      current.top = parent.top - currentHeight / 2;
-    } else {
-      current.top = parent.top - currentHeight;
-    }
-  }
-  if (bodyWidth - parent.left <= currentWidth) {
-    current.left = parent.left - (currentWidth - (bodyWidth - parent.left));
-  }
-
-  currentDom.value.style.position = 'absolute';
-  currentDom.value.style.top = `${current.top}px`;
-  currentDom.value.style.left = `${current.left}px`;
+  const style = {
+    position: 'absolute',
+    top: `${current.top}px`,
+    left: `${current.left}px`
+  };
+  addStyle($(currentDom), style as CSSStyleDeclaration);
 };
 
 export const setTableScrollIntoView = (currentIndex: number, lineHeight: number, currentDom: any, count: number) => {
@@ -101,5 +111,27 @@ export const calcTableCount = (wrapperHeight: number, lineHeight: number) =>
 export const addClass = () => { };
 export const removeClass = () => { };
 
-export const setStyle = () => { };
-export const removeStyle = () => { };
+export const addStyle = (element: HTMLElement, styleName: CSSStyleDeclaration | string, value?: string) => {
+  if (!element || !styleName) return;
+
+  if (isObject(styleName)) {
+    Object.keys(styleName).forEach((key) => {
+      addStyle(element, key, styleName[key as any]);
+    });
+  } else {
+    styleName = camelize(styleName);
+    if (value) { element.style[styleName as any] = value; }
+  }
+};
+export const removeStyle = (element: HTMLElement, styleName: CSSStyleDeclaration | string) => {
+  if (!element || !styleName) return;
+
+  if (isObject(styleName)) {
+    Object.keys(styleName).forEach((key) => {
+      addStyle(element, key, '');
+    });
+  } else {
+    styleName = camelize(styleName);
+    element.style[styleName as any] = '';
+  }
+};
