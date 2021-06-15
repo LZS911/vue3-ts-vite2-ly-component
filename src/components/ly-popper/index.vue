@@ -4,7 +4,7 @@ import { renderBlock } from '../../utils/vnode';
 import throwError from '../../utils/error';
 import { defaultProps } from './hooks/index.data';
 import { toDisplayString } from '@vue/shared';
-import { useRender, usePopper } from './hooks';
+import { useRenderPopper, useRenderTrigger, usePopper } from './hooks';
 
 const NAME = 'LyPopper';
 export default defineComponent({
@@ -17,11 +17,13 @@ export default defineComponent({
     }
 
     const propsStates = usePopper();
+
     return propsStates;
   },
   render() {
     const { $slots } = this;
-    const { popper, trigger } = useRender($slots, {}, {});
+    const trigger = useRenderTrigger($slots, {});
+    const popper = useRenderPopper($slots, {});
     return renderBlock(Fragment, null, [trigger!, createVNode(Teleport as any, { to: 'body' }, [popper])]);
   }
 });

@@ -1,4 +1,7 @@
-import { renderSlot, createVNode, ref, Ref, Slot, cloneVNode } from 'vue';
+import { usePositionByParent } from '../../../utils/dom';
+import { renderSlot, createVNode, ref, Ref, Slot, cloneVNode, onMounted } from 'vue';
+import { getFirstNode } from '../../../utils/vnode';
+import throwError from '../../../utils/error';
 
 type InternalSlots = {
   [name: string]: Slot | undefined;
@@ -16,29 +19,24 @@ export function usePopper() {
   const triggerRef = ref<Ref<HTMLElement>>(null as any);
   const popperRef = ref<Ref<HTMLElement>>(null as any);
 
-  return {
-    triggerRef,
-    popperRef
-  };
+  onMounted(() => {
+    usePositionByParent(triggerRef, popperRef, 'right');
+  });
+
+  return { triggerRef, popperRef };
 }
 
-export function useLifecycle() {
-  const initializePopper = () => {};
-
-  return { initializePopper };
-}
-
-export function useRender(
-  slots: Readonly<InternalSlots>,
-  { popperRef = 'popperRef' }: IRenderPopperProps,
-  { triggerRef = 'triggerRef' }: IRenderTriggerProps
-) {
+export function useRenderPopper(slots: Readonly<InternalSlots>, { popperRef = 'popperRef' }: IRenderPopperProps) {
   const children = renderSlot(slots, 'default');
-  const firstNode = slots.trigger?.()[0];
-  const trigger = cloneVNode(firstNode!, { ref: triggerRef }, true);
   const popper = createVNode('div', { ref: popperRef }, [children]);
-  return {
-    trigger,
-    popper
-  };
+  return popper;
+}
+
+export function useRenderTrigger(slots: Readonly<InternalSlots>, { triggerRef = 'triggerRef' }: IRenderTriggerProps) {
+  const firstNode = getFirstNode(slots.trigger?.(), 1);
+  if (!firstNode) {
+    throwError('renderTrigger', 'trigger expects single rooted node');
+  }
+  const trigger = cloneVNode(firstNode!, { ref: triggerRef }, true);
+  return trigger;
 }

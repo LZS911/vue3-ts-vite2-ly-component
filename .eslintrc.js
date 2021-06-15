@@ -67,6 +67,7 @@ module.exports = {
     //     }
     //   }
     // ],
+    'no-use-before-define': 0,
     'no-undef': 0,
     'function-paren-newline': 0,
     'no-confusing-arrow': 0,
