@@ -29,7 +29,10 @@
     />
     <LyPopper>
       <template #trigger>
-        <h1>hello</h1>
+        <h1>trigger</h1>
+      </template>
+      <template #default>
+        <h2>{{qwr}}</h2>
       </template>
     </LyPopper>
   </div>
@@ -42,10 +45,10 @@ import { LyPopper } from '../components';
 export default defineComponent({
   components: { LyPopper },
   props: {},
-
   setup() {
     const refTable = ref(null);
     const data = reactive({
+      qwr: '123',
       select: [1],
       disable: true,
       inputWidth: 300,

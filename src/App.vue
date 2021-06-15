@@ -1,17 +1,16 @@
 <template>
   <div class="warrp">
-    <router-link to='/dropTable'>dropTable</router-link>
-    <router-link to='/modal'>modal</router-link>
-    <router-view/>
+    <router-link to="/dropTable">dropTable</router-link>
+    <router-link to="/modal">modal</router-link>
+    <router-view />
   </div>
 </template>
 
 <script lang='ts'>
 import { defineComponent } from 'vue';
-import DropTable from './page/DropTable.vue';
 
 export default defineComponent({
-  components: { DropTable },
+  components: {},
   props: {},
   setup() {
     return {

@@ -1,5 +1,4 @@
-import { RefElement } from '../../../utils/types';
-import { ElFormContext, ElFormItemContext } from '../type/index.d';
+import { ITable, RefElement, ElFormItemContext, ElFormContext } from '../../../utils/types';
 import {
   isArray,
   isEmpty,
@@ -26,7 +25,7 @@ import {
 } from '../../../utils/constants';
 
 import { ISizeMap, defaultTableHeight, defaultTableWidth, TSizeMap } from './index.data';
-import { ILyDropTableProps, EmitType, ITable } from '../type';
+import { ILyDropTableProps, EmitType } from '../type';
 import { ref, Ref, SetupContext, onMounted, computed, watch, nextTick, inject, InjectionKey } from 'vue';
 
 import _ from 'lodash';
