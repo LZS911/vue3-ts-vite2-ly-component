@@ -5,7 +5,7 @@
     ref="wrapperRef"
     @mouseover="wrapperHovering=true"
     @mouseleave="wrapperHovering=false"
-    >
+  >
     <div
       class="ly-input"
       @click="toggleState"
@@ -25,8 +25,8 @@
         :class="{'ly-input__readonly':readonly}"
       />
       <div :class="visibility ? 'arrow-up' : 'arrow-down'">
-        <i v-show='showClose' :class="clearIcon" @click="clearValue"></i>
-        <i v-show='!showClose' :class="arrowIcon"></i>
+        <i v-show="showClose" :class="clearIcon" @click="clearValue"></i>
+        <i v-show="!showClose" :class="arrowIcon"></i>
       </div>
     </div>
     <teleport to="body">
@@ -63,9 +63,7 @@
 </template>
 
 <script lang='ts'>
-
-import { defineComponent, ref } from 'vue';
-import { ILyDropTableProps } from './type';
+import { defineComponent } from 'vue';
 import useDropTable from './hooks';
 import { clickOutSide } from '../../directives';
 import { defaultProps } from './hooks/index.data';
@@ -80,7 +78,7 @@ export default defineComponent({
   props: defaultProps,
   setup(props, ctx) {
     return {
-      ...useDropTable(props as ILyDropTableProps, ctx as any)
+      ...useDropTable(props as any, ctx as any)
     };
   }
 });
@@ -130,8 +128,8 @@ export default defineComponent({
       background: #f5f7fa !important;
     }
   }
-  .ly-input__disable{
-    background:#fff !important;
+  .ly-input__disable {
+    background: #fff !important;
   }
 }
 

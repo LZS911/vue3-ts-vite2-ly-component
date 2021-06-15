@@ -1,6 +1,6 @@
 <template>
- <div class='warrp'>
- <LyDroptable
+  <div class="warrp">
+    <LyDroptable
       valueKey="prgNo"
       labelKey="prgName"
       :disable="disable"
@@ -9,7 +9,7 @@
       :columnList="columnList"
       v-model="table1"
       size="123"
-      placeholder='31231'
+      placeholder="31231"
     />
     <LyDroptable
       valueKey="prgNo"
@@ -27,26 +27,20 @@
       multiple
       defaultFirstRow
     />
-
-    <el-button  @click="test">test</el-button>
-    <el-tooltip :showArrow='false' v-model="visible" manual content="Top Left 提示文字" placement="top-start">
-       <el-button>上左</el-button>
-    </el-tooltip>
-
-    <TestFunction>
-      <template #test>
-        <el-butto >hover 激活1</el-butto>
-        <el-button>hover 激活</el-button>
+    <LyPopper>
+      <template #trigger>
+        <h1>hello</h1>
       </template>
-    </TestFunction>
- </div>
+    </LyPopper>
+  </div>
 </template>
 
 <script lang='ts'>
-import { Fragment, Comment, defineComponent, reactive, toRefs, ref } from 'vue';
+import { defineComponent, reactive, toRefs, ref } from 'vue';
+import { LyPopper } from '../components';
 
 export default defineComponent({
-  components: { Fragment, Comment },
+  components: { LyPopper },
   props: {},
 
   setup() {
@@ -81,7 +75,7 @@ export default defineComponent({
         {
           width: 100,
           label: 'url',
-          prop: 'prgUrl',
+          prop: 'prgUrl'
         }
       ],
       table1: 1,
@@ -92,7 +86,7 @@ export default defineComponent({
       data.disable = !data.disable;
       console.log(data.table2, 'oldVal');
     };
-    const change = (val) => {
+    const change = (val: any) => {
       console.log(val, 'onChange');
     };
     return {
@@ -106,6 +100,6 @@ export default defineComponent({
 </script>
 
 <style lang='scss' scoped>
-
- .warrp{}
+.warrp {
+}
 </style>

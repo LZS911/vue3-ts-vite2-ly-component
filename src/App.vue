@@ -1,21 +1,8 @@
 <template>
   <div class="warrp">
-
     <router-link to='/dropTable'>dropTable</router-link>
     <router-link to='/modal'>modal</router-link>
     <router-view/>
-
-   <!-- <el-popover
-    placement="top-start"
-    title="标题"
-    :width="200"
-    trigger="hover"
-    content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。"
-  >
-    <template #reference>
-     <DropTable/>
-    </template>
-  </el-popover> -->
   </div>
 </template>
 
