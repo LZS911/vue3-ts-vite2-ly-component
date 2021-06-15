@@ -68,7 +68,7 @@ import { defineComponent, ref } from 'vue';
 import { ILyDropTableProps } from './type';
 import useDropTable from './hooks';
 import { clickOutSide } from '../../directives';
-import { defaultProps } from './hooks/index.data.ts';
+import { defaultProps } from './hooks/index.data';
 
 const NAME = 'LyDroptable';
 

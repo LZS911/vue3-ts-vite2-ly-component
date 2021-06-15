@@ -28,7 +28,7 @@ export const percentageToNumber = (val: string, fixed: number = 2): number => {
 
 export const removeStrToNumber = (val: string, str: string) => Number(val.replace(str, ''));
 
-export const getWidthOrHeight = (initValue: string, defaultVal: number): number => {
+export const useWidthOrHeight = (initValue: string, defaultVal: number): number => {
   const num = percentageToNumber(initValue);
   if (num !== -1) {
     return document.body.scrollWidth * num;
@@ -39,7 +39,7 @@ export const getWidthOrHeight = (initValue: string, defaultVal: number): number 
   return defaultVal;
 };
 
-export const getSize = (width: number | string, sizeMap: Map<string, number>, size: ComponentSize) => {
+export const useSize = (width: number | string, sizeMap: Map<string, number>, size: ComponentSize) => {
   const style = computed(() => ({
     width: isString(width) && isNaN(Number(width)) ? `${width}` : `${width}px`,
     height: isEnum<SizeEnum>(size, Object.values(SizeEnum)) ? `${sizeMap.get(size!)}px` : `${sizeMap.get('small')}px`

@@ -1,7 +1,8 @@
 <script lang='ts'>
-import { defineComponent, h } from 'vue';
+import { VNode, defineComponent, h, Fragment, withDirectives } from 'vue';
 
 export default defineComponent({
+  name: 'TestFunction',
   components: {},
   props: {
     testtt: {
@@ -12,7 +13,9 @@ export default defineComponent({
   setup() {},
   render() {
     const { $slots, testtt } = this;
-    // console.log($slots.test ? $slots.test() : null, testtt);
+    const a = $slots.test ? $slots.test() : null;
+    a.forEach((e) => console.log((a[0] as VNode).type === Fragment));
+    console.log(a, testtt);
     return h('div');
   }
 });

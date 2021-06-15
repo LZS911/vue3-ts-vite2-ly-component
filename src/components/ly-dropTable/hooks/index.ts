@@ -6,15 +6,15 @@ import {
   isNumber,
   filterListByValue,
   findListByKey,
-  getWidthOrHeight,
-  getSize,
+  useWidthOrHeight,
+  useSize,
   $,
   arrRemove,
   findListByIndex,
   findIndexListByKey
 } from '../../../utils';
 
-import { calcTableCount, setPositionByParent, setTableScrollIntoView } from '../../../utils/dom';
+import { calcTableCount, usePositionByParent, setTableScrollIntoView } from '../../../utils/dom';
 
 import {
   VISIBLE_EVENT,
@@ -77,15 +77,15 @@ export default function useDropTable(props: ILyDropTableProps, { emit }: SetupCo
 
   /** focus  blur =================================================================================== */
 
-  const inputStyle = getSize(props.inputWidth, ISizeMap, props.size ?? elForm.size);
-  const tableStyle = getSize(props.tableWidth ?? props.inputWidth, TSizeMap, props.size ?? elForm.size);
+  const inputStyle = useSize(props.inputWidth, ISizeMap, props.size ?? elForm.size);
+  const tableStyle = useSize(props.tableWidth ?? props.inputWidth, TSizeMap, props.size ?? elForm.size);
 
   onMounted(() => {
-    setPositionByParent(
+    usePositionByParent(
       wrapperRef,
       tableRef,
-      getWidthOrHeight($(tableStyle).height, defaultTableHeight),
-      getWidthOrHeight($(tableStyle).width, defaultTableWidth)
+      useWidthOrHeight($(tableStyle).height, defaultTableHeight),
+      useWidthOrHeight($(tableStyle).width, defaultTableWidth)
     );
 
     // eslint-disable-next-line no-use-before-define
@@ -218,7 +218,7 @@ export default function useDropTable(props: ILyDropTableProps, { emit }: SetupCo
               val,
               lineHeight,
               $(elRef),
-              calcTableCount(getWidthOrHeight($(tableStyle).height, defaultTableHeight), lineHeight)
+              calcTableCount(useWidthOrHeight($(tableStyle).height, defaultTableHeight), lineHeight)
             );
         }
       });

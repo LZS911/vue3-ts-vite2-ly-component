@@ -27,15 +27,28 @@
       multiple
       defaultFirstRow
     />
-    <el-button @click="test">test</el-button>
+
+    <el-button  @click="test">test</el-button>
+    <el-tooltip :showArrow='false' v-model="visible" manual content="Top Left 提示文字" placement="top-start">
+       <el-button>上左</el-button>
+    </el-tooltip>
+
+    <TestFunction>
+      <template #test>
+        <el-butto >hover 激活1</el-butto>
+        <el-button>hover 激活</el-button>
+      </template>
+    </TestFunction>
  </div>
 </template>
 
 <script lang='ts'>
-import { defineComponent, reactive, toRefs, ref } from 'vue';
+import { Fragment, Comment, defineComponent, reactive, toRefs, ref } from 'vue';
 
 export default defineComponent({
+  components: { Fragment, Comment },
   props: {},
+
   setup() {
     const refTable = ref(null);
     const data = reactive({
@@ -73,6 +86,7 @@ export default defineComponent({
       ],
       table1: 1,
       table2: [2, 3],
+      visible: true
     });
     const test = () => {
       data.disable = !data.disable;

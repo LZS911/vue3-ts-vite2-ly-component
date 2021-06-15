@@ -1,4 +1,4 @@
-import { ComponentSize, ITable, ITableColumn } from '../type';
+import { ComponentSize, ITable, ITableColumn } from '../type/index.d';
 
 import { SizeEnum } from '../../../utils/enum';
 import { PropType } from 'vue';

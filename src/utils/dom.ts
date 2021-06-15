@@ -25,7 +25,7 @@ export const off = (
   }
 };
 
-export const setPositionByParent = (
+export const usePositionByParent = (
   parentDom: Ref<HTMLElement>,
   currentDom: Ref<HTMLElement>,
   currentHeight: number,

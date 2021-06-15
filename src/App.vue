@@ -1,15 +1,11 @@
 <template>
   <div class="warrp">
-    <!-- <testFunction>
-      <template #test>
-        <h1>hello</h1>
-      </template>
-    </testFunction> -->
+
     <router-link to='/dropTable'>dropTable</router-link>
     <router-link to='/modal'>modal</router-link>
-    <!-- <router-view/> -->
+    <router-view/>
 
-   <el-popover
+   <!-- <el-popover
     placement="top-start"
     title="标题"
     :width="200"
@@ -19,7 +15,7 @@
     <template #reference>
      <DropTable/>
     </template>
-  </el-popover>
+  </el-popover> -->
   </div>
 </template>
 
