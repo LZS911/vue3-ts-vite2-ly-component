@@ -32,9 +32,9 @@
         <div style="width:300px;">trigger</div>
       </div>
     </el-tooltip>
-    <LyPopper :content="qwr">
+    <LyPopper :content="qwr" placement="top">
       <template #trigger>
-        <div style="width:300px;margin-left:880px">trigg321er</div>
+        <h2 style="width:300px;margin-left:880px">trigg321er</h2>
         <h1>trigger</h1>
       </template>
       <template #default>{{qwr}}</template>
@@ -52,7 +52,7 @@ export default defineComponent({
   setup() {
     const refTable = ref(null);
     const data = reactive({
-      qwr: '123',
+      qwr: 123232342342342342342424,
       select: [1],
       disable: true,
       inputWidth: 300,

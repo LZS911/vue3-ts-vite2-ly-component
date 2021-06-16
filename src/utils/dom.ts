@@ -1,3 +1,4 @@
+import { ARROW_BOTTOM, ARROW_TOP, ARROW_LEFT, ARROW_RIGHT } from './constants';
 /* eslint-disable no-param-reassign */
 import { Placement } from '../components/ly-popper/hooks/index.data';
 import { Ref } from 'vue';
@@ -40,12 +41,15 @@ export const usePositionByParent = (
   currentHeight: number = 50,
   currentWidth: number = 50,
   placement: Placement = 'bottom' as Placement,
+  cls: string = 'ly-popper'
 ) => {
   const sizeObj = $(parentDom).getBoundingClientRect();
   const parent = { top: 0, left: 0, right: 0, bottom: 0 };
   const current = { top: 0, left: 0, right: 0, bottom: 0 };
   const bodyWidth = document.body.clientWidth;
   const bodyHeight = document.body.clientHeight;
+
+  const arrowCls = '';
 
   parent.top = sizeObj.top + document.documentElement.scrollTop;
   parent.left = sizeObj.left + document.documentElement.scrollLeft;
@@ -55,36 +59,44 @@ export const usePositionByParent = (
   switch (placement) {
     case PlacementEnum.Bottom:
       if (bodyHeight - sizeObj.height - parent.top < currentHeight) {
-        current.top = parent.top - sizeObj.height;
+        current.top = parent.top - sizeObj.height - 20;
+        addClass($(currentDom), `${cls}__${ARROW_TOP}`);
       } else {
-        current.top = parent.top + sizeObj.height;
+        current.top = parent.top + sizeObj.height + 10;
+        addClass($(currentDom), `${cls}__${ARROW_BOTTOM}`);
       }
-      current.left = parent.left;
+      current.left = parent.left + sizeObj.width / 2;
       break;
     case PlacementEnum.Top:
       if (parent.top < currentHeight) {
-        current.top = parent.top + sizeObj.height;
+        current.top = parent.top + sizeObj.height + 10;
+        addClass($(currentDom), `${cls}__${ARROW_BOTTOM}`);
       } else {
-        current.top = parent.top - sizeObj.height;
+        current.top = parent.top - sizeObj.height - 26;
+        addClass($(currentDom), `${cls}__${ARROW_TOP}`);
       }
-      current.left = parent.left;
+      current.left = parent.left + sizeObj.width / 2;
       break;
     case PlacementEnum.Left:
       if (parent.left < currentWidth) {
         current.top = parent.top + sizeObj.height;
         current.left = parent.left;
+        addClass($(currentDom), `${cls}__${ARROW_BOTTOM}`);
       } else {
-        current.top = parent.top;
-        current.left = parent.left - currentWidth;
+        current.top = parent.top - sizeObj.height / 2;
+        current.left = parent.left - currentWidth - 10;
+        addClass($(currentDom), `${cls}__${ARROW_LEFT}`);
       }
       break;
     case PlacementEnum.Right:
       if (bodyWidth - parent.left - sizeObj.width < currentWidth) {
         current.top = parent.top + sizeObj.height;
-        current.left = parent.left;
+        current.left = parent.left + sizeObj.width / 2;
+        addClass($(currentDom), `${cls}__${ARROW_BOTTOM}`);
       } else {
-        current.top = parent.top;
+        current.top = parent.top - sizeObj.height / 2;
         current.left = parent.left + sizeObj.width;
+        addClass($(currentDom), `${cls}__${ARROW_RIGHT}`);
       }
       break;
     default: break;
@@ -96,6 +108,8 @@ export const usePositionByParent = (
     left: `${current.left}px`
   };
   addStyle($(currentDom), style as CSSStyleDeclaration);
+
+  return arrowCls;
 };
 
 export const setTableScrollIntoView = (currentIndex: number, lineHeight: number, currentDom: any, count: number) => {
@@ -107,11 +121,61 @@ export const setTableScrollIntoView = (currentIndex: number, lineHeight: number,
     currentDom.$refs.bodyWrapper.scrollTop = currentIndex * lineHeight;
   }
 };
+
+export const trim = function (s: string) {
+  return (s || '').replace(/^[\s\uFEFF]+|[\s\uFEFF]+$/g, '');
+};
+
 export const calcTableCount = (wrapperHeight: number, lineHeight: number) =>
   parseInt(((wrapperHeight - lineHeight - 20) / lineHeight).toString());
 
-export const addClass = () => { };
-export const removeClass = () => { };
+export function hasClass(el: HTMLElement, cls: string): boolean {
+  if (!el || !cls) return false;
+  if (cls.indexOf(' ') !== -1) throw new Error('className should not contain space.');
+  if (el.classList) {
+    return el.classList.contains(cls);
+  }
+  return (` ${el.className} `).indexOf(` ${cls} `) > -1;
+}
+export function addClass(el: HTMLElement, cls: string): void {
+  if (!el) return;
+  let curClass = el.className;
+  const classes = (cls || '').split(' ');
+
+  for (let i = 0, j = classes.length; i < j; i++) {
+    const clsName = classes[i];
+    if (!clsName) continue;
+
+    if (el.classList) {
+      el.classList.add(clsName);
+    } else if (!hasClass(el, clsName)) {
+      curClass += ` ${clsName}`;
+    }
+  }
+  if (!el.classList) {
+    el.className = curClass;
+  }
+}
+
+export function removeClass(el: HTMLElement, cls: string): void {
+  if (!el || !cls) return;
+  const classes = cls.split(' ');
+  let curClass = ` ${el.className} `;
+
+  for (let i = 0, j = classes.length; i < j; i++) {
+    const clsName = classes[i];
+    if (!clsName) continue;
+
+    if (el.classList) {
+      el.classList.remove(clsName);
+    } else if (hasClass(el, clsName)) {
+      curClass = curClass.replace(` ${clsName} `, ' ');
+    }
+  }
+  if (!el.classList) {
+    el.className = trim(curClass);
+  }
+}
 
 export const addStyle = (element: HTMLElement, styleName: CSSStyleDeclaration | string, value?: string) => {
   if (!element || !styleName) return;
@@ -136,4 +200,17 @@ export const removeStyle = (element: HTMLElement, styleName: CSSStyleDeclaration
     styleName = camelize(styleName);
     element.style[styleName as any] = '';
   }
+};
+
+export const getDomLength = (content: string, fontSize: string = '12px') => {
+  let width = 0;
+  const html = document.createElement('span');
+  html.innerText = content;
+  html.style.whiteSpace = 'nowrap';
+  html.style.fontSize = fontSize;
+  html.className = 'getDomLength';
+  document.querySelector('body')?.appendChild(html);
+  width = (document.querySelector('.getDomLength') as HTMLElement).offsetWidth;
+  (document.querySelector('.getDomLength') as HTMLElement).remove();
+  return width;
 };

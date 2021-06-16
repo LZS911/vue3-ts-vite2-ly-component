@@ -1,6 +1,6 @@
 import { PropType } from 'vue';
 
-export type Placement = 'bottom' | 'left' | 'right' | 'top' | 'center';
+export type Placement = 'bottom' | 'left' | 'right' | 'top';
 export type TriggerType = 'click' | 'hover' | 'focus' | 'manual';
 
 export type Trigger = TriggerType | TriggerType[];
