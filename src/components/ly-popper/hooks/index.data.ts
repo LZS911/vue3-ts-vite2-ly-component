@@ -8,10 +8,8 @@ export type Trigger = TriggerType | TriggerType[];
 const DEFAULT_TRIGGER = 'hover';
 
 export interface IPropsOptions {
-  arrowOffset: number;
   appendBody: boolean;
   autoClose: number;
-  boundariesPadding: number;
   content: string;
   class: string;
   disabled: boolean;
@@ -27,10 +25,6 @@ export interface IPropsOptions {
 }
 
 export const defaultProps = {
-  arrowOffset: {
-    type: Number,
-    default: 5
-  },
   appendBody: {
     type: Boolean,
     default: true
@@ -39,10 +33,7 @@ export const defaultProps = {
     type: Number,
     default: 0
   },
-  boundariesPadding: {
-    type: Number,
-    default: 0
-  },
+
   content: {
     type: String,
     default: ''

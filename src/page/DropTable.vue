@@ -27,25 +27,15 @@
       multiple
       defaultFirstRow
     />
-    <el-tooltip trigger="click" :content="qwr" placement="top">
-      <div style="width:100px;margin-left:880px">trigger</div>
-    </el-tooltip>
-    <LyPopper trigger="click" :content="qwr">
-      <template #trigger>
-        <!-- <h2 style="width:300px;margin-left:880px">trigg321er</h2> -->
-        <div style="width:100px;margin-left:880px">trigger</div>
-      </template>
-      <template #default>{{qwr}}</template>
-    </LyPopper>
+    <DropTablePopper />
   </div>
 </template>
 
 <script lang='ts'>
 import { defineComponent, reactive, toRefs, ref } from 'vue';
-import { LyPopper } from '../components';
 
 export default defineComponent({
-  components: { LyPopper },
+  components: {},
   props: {},
   setup() {
     const refTable = ref(null);

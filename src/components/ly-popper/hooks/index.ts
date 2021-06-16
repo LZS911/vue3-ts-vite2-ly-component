@@ -146,6 +146,7 @@ export function useRenderPopper(
   { ref = 'popperRef', content, visibility, showArrow, transition }: IRenderPopperProps
 ) {
   const children = renderSlot(slots, DEFAULT, {}, () => [toDisplayString(content)]);
+  if (!children) return '';
   const kls = ['ly-popper'];
   if (showArrow) {
     kls.push('ly-popper__arrow');
