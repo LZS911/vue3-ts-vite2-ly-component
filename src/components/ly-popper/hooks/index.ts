@@ -1,6 +1,5 @@
 import { PatchFlags, getFirstNode } from '../../../utils/vnode';
-
-import { getDomLength, PlacementEnum, usePositionByParent } from '../../../utils/dom';
+import { getDomLength, usePositionByParent } from '../../../utils/dom';
 import { UPDATE_VISIBLE_EVENT, DEFAULT } from '../../../utils/constants';
 import { $, isBool } from '../../../utils/index';
 import { IPropsOptions } from './index.data';
@@ -18,8 +17,6 @@ import {
   vShow,
   VNodeProps,
   computed,
-  toRefs,
-  reactive,
   SetupContext,
   Transition,
   withCtx

@@ -10,7 +10,7 @@ export enum PlacementEnum {
   Bottom = 'bottom',
   Left = 'left',
   Top = 'top',
-  Right = 'right',
+  Right = 'right'
 }
 
 export const on = (
@@ -65,7 +65,7 @@ export const usePositionByParent = (
         current.top = parent.top + sizeObj.height + 10;
         addClass($(currentDom), `${cls}__${ARROW_BOTTOM}`);
       }
-      current.left = parent.left + sizeObj.width / 2 - (currentWidth / 2);
+      current.left = parent.left + sizeObj.width / 2 - currentWidth / 2;
       break;
     case PlacementEnum.Top:
       if (parent.top < currentHeight) {
@@ -75,13 +75,13 @@ export const usePositionByParent = (
         current.top = parent.top - sizeObj.height - 26;
         addClass($(currentDom), `${cls}__${ARROW_TOP}`);
       }
-      current.left = parent.left + sizeObj.width / 2 - (currentWidth / 2);
+      current.left = parent.left + sizeObj.width / 2 - currentWidth / 2;
 
       break;
     case PlacementEnum.Left:
       if (parent.left < currentWidth) {
         current.top = parent.top + sizeObj.height;
-        current.left = parent.left + sizeObj.width / 2 - (currentWidth / 2);
+        current.left = parent.left + sizeObj.width / 2 - currentWidth / 2;
         addClass($(currentDom), `${cls}__${ARROW_BOTTOM}`);
       } else {
         current.top = parent.top - sizeObj.height / 2;
@@ -92,7 +92,7 @@ export const usePositionByParent = (
     case PlacementEnum.Right:
       if (bodyWidth - parent.left - sizeObj.width < currentWidth) {
         current.top = parent.top + sizeObj.height;
-        current.left = parent.left + sizeObj.width / 2 - (currentWidth / 2);
+        current.left = parent.left + sizeObj.width / 2 - currentWidth / 2;
         addClass($(currentDom), `${cls}__${ARROW_BOTTOM}`);
       } else {
         current.top = parent.top - sizeObj.height / 2;
@@ -100,7 +100,8 @@ export const usePositionByParent = (
         addClass($(currentDom), `${cls}__${ARROW_RIGHT}`);
       }
       break;
-    default: break;
+    default:
+      break;
   }
 
   const style = {
@@ -136,7 +137,7 @@ export function hasClass(el: HTMLElement, cls: string): boolean {
   if (el.classList) {
     return el.classList.contains(cls);
   }
-  return (` ${el.className} `).indexOf(` ${cls} `) > -1;
+  return ` ${el.className} `.indexOf(` ${cls} `) > -1;
 }
 export function addClass(el: HTMLElement, cls: string): void {
   if (!el) return;
@@ -187,7 +188,9 @@ export const addStyle = (element: HTMLElement, styleName: CSSStyleDeclaration | 
     });
   } else {
     styleName = camelize(styleName);
-    if (value) { element.style[styleName as any] = value; }
+    if (value) {
+      element.style[styleName as any] = value;
+    }
   }
 };
 export const removeStyle = (element: HTMLElement, styleName: CSSStyleDeclaration | string) => {
