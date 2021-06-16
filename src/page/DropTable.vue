@@ -32,14 +32,12 @@
         <div style="width:300px;">trigger</div>
       </div>
     </el-tooltip>
-    <LyPopper>
+    <LyPopper :content="qwr">
       <template #trigger>
         <div style="width:300px;margin-left:880px">trigg321er</div>
         <h1>trigger</h1>
       </template>
-      <template #default>
-        <div>{{qwr}}</div>
-      </template>
+      <template #default>{{qwr}}</template>
     </LyPopper>
   </div>
 </template>

@@ -42,13 +42,15 @@ export const usePositionByParent = (
   placement: Placement = 'bottom' as Placement,
 ) => {
   const sizeObj = $(parentDom).getBoundingClientRect();
-  const parent = { top: 0, left: 0 };
-  const current = { top: 0, left: 0 };
+  const parent = { top: 0, left: 0, right: 0, bottom: 0 };
+  const current = { top: 0, left: 0, right: 0, bottom: 0 };
   const bodyWidth = document.body.clientWidth;
   const bodyHeight = document.body.clientHeight;
 
   parent.top = sizeObj.top + document.documentElement.scrollTop;
   parent.left = sizeObj.left + document.documentElement.scrollLeft;
+  parent.right = sizeObj.right;
+  parent.bottom = sizeObj.bottom;
 
   switch (placement) {
     case PlacementEnum.Bottom:
