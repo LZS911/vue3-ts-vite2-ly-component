@@ -67,6 +67,8 @@ module.exports = {
     //     }
     //   }
     // ],
+    'func-call-spacing': 0,
+    'no-spaced-func': 0,
     'no-bitwise': 0,
     'no-continue': 0,
     'no-plusplus': 0,

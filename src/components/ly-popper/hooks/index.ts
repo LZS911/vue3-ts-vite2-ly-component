@@ -1,8 +1,9 @@
+import { isArray, $, isBool } from '../../../utils/index';
 import { PatchFlags, getFirstNode } from '../../../utils/vnode';
 import { getDomLength, usePositionByParent } from '../../../utils/dom';
 import { UPDATE_VISIBLE_EVENT, DEFAULT } from '../../../utils/constants';
-import { $, isBool } from '../../../utils/index';
-import { IPropsOptions } from './index.data';
+
+import { IPropsOptions, Placement, TriggerType } from './index.data';
 
 import {
   renderSlot,
@@ -23,12 +24,21 @@ import {
 } from 'vue';
 
 import throwError from '../../../utils/error';
+import { clickOutSide } from '../../../directives';
 
 type InternalSlots = {
   [name: string]: Slot | undefined;
 };
 
 type EmitType = 'update:visible';
+
+export interface IEventHandle {
+  onMouseenter?: (e: Event) => void;
+  onMouseleave?: (e: Event) => void;
+  onClick?: (e: Event) => void;
+  onFocus?: (e: Event) => void;
+  onBlur?: (e: Event) => void;
+}
 
 export interface IRenderPopperProps {
   ref?: string;
@@ -40,6 +50,8 @@ export interface IRenderPopperProps {
 
 export interface IRenderTriggerProps {
   ref?: string;
+  hide?: () => void;
+  popperRef?: HTMLElement;
 }
 
 export function usePopper(props: IPropsOptions, { emit }: SetupContext<EmitType[]>) {
@@ -53,6 +65,7 @@ export function usePopper(props: IPropsOptions, { emit }: SetupContext<EmitType[
   const visibleState = ref(false);
   const visibility = computed({
     get() {
+      if (props.disabled) return false;
       return isBool(props.visible) ? props.visible : $(visibleState);
     },
     set(val: boolean) {
@@ -68,19 +81,64 @@ export function usePopper(props: IPropsOptions, { emit }: SetupContext<EmitType[
     visibility.value = false;
   };
 
-  const mouseEnter = () => {
+  const show = () => {
     _show();
   };
-  const mouseLeave = () => {
+  const hide = () => {
     _hide();
   };
 
-  const events = {
-    onMouseenter: mouseEnter,
-    onMouseleave: mouseLeave
+  const events: IEventHandle = {};
+
+  const addEventsHandle = (e: Event) => {
+    e.stopPropagation();
+
+    switch (e.type) {
+      case 'click':
+        if ($(visibility)) {
+          hide();
+        } else {
+          show();
+        }
+        break;
+      case 'mouseenter': {
+        show();
+        break;
+      }
+      case 'mouseleave': {
+        hide();
+        break;
+      }
+      case 'focus': {
+        show();
+        break;
+      }
+      case 'blur': {
+        hide();
+        break;
+      }
+      default:
+        break;
+    }
   };
 
-  return { triggerRef, popperRef, visibility, events };
+  const eventMap = new Map<TriggerType, (keyof IEventHandle)[]>([
+    ['click', ['onClick']],
+    ['hover', ['onMouseenter', 'onMouseleave']],
+    ['focus', ['onFocus', 'onBlur']]
+  ]);
+
+  const mapFun = (t: TriggerType) => {
+    eventMap.get(t)?.forEach((key) => {
+      events[key] = addEventsHandle;
+    });
+  };
+  if (isArray(props.trigger)) {
+    props.trigger.forEach(mapFun);
+  } else {
+    mapFun(props.trigger);
+  }
+  return { triggerRef, popperRef, visibility, events, hide };
 }
 
 export function useRenderPopper(
@@ -119,6 +177,8 @@ export function useRenderTrigger(slots: Readonly<InternalSlots>, props: IRenderT
   if (!firstNode) {
     throwError('renderTrigger', 'trigger expects single rooted node');
   }
-  const trigger = cloneVNode(firstNode!, props as VNodeProps, true);
+  const trigger = withDirectives(cloneVNode(firstNode!, props as VNodeProps, true), [
+    [clickOutSide, props.hide, props.popperRef as unknown as string]
+  ]);
   return trigger;
 }

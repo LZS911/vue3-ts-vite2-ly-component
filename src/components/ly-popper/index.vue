@@ -20,10 +20,12 @@ export default defineComponent({
     return propsStates;
   },
   render() {
-    const { $slots, content, visibility, events, showArrow, transition } = this;
+    const { $slots, content, visibility, events, showArrow, transition, hide, popperRef } = this;
 
     const triggerProps: IRenderTriggerProps = {
       ref: 'triggerRef',
+      hide,
+      popperRef,
       ...events
     };
 

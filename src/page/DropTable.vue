@@ -27,10 +27,10 @@
       multiple
       defaultFirstRow
     />
-    <el-tooltip :content="qwr" placement="top">
+    <el-tooltip trigger="click" :content="qwr" placement="top">
       <div style="width:100px;margin-left:880px">trigger</div>
     </el-tooltip>
-    <LyPopper :content="qwr">
+    <LyPopper trigger="click" :content="qwr">
       <template #trigger>
         <!-- <h2 style="width:300px;margin-left:880px">trigg321er</h2> -->
         <div style="width:100px;margin-left:880px">trigger</div>
