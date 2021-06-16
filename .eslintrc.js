@@ -67,6 +67,7 @@ module.exports = {
     //     }
     //   }
     // ],
+    'no-bitwise': 0,
     'no-continue': 0,
     'no-plusplus': 0,
     'no-use-before-define': 0,

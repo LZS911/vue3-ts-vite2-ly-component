@@ -1,5 +1,5 @@
 import { isArray } from './index';
-import { createBlock, openBlock, VNode, Fragment, VNodeChild } from 'vue';
+import { createBlock, openBlock, VNode, Fragment, VNodeChild, Comment } from 'vue';
 
 import type { VNodeTypes } from 'vue';
 
@@ -37,16 +37,21 @@ export function renderBlock(
   return (openBlock(), createBlock(node, props, children, patchFlag, patchProps));
 }
 
-export function getChildrenNode(node: VNode, maxDepth: number): VNode | undefined {
-  if (isComment(node)) return;
+export function getChildrenNode(node: VNode, depth: number): VNode | undefined {
   if (isTemplate(node) || isFragment(node)) {
-    return maxDepth > 0 ? getFirstNode(node.children as VNodeChild, maxDepth - 1) : undefined;
+    return depth > 0 ? getFirstNode(node.children as VNodeChild, depth - 1) : undefined;
   }
   return node;
 }
 export function getFirstNode(nodes: VNodeChild, maxDepth: number = 3): ReturnType<typeof getChildrenNode> {
   if (isArray(nodes)) {
-    return getChildrenNode(nodes[0] as VNode, maxDepth);
+    let node;
+    for (let i = 0; i < nodes.length; ++i) {
+      if (isComment(nodes[i])) continue;
+      node = getChildrenNode(nodes[i] as VNode, maxDepth);
+      if (!!node) break;
+    }
+    return node;
   }
   return getChildrenNode(nodes as VNode, maxDepth);
 }

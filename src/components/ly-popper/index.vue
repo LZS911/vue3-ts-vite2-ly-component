@@ -20,7 +20,7 @@ export default defineComponent({
     return propsStates;
   },
   render() {
-    const { $slots, content, visibility, events, showArrow } = this;
+    const { $slots, content, visibility, events, showArrow, transition } = this;
 
     const triggerProps: IRenderTriggerProps = {
       ref: 'triggerRef',
@@ -28,7 +28,7 @@ export default defineComponent({
     };
 
     const trigger = useRenderTrigger($slots, triggerProps);
-    const popper = useRenderPopper($slots, { content, visibility, showArrow });
+    const popper = useRenderPopper($slots, { content, visibility, showArrow, transition });
     return renderBlock(Fragment, null, [trigger!, createVNode(Teleport as any, { to: 'body' }, [popper])]);
   }
 });

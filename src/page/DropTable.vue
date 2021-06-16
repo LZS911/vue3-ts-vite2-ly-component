@@ -28,14 +28,12 @@
       defaultFirstRow
     />
     <el-tooltip :content="qwr" placement="top">
-      <div>
-        <div style="width:300px;">trigger</div>
-      </div>
+      <div style="width:100px;margin-left:880px">trigger</div>
     </el-tooltip>
-    <LyPopper :content="qwr" placement="top">
+    <LyPopper :content="qwr">
       <template #trigger>
-        <h2 style="width:300px;margin-left:880px">trigg321er</h2>
-        <h1>trigger</h1>
+        <!-- <h2 style="width:300px;margin-left:880px">trigg321er</h2> -->
+        <div style="width:100px;margin-left:880px">trigger</div>
       </template>
       <template #default>{{qwr}}</template>
     </LyPopper>
@@ -52,7 +50,7 @@ export default defineComponent({
   setup() {
     const refTable = ref(null);
     const data = reactive({
-      qwr: 123232342342342342342424,
+      qwr: '123232342342342342342424',
       select: [1],
       disable: true,
       inputWidth: 300,

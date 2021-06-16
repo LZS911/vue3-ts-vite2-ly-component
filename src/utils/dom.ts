@@ -65,7 +65,7 @@ export const usePositionByParent = (
         current.top = parent.top + sizeObj.height + 10;
         addClass($(currentDom), `${cls}__${ARROW_BOTTOM}`);
       }
-      current.left = parent.left + sizeObj.width / 2;
+      current.left = parent.left + sizeObj.width / 2 - (currentWidth / 2);
       break;
     case PlacementEnum.Top:
       if (parent.top < currentHeight) {
@@ -75,12 +75,13 @@ export const usePositionByParent = (
         current.top = parent.top - sizeObj.height - 26;
         addClass($(currentDom), `${cls}__${ARROW_TOP}`);
       }
-      current.left = parent.left + sizeObj.width / 2;
+      current.left = parent.left + sizeObj.width / 2 - (currentWidth / 2);
+
       break;
     case PlacementEnum.Left:
       if (parent.left < currentWidth) {
         current.top = parent.top + sizeObj.height;
-        current.left = parent.left;
+        current.left = parent.left + sizeObj.width / 2 - (currentWidth / 2);
         addClass($(currentDom), `${cls}__${ARROW_BOTTOM}`);
       } else {
         current.top = parent.top - sizeObj.height / 2;
@@ -91,7 +92,7 @@ export const usePositionByParent = (
     case PlacementEnum.Right:
       if (bodyWidth - parent.left - sizeObj.width < currentWidth) {
         current.top = parent.top + sizeObj.height;
-        current.left = parent.left + sizeObj.width / 2;
+        current.left = parent.left + sizeObj.width / 2 - (currentWidth / 2);
         addClass($(currentDom), `${cls}__${ARROW_BOTTOM}`);
       } else {
         current.top = parent.top - sizeObj.height / 2;
