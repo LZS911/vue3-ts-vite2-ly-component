@@ -1,6 +1,7 @@
 import { PropType } from 'vue';
 
-export type Placement = 'bottom' | 'left' | 'right' | 'top';
+export type Placement = 'bottom' | 'left' | 'right' | 'top' | 'bottom-left' | 'bottom-right';
+export type ArrowOffset = 'left' | 'center' | 'right';
 export type TriggerType = 'click' | 'hover' | 'focus' | 'manual';
 
 export type Trigger = TriggerType | TriggerType[];
@@ -8,6 +9,7 @@ export type Trigger = TriggerType | TriggerType[];
 const DEFAULT_TRIGGER = 'hover';
 
 export interface IPropsOptions {
+  arrowOffset: ArrowOffset;
   appendBody: boolean;
   autoClose: number;
   content: string;
@@ -82,5 +84,9 @@ export const defaultProps = {
   visible: {
     type: Boolean,
     default: undefined
+  },
+  arrowOffset: {
+    type: String as PropType<ArrowOffset>,
+    default: 'center' as ArrowOffset
   }
 };

@@ -3,7 +3,7 @@ import { PatchFlags, getFirstNode } from '../../../utils/vnode';
 import { getDomLength, usePositionByParent } from '../../../utils/dom';
 import { UPDATE_VISIBLE_EVENT, DEFAULT } from '../../../utils/constants';
 
-import { IPropsOptions, Placement, TriggerType } from './index.data';
+import { IPropsOptions, TriggerType } from './index.data';
 
 import {
   renderSlot,
@@ -52,6 +52,7 @@ export interface IRenderTriggerProps {
   ref?: string;
   hide?: () => void;
   popperRef?: HTMLElement;
+  events: IEventHandle;
 }
 
 export function usePopper(props: IPropsOptions, { emit }: SetupContext<EmitType[]>) {
@@ -59,7 +60,15 @@ export function usePopper(props: IPropsOptions, { emit }: SetupContext<EmitType[
   const popperRef = ref<Ref<HTMLElement>>(null as any);
 
   onMounted(() => {
-    usePositionByParent(triggerRef, popperRef, undefined, getDomLength(props.content) + 30, props.placement);
+    usePositionByParent(
+      triggerRef,
+      popperRef,
+      undefined,
+      getDomLength(props.content) + 30,
+      props.placement,
+      undefined,
+      props.arrowOffset
+    );
   });
 
   const visibleState = ref(false);
@@ -178,7 +187,7 @@ export function useRenderTrigger(slots: Readonly<InternalSlots>, props: IRenderT
   if (!firstNode) {
     throwError('renderTrigger', 'trigger expects single rooted node');
   }
-  const trigger = withDirectives(cloneVNode(firstNode!, props as VNodeProps, true), [
+  const trigger = withDirectives(cloneVNode(firstNode!, { ref: props.ref, ...props.events } as VNodeProps, true), [
     [clickOutSide, props.hide, props.popperRef as unknown as string]
   ]);
   return trigger;

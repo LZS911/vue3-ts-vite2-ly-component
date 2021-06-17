@@ -10,5 +10,7 @@ export const EMPTY_STR = '';
 
 export const ARROW_RIGHT = 'arrow_right';
 export const ARROW_BOTTOM = 'arrow_bottom';
+export const ARROW_BOTTOM_LEFT = 'arrow_bottom_left';
+export const ARROW_BOTTOM_RIGHT = 'arrow_bottom_right';
 export const ARROW_LEFT = 'arrow_left';
 export const ARROW_TOP = 'arrow_top';

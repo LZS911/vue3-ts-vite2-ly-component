@@ -1,6 +1,6 @@
-import { ARROW_BOTTOM, ARROW_TOP, ARROW_LEFT, ARROW_RIGHT } from './constants';
+import { ARROW_BOTTOM, ARROW_TOP, ARROW_LEFT, ARROW_RIGHT, ARROW_BOTTOM_LEFT } from './constants';
 /* eslint-disable no-param-reassign */
-import { Placement } from '../components/ly-popper/hooks/index.data';
+import { Placement, ArrowOffset } from '../components/ly-popper/hooks/index.data';
 import { Ref } from 'vue';
 import { $ } from '.';
 import { camelCase, isObject } from 'lodash';
@@ -11,6 +11,13 @@ export enum PlacementEnum {
   Left = 'left',
   Top = 'top',
   Right = 'right'
+}
+
+export interface IPosition {
+  top: number;
+  left: number;
+  bottom: number;
+  right: number;
 }
 
 export const on = (
@@ -35,20 +42,74 @@ export const off = (
   }
 };
 
+const setBottomOrTop = (
+  current: IPosition,
+  sizeObj: DOMRect,
+  parent: IPosition,
+  currentDom: Ref<HTMLElement>,
+  cls: string,
+  arrowOffset: ArrowOffset,
+  currentWidth: number,
+  model: PlacementEnum,
+  position?: PlacementEnum
+) => {
+  if (model === PlacementEnum.Bottom) {
+    current.top = parent.top + sizeObj.height + 10;
+    addClass($(currentDom), `${cls}__${ARROW_BOTTOM} ${cls}__${ARROW_BOTTOM}__${arrowOffset}`);
+  } else if (model === PlacementEnum.Top) {
+    current.top = parent.top - sizeObj.height - 26;
+    addClass($(currentDom), `${cls}__${ARROW_TOP} ${cls}__${ARROW_TOP}__${arrowOffset}`);
+  }
+  if (position === PlacementEnum.Left) {
+    current.left = parent.left;
+  } else if (position === PlacementEnum.Right) {
+    current.left = parent.left + (sizeObj.width - currentWidth);
+  } else {
+    current.left = parent.left + sizeObj.width / 2 - currentWidth / 2;
+  }
+};
+
+const setLeftOrRight = (
+  current: IPosition,
+  sizeObj: DOMRect,
+  parent: IPosition,
+  currentDom: Ref<HTMLElement>,
+  cls: string,
+  arrowOffset: ArrowOffset,
+  currentWidth: number,
+  model: PlacementEnum,
+  position?: PlacementEnum
+) => {
+  if (model === PlacementEnum.Left) {
+    current.left = parent.left - currentWidth - 10;
+    addClass($(currentDom), `${cls}__${ARROW_LEFT} ${cls}__${ARROW_LEFT}__${arrowOffset}`);
+  } else if (model === PlacementEnum.Right) {
+    current.left = parent.left + sizeObj.width;
+    addClass($(currentDom), `${cls}__${ARROW_RIGHT} ${cls}__${ARROW_RIGHT}__${arrowOffset}`);
+  }
+  if (position === PlacementEnum.Top) {
+    current.top = parent.top;
+  } else if (position === PlacementEnum.Bottom) {
+    current.top = parent.top + sizeObj.height;
+  } else {
+    current.top = parent.top + sizeObj.height / 2;
+  }
+};
+
 export const usePositionByParent = (
   parentDom: Ref<HTMLElement>,
   currentDom: Ref<HTMLElement>,
   currentHeight: number = 50,
   currentWidth: number = 50,
   placement: Placement = 'bottom' as Placement,
-  cls: string = 'ly-popper'
+  cls: string = 'ly-popper',
+  arrowOffset: ArrowOffset = 'center' as ArrowOffset
 ) => {
   const sizeObj = $(parentDom).getBoundingClientRect();
   const parent = { top: 0, left: 0, right: 0, bottom: 0 };
   const current = { top: 0, left: 0, right: 0, bottom: 0 };
   const bodyWidth = document.body.clientWidth;
   const bodyHeight = document.body.clientHeight;
-
   const arrowCls = '';
 
   parent.top = sizeObj.top + document.documentElement.scrollTop;
@@ -56,49 +117,71 @@ export const usePositionByParent = (
   parent.right = sizeObj.right;
   parent.bottom = sizeObj.bottom;
 
-  switch (placement) {
+  const placementArr = placement.split('-');
+  let flag;
+  switch (placementArr[0]) {
     case PlacementEnum.Bottom:
-      if (bodyHeight - sizeObj.height - parent.top < currentHeight) {
-        current.top = parent.top - sizeObj.height - 20;
-        addClass($(currentDom), `${cls}__${ARROW_TOP}`);
-      } else {
-        current.top = parent.top + sizeObj.height + 10;
-        addClass($(currentDom), `${cls}__${ARROW_BOTTOM}`);
-      }
-      current.left = parent.left + sizeObj.width / 2 - currentWidth / 2;
+      flag = bodyHeight - sizeObj.height - parent.top < currentHeight;
+      setBottomOrTop(
+        current,
+        sizeObj,
+        parent,
+        currentDom,
+        cls,
+        arrowOffset,
+        currentWidth,
+        flag ? PlacementEnum.Top : PlacementEnum.Bottom,
+        placementArr[1] as PlacementEnum
+      );
       break;
     case PlacementEnum.Top:
-      if (parent.top < currentHeight) {
-        current.top = parent.top + sizeObj.height + 10;
-        addClass($(currentDom), `${cls}__${ARROW_BOTTOM}`);
-      } else {
-        current.top = parent.top - sizeObj.height - 26;
-        addClass($(currentDom), `${cls}__${ARROW_TOP}`);
-      }
-      current.left = parent.left + sizeObj.width / 2 - currentWidth / 2;
-
+      flag = parent.top < currentHeight;
+      setBottomOrTop(
+        current,
+        sizeObj,
+        parent,
+        currentDom,
+        cls,
+        arrowOffset,
+        currentWidth,
+        flag ? PlacementEnum.Bottom : PlacementEnum.Top,
+        placementArr[1] as PlacementEnum
+      );
       break;
     case PlacementEnum.Left:
-      if (parent.left < currentWidth) {
-        current.top = parent.top + sizeObj.height;
-        current.left = parent.left + sizeObj.width / 2 - currentWidth / 2;
-        addClass($(currentDom), `${cls}__${ARROW_BOTTOM}`);
+      if (flag) {
+        setBottomOrTop(current, sizeObj, parent, currentDom, cls, arrowOffset, currentWidth, PlacementEnum.Bottom);
       } else {
-        current.top = parent.top - sizeObj.height / 2;
-        current.left = parent.left - currentWidth - 10;
-        addClass($(currentDom), `${cls}__${ARROW_LEFT}`);
+        setLeftOrRight(
+          current,
+          sizeObj,
+          parent,
+          currentDom,
+          cls,
+          arrowOffset,
+          currentWidth,
+          PlacementEnum.Left,
+          placementArr[1] as PlacementEnum
+        );
       }
       break;
     case PlacementEnum.Right:
-      if (bodyWidth - parent.left - sizeObj.width < currentWidth) {
-        current.top = parent.top + sizeObj.height;
-        current.left = parent.left + sizeObj.width / 2 - currentWidth / 2;
-        addClass($(currentDom), `${cls}__${ARROW_BOTTOM}`);
+      if (flag) {
+        setBottomOrTop(current, sizeObj, parent, currentDom, cls, arrowOffset, currentWidth, PlacementEnum.Bottom);
       } else {
-        current.top = parent.top - sizeObj.height / 2;
-        current.left = parent.left + sizeObj.width;
-        addClass($(currentDom), `${cls}__${ARROW_RIGHT}`);
+        setLeftOrRight(
+          current,
+          sizeObj,
+          parent,
+          currentDom,
+          cls,
+          arrowOffset,
+          currentWidth,
+          PlacementEnum.Right,
+          placementArr[1] as PlacementEnum
+        );
       }
+
       break;
     default:
       break;
@@ -114,15 +197,7 @@ export const usePositionByParent = (
   return arrowCls;
 };
 
-export const setTableScrollIntoView = (currentIndex: number, lineHeight: number, currentDom: any, count: number) => {
-  if (currentDom.$refs.bodyWrapper.scrollTop === 0) {
-    if (currentIndex > count) {
-      currentDom.$refs.bodyWrapper.scrollTop = currentIndex * lineHeight;
-    }
-  } else {
-    currentDom.$refs.bodyWrapper.scrollTop = currentIndex * lineHeight;
-  }
-};
+export const setTableScrollIntoView = (currentIndex: number, lineHeight: number, currentDom: any, count: number) => {};
 
 export const trim = function (s: string) {
   return (s || '').replace(/^[\s\uFEFF]+|[\s\uFEFF]+$/g, '');

@@ -26,7 +26,7 @@ export default defineComponent({
       ref: 'triggerRef',
       hide,
       popperRef,
-      ...events
+      events
     };
 
     const trigger = useRenderTrigger($slots, triggerProps);

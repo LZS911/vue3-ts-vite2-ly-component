@@ -1,0 +1,183 @@
+@import '../../mixin.scss';
+
+.ly-popper__arrow {
+
+
+  &:after,
+  &:before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+
+  }
+
+}
+
+.ly-popper__arrow_top {
+
+  &:after,
+  &:before {
+    top: 100%;
+    border-top-color: $border-color;
+    left: calc(50% - 6px);
+
+  }
+
+  &:after {
+    border-top-color: #fff;
+    top: calc(100% - 1px);
+  }
+
+}
+
+.ly-popper__arrow_top__left {
+
+  &:after,
+  &:before {
+    left: 16px;
+  }
+
+}
+
+.ly-popper__arrow_top__center {
+
+  &:after,
+  &:before {
+    left: calc(50% - 6px);
+  }
+
+}
+
+.ly-popper__arrow_top__right {
+
+  &:after,
+  &:before {
+    left: calc(100% - 20px);
+  }
+
+}
+
+.ly-popper__arrow_bottom {
+
+  &:after,
+  &:before {
+    bottom: 100%;
+    border-bottom-color: $border-color;
+    left: calc(50% - 6px);
+  }
+
+  &:after {
+    border-bottom-color: #fff;
+    bottom: calc(100% - 1px);
+  }
+}
+
+.ly-popper__arrow_bottom__left {
+
+  &:after,
+  &:before {
+    left: 16px;
+  }
+
+}
+
+.ly-popper__arrow_bottom__center {
+
+  &:after,
+  &:before {
+    left: calc(50% - 6px);
+  }
+
+}
+
+.ly-popper__arrow_bottom__right {
+
+  &:after,
+  &:before {
+    left: calc(100% - 20px);
+  }
+
+}
+
+
+.ly-popper__arrow_left {
+
+  &:after,
+  &:before {
+    left: 100%;
+    border-left-color: $border-color;
+    bottom: calc(50% - 6px);
+  }
+
+  &:after {
+    border-left-color: #fff;
+    left: calc(100% - 1px);
+
+  }
+}
+
+.ly-popper__arrow_left__left {
+
+  &:after,
+  &:before {
+    left: 100%;
+  }
+}
+
+.ly-popper__arrow_left__center {
+
+  &:after,
+  &:before {
+    left: 100%;
+  }
+}
+
+.ly-popper__arrow_left__right {
+
+  &:after,
+  &:before {
+    left: 100%;
+  }
+}
+
+
+.ly-popper__arrow_right {
+
+  &:after,
+  &:before {
+    right: 100%;
+    border-right-color: $border-color;
+    bottom: calc(50% - 6px);
+  }
+
+  &:after {
+    border-right-color: #fff;
+    right: calc(100% - 1px);
+  }
+}
+
+.ly-popper__arrow_right__left {
+
+  &:after,
+  &:before {
+    left: 100%;
+  }
+}
+
+.ly-popper__arrow_right__center {
+
+  &:after,
+  &:before {
+    left: 100%;
+  }
+}
+
+.ly-popper__arrow_right__right {
+
+  &:after,
+  &:before {
+    left: 100%;
+  }
+}
