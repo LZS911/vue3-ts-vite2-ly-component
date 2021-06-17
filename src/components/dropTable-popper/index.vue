@@ -1,12 +1,18 @@
 <template>
-  <ly-popper arrowOffset="left" placement="bottom-left" :trigger="['click']">
+  <ly-popper
+    :popperWidth="80"
+    :popperHeight="100"
+    placement="bottom-left"
+    arrowOffset="left"
+    :trigger="['click']"
+  >
     <template #trigger>
-      <div style="width:180px; margin-left:20px;">
+      <div style="width:180px;margin-top:100px; margin-left:220px;border:1px solid red;">
         <input />
       </div>
     </template>
     <template #default>
-      <el-table />
+      <el-table :style="{width:'80px', height:'100px'}" />
     </template>
   </ly-popper>
 </template>

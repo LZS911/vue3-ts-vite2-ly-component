@@ -50,6 +50,7 @@ const setBottomOrTop = (
   cls: string,
   arrowOffset: ArrowOffset,
   currentWidth: number,
+  currentHeight: number,
   model: PlacementEnum,
   position?: PlacementEnum
 ) => {
@@ -57,7 +58,7 @@ const setBottomOrTop = (
     current.top = parent.top + sizeObj.height + 10;
     addClass($(currentDom), `${cls}__${ARROW_BOTTOM} ${cls}__${ARROW_BOTTOM}__${arrowOffset}`);
   } else if (model === PlacementEnum.Top) {
-    current.top = parent.top - sizeObj.height - 26;
+    current.top = parent.top - sizeObj.height - currentHeight - 10;
     addClass($(currentDom), `${cls}__${ARROW_TOP} ${cls}__${ARROW_TOP}__${arrowOffset}`);
   }
   if (position === PlacementEnum.Left) {
@@ -77,14 +78,15 @@ const setLeftOrRight = (
   cls: string,
   arrowOffset: ArrowOffset,
   currentWidth: number,
+  currentHeight: number,
   model: PlacementEnum,
   position?: PlacementEnum
 ) => {
   if (model === PlacementEnum.Left) {
-    current.left = parent.left - currentWidth - 10;
+    current.left = parent.left - currentWidth - 30;
     addClass($(currentDom), `${cls}__${ARROW_LEFT} ${cls}__${ARROW_LEFT}__${arrowOffset}`);
   } else if (model === PlacementEnum.Right) {
-    current.left = parent.left + sizeObj.width;
+    current.left = parent.left + sizeObj.width + 20;
     addClass($(currentDom), `${cls}__${ARROW_RIGHT} ${cls}__${ARROW_RIGHT}__${arrowOffset}`);
   }
   if (position === PlacementEnum.Top) {
@@ -92,7 +94,7 @@ const setLeftOrRight = (
   } else if (position === PlacementEnum.Bottom) {
     current.top = parent.top + sizeObj.height;
   } else {
-    current.top = parent.top + sizeObj.height / 2;
+    current.top = parent.top + sizeObj.height / 2 - currentHeight / 2;
   }
 };
 
@@ -130,6 +132,7 @@ export const usePositionByParent = (
         cls,
         arrowOffset,
         currentWidth,
+        currentHeight,
         flag ? PlacementEnum.Top : PlacementEnum.Bottom,
         placementArr[1] as PlacementEnum
       );
@@ -144,13 +147,25 @@ export const usePositionByParent = (
         cls,
         arrowOffset,
         currentWidth,
+        currentHeight,
         flag ? PlacementEnum.Bottom : PlacementEnum.Top,
         placementArr[1] as PlacementEnum
       );
       break;
     case PlacementEnum.Left:
+      flag = parent.left < currentWidth;
       if (flag) {
-        setBottomOrTop(current, sizeObj, parent, currentDom, cls, arrowOffset, currentWidth, PlacementEnum.Bottom);
+        setBottomOrTop(
+          current,
+          sizeObj,
+          parent,
+          currentDom,
+          cls,
+          arrowOffset,
+          currentWidth,
+          currentHeight,
+          PlacementEnum.Bottom
+        );
       } else {
         setLeftOrRight(
           current,
@@ -160,14 +175,27 @@ export const usePositionByParent = (
           cls,
           arrowOffset,
           currentWidth,
+          currentHeight,
           PlacementEnum.Left,
           placementArr[1] as PlacementEnum
         );
       }
       break;
     case PlacementEnum.Right:
+      flag =
+        bodyWidth - parent.left - sizeObj.width < currentWidth || currentHeight / 2 > parent.top + sizeObj.height / 2;
       if (flag) {
-        setBottomOrTop(current, sizeObj, parent, currentDom, cls, arrowOffset, currentWidth, PlacementEnum.Bottom);
+        setBottomOrTop(
+          current,
+          sizeObj,
+          parent,
+          currentDom,
+          cls,
+          arrowOffset,
+          currentWidth,
+          currentHeight,
+          PlacementEnum.Bottom
+        );
       } else {
         setLeftOrRight(
           current,
@@ -177,11 +205,11 @@ export const usePositionByParent = (
           cls,
           arrowOffset,
           currentWidth,
+          currentHeight,
           PlacementEnum.Right,
           placementArr[1] as PlacementEnum
         );
       }
-
       break;
     default:
       break;

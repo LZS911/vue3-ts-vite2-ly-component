@@ -1,4 +1,5 @@
-import { isArray, $, isBool } from '../../../utils/index';
+import { useWidthOrHeight, isArray, $, isBool } from '../../../utils/index';
+
 import { PatchFlags, getFirstNode } from '../../../utils/vnode';
 import { getDomLength, usePositionByParent } from '../../../utils/dom';
 import { UPDATE_VISIBLE_EVENT, DEFAULT } from '../../../utils/constants';
@@ -63,8 +64,8 @@ export function usePopper(props: IPropsOptions, { emit }: SetupContext<EmitType[
     usePositionByParent(
       triggerRef,
       popperRef,
-      undefined,
-      getDomLength(props.content) + 30,
+      props.popperHeight ? props.popperHeight : undefined,
+      props.popperWidth ? props.popperWidth : getDomLength(props.content) + 30,
       props.placement,
       undefined,
       props.arrowOffset

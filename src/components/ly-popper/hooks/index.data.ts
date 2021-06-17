@@ -24,6 +24,8 @@ export interface IPropsOptions {
   transition: string;
   trigger: Trigger;
   visible: boolean;
+  popperWidth?: number;
+  popperHeight?: number;
 }
 
 export const defaultProps = {
@@ -88,5 +90,11 @@ export const defaultProps = {
   arrowOffset: {
     type: String as PropType<ArrowOffset>,
     default: 'center' as ArrowOffset
+  },
+  popperWidth: {
+    type: Number
+  },
+  popperHeight: {
+    type: Number
   }
 };
