@@ -225,7 +225,15 @@ export const usePositionByParent = (
   return arrowCls;
 };
 
-export const setTableScrollIntoView = (currentIndex: number, lineHeight: number, currentDom: any, count: number) => {};
+export const setTableScrollIntoView = (currentIndex: number, lineHeight: number, currentDom: any, count: number) => {
+  if (currentDom.$refs.bodyWrapper.scrollTop === 0) {
+    if (currentIndex > count) {
+      currentDom.$refs.bodyWrapper.scrollTop = currentIndex * lineHeight;
+    }
+  } else {
+    currentDom.$refs.bodyWrapper.scrollTop = currentIndex * lineHeight;
+  }
+};
 
 export const trim = function (s: string) {
   return (s || '').replace(/^[\s\uFEFF]+|[\s\uFEFF]+$/g, '');

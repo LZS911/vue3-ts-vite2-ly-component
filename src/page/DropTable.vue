@@ -3,7 +3,6 @@
     <LyDroptable
       valueKey="prgNo"
       labelKey="prgName"
-      :disable="disable"
       inputWidth="300px"
       :tableList="tableList"
       :columnList="columnList"
@@ -54,7 +53,10 @@ export default defineComponent({
         { prgName: 'test6', prgNo: 6, prgUrl: 'adfafjdasfalsfjdalfaj' },
         { prgName: 'test7', prgNo: 7, prgUrl: 'adfafjdasfalsfjdalfaj' },
         { prgName: 'test8', prgNo: 8, prgUrl: 'adfafjdasfalsfjdalfaj' },
-        { prgName: 'test9', prgNo: 9, prgUrl: 'adfafjdasfalsfjdalfaj' }
+        { prgName: 'test9', prgNo: 9, prgUrl: 'adfafjdasfalsfjdalfaj' },
+        { prgName: 'test10', prgNo: 10, prgUrl: 'adfafjdasfalsfjdalfaj' },
+        { prgName: 'test11', prgNo: 11, prgUrl: 'adfafjdasfalsfjdalfaj' },
+        { prgName: 'test12', prgNo: 12, prgUrl: 'adfafjdasfalsfjdalfaj' }
       ],
       columnList: [
         {
