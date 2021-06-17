@@ -3,7 +3,7 @@ import { ARROW_BOTTOM, ARROW_TOP, ARROW_LEFT, ARROW_RIGHT, ARROW_BOTTOM_LEFT } f
 import { Placement, ArrowOffset } from '../components/ly-popper/hooks/index.data';
 import { Ref } from 'vue';
 import { $ } from '.';
-import { camelCase, isObject } from 'lodash';
+import { isObject } from 'lodash';
 import { camelize } from '@vue/shared';
 
 export enum PlacementEnum {

@@ -172,7 +172,7 @@ export function useRenderPopper(
             { ref, class: kls },
             [children],
             PatchFlags.CLASS | PatchFlags.PROPS | PatchFlags.HYDRATE_EVENTS,
-            ['onMouseenter', 'onMouseleave']
+            ['onMouseenter', 'onMouseleave', 'onClick']
           ),
           [[vShow, visibility]]
         )
