@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>test1</title>
+  </head>
+  <style>
+    .box {
+      width: 200px;
+      height: 200px;
+      background-color: aqua;
+      margin: 10px;
+    }
+    .one {
+      animation: move 1s linear infinite alternate;
+    }
+    .two {
+      animation: movee 1s ease-out forwards infinite;
+    }
+    @keyframes move {
+      form {
+        margin-left: 0;
+      }
+      to {
+        margin-left: 400px;
+      }
+    }
+    @keyframes movee {
+      form {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(400px);
+      }
+    }
+  </style>
+  <body>
+    <button onclick="test()">test</button>
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+
+    <div class="box one"></div>
+    <div class="box two"></div>
+
+    <script>
+      // window.onload = test;
+      function test() {
+        const now = Date.now();
+        while (true) {
+          if (Date.now() - now > 3000) break;
+        }
+      }
+    </script>
+  </body>
+</html>

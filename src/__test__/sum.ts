@@ -14,3 +14,9 @@ export function arrReturn() {
 export function toThrow() {
   throw new Error('this is a error!');
 }
+
+export function forEach<T>(items: T[], callback: Function) {
+  for (let i = 0; i < items.length; ++i) {
+    callback(items[i], i, items);
+  }
+}
