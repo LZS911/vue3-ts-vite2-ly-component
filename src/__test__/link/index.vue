@@ -1,6 +1,7 @@
 <template>
-  <div class="warrp">
-    <h1>testComponent</h1>
+  <div>
+    <a id="profile" href="/profile">My Profile</a>
+    <a v-if="admin" id="admin" href="/admin">Admin</a>
   </div>
 </template>
 
@@ -8,20 +9,15 @@
 import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
-  name: 'testComponent',
+  name: 'Link',
   components: {},
   props: {},
   setup() {
-    const todos = ref([{ id: 1, text: 'Learn Vue.js 3', completed: false }]);
+    const admin = ref(false);
 
     return {
-      todos
+      admin
     };
   }
 });
 </script>
-
-<style lang='scss' scoped>
-.warrp {
-}
-</style>
