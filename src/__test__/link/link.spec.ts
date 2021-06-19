@@ -12,13 +12,13 @@ describe('Link.vue', () => {
     expect(wrapper.find('#admin').exists()).toBe(false);
   });
 
-  test('render an admin link', () => {
-    const Wrapper = mount(LinkApp, {
-      data() {
-        return {
-          admin: true
-        };
-      }
-    });
+  test('render an admin link', async () => {
+    await wrapper.get('#showAdmin').trigger('click');
+    expect(wrapper.get('#admin').text()).toEqual('Admin');
+  });
+
+  test('does not show the userDrop, but can get text', () => {
+    expect(wrapper.get('#userDrop').isVisible()).toBe(false);
+    expect(wrapper.get('#userDrop').text()).toEqual('userDrop');
   });
 });
