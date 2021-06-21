@@ -66,9 +66,5 @@ describe('dropTable.vue', () => {
     expect(drop.vm.visibility).toBe(false);
     await input.trigger(EVENT_CLICK);
     expect(drop.vm.visibility).toBe(true);
-
-    setTimeout(() => {
-      expect(table.isVisible()).toBe(true);
-    }, 1000);
   });
 });

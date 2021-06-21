@@ -20,13 +20,29 @@ export default defineComponent({
     return propsStates;
   },
   render() {
-    const { $slots, content, visibility, events, showArrow, transition, hide, popperRef, appendBody } = this;
+    const {
+      $slots,
+      content,
+      visibility,
+      events,
+      showArrow,
+      transition,
+      hide,
+      popperRef,
+      appendBody,
+      manualMode,
+      class: className,
+      style
+    } = this;
 
     const triggerProps: IRenderTriggerProps = {
       ref: 'triggerRef',
       hide,
       popperRef,
-      events
+      events,
+      manualMode,
+      className,
+      style
     };
 
     const trigger = useRenderTrigger($slots, triggerProps);

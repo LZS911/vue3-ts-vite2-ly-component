@@ -1,4 +1,4 @@
-import { useWidthOrHeight, isArray, $, isBool } from '../../../utils/index';
+import { isArray, $, isBool } from '../../../utils/index';
 
 import { PatchFlags, getFirstNode } from '../../../utils/vnode';
 import { getDomLength, usePositionByParent } from '../../../utils/dom';
@@ -53,13 +53,15 @@ export interface IRenderTriggerProps {
   ref?: string;
   hide?: () => void;
   popperRef?: HTMLElement;
-  events: IEventHandle;
+  events?: IEventHandle;
+  manualMode?: boolean;
+  className?: string;
+  style?: Object;
 }
 
 export function usePopper(props: IPropsOptions, { emit }: SetupContext<EmitType[]>) {
   const triggerRef = ref<Ref<HTMLElement>>(null as any);
   const popperRef = ref<Ref<HTMLElement>>(null as any);
-
   onMounted(() => {
     usePositionByParent(
       triggerRef,
@@ -92,9 +94,11 @@ export function usePopper(props: IPropsOptions, { emit }: SetupContext<EmitType[
   };
 
   const show = () => {
+    if (props.manualMode || props.disabled) return;
     _show();
   };
   const hide = () => {
+    if (props.manualMode) return;
     _hide();
   };
 
@@ -188,8 +192,10 @@ export function useRenderTrigger(slots: Readonly<InternalSlots>, props: IRenderT
   if (!firstNode) {
     throwError('renderTrigger', 'trigger expects single rooted node');
   }
-  const trigger = withDirectives(cloneVNode(firstNode!, { ref: props.ref, ...props.events } as VNodeProps, true), [
-    [clickOutSide, props.hide, props.popperRef as unknown as string]
-  ]);
+  const trigger = props.manualMode
+    ? cloneVNode(firstNode!, { style: props.style, class: props.className, ref: props.ref, ...props.events } as VNodeProps, true)
+    : withDirectives(cloneVNode(firstNode!, { style: props.style, class: props.className, ref: props.ref, ...props.events } as VNodeProps, true), [
+      [clickOutSide, props.hide, props.popperRef as unknown as string]
+    ]);
   return trigger;
 }

@@ -26,6 +26,7 @@ export interface IPropsOptions {
   visible: boolean;
   popperWidth?: number;
   popperHeight?: number;
+  modelValue?: boolean;
 }
 
 export const defaultProps = {
@@ -96,5 +97,10 @@ export const defaultProps = {
   },
   popperHeight: {
     type: Number
+  },
+  modelValue: {
+    type: Boolean,
+    validator: (val: unknown) => typeof val === 'boolean',
+    default: undefined
   }
 };
