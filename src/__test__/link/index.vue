@@ -4,6 +4,7 @@
     <a v-if="admin" id="admin" href="/admin">Admin</a>
     <a v-show="userDrop" id="userDrop">userDrop</a>
     <button id="showAdmin" @click="showAdmin">showAdmin</button>
+    <button id="showUserDrop" @click="showDrop">showDrop</button>
   </div>
 </template>
 
@@ -19,13 +20,19 @@ export default defineComponent({
   setup() {
     const admin = ref(false);
     const showLink = ref(false);
+    const userDrop = ref(false);
     const showAdmin = () => {
       admin.value = true;
+    };
+    const showDrop = () => {
+      userDrop.value = true;
     };
     return {
       admin,
       showLink,
-      showAdmin
+      showAdmin,
+      showDrop,
+      userDrop
     };
   }
 });

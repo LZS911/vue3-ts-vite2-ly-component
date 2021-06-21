@@ -5,6 +5,7 @@ import { Ref } from 'vue';
 import { $ } from '.';
 import { isObject } from 'lodash';
 import { camelize } from '@vue/shared';
+import throwError from '../utils/error';
 
 export enum PlacementEnum {
   Bottom = 'bottom',
@@ -107,7 +108,11 @@ export const usePositionByParent = (
   cls: string = 'ly-popper',
   arrowOffset: ArrowOffset = 'center' as ArrowOffset
 ) => {
+  if (!$(parentDom).getBoundingClientRect) {
+    throwError('popper', 'should a single node');
+  }
   const sizeObj = $(parentDom).getBoundingClientRect();
+
   const parent = { top: 0, left: 0, right: 0, bottom: 0 };
   const current = { top: 0, left: 0, right: 0, bottom: 0 };
   const bodyWidth = document.body.clientWidth;

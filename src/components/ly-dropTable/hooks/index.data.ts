@@ -88,5 +88,9 @@ export const defaultProps = {
   multiple: {
     type: Boolean,
     default: false
+  },
+  appendToBody: {
+    type: Boolean,
+    default: false
   }
 };

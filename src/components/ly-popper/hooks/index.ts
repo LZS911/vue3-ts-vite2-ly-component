@@ -169,10 +169,10 @@ export function useRenderPopper(
         withDirectives(
           createVNode(
             'div',
-            { ref, class: kls },
+            { 'aria-hidden': String(!visibility), ref, class: kls, role: 'popper' },
             [children],
             PatchFlags.CLASS | PatchFlags.PROPS | PatchFlags.HYDRATE_EVENTS,
-            ['onMouseenter', 'onMouseleave', 'onClick']
+            ['onMouseenter', 'onMouseleave', 'onClick', 'aria-hidden', 'id', 'onMousedown', 'onMouseup']
           ),
           [[vShow, visibility]]
         )

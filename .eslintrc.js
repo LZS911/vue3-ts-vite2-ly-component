@@ -67,6 +67,7 @@ module.exports = {
     //     }
     //   }
     // ],
+    'vue/valid-v-model': 0,
     'func-call-spacing': 0,
     'no-spaced-func': 0,
     'no-bitwise': 0,

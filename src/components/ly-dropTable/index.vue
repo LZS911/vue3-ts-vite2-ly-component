@@ -29,7 +29,7 @@
         <i v-show="!showClose" :class="arrowIcon"></i>
       </div>
     </div>
-    <teleport to="body">
+    <teleport to="body" :disabled="!appendToBody">
       <transition :name="transitionName">
         <div
           :style="tableStyle"

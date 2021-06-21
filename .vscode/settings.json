@@ -23,4 +23,5 @@
     "source.fixAll": true
   },
   "editor.formatOnSave": true,
+  "vetur.validation.template": false
 }

@@ -17,8 +17,12 @@ describe('Link.vue', () => {
     expect(wrapper.get('#admin').text()).toEqual('Admin');
   });
 
-  test('does not show the userDrop, but can get text', () => {
+  test('does not show the userDrop, but can get text', async () => {
     expect(wrapper.get('#userDrop').isVisible()).toBe(false);
     expect(wrapper.get('#userDrop').text()).toEqual('userDrop');
+    const btn = wrapper.find('#showUserDrop');
+    await btn.trigger('click');
+    expect(wrapper.findComponent(LinkApp).vm.userDrop).toBe(true);
+    expect(wrapper.get('#userDrop').isVisible()).toBe(true);
   });
 });

@@ -1,5 +1,5 @@
 <script lang='ts'>
-import { defineComponent, createVNode, Fragment, Teleport, onMounted } from 'vue';
+import { defineComponent, createVNode, Fragment, Teleport } from 'vue';
 import { renderBlock } from '../../utils/vnode';
 import throwError from '../../utils/error';
 import { defaultProps, IPropsOptions } from './hooks/index.data';

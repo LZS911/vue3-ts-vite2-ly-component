@@ -26,7 +26,12 @@
       multiple
       defaultFirstRow
     />
-    <DropTablePopper />
+    <!-- <DropTablePopper /> -->
+    <LyPopper :appendBody="false" trigger="click">
+      <template #trigger>
+        <div class="test-trigger">123</div>
+      </template>
+    </LyPopper>
   </div>
 </template>
 
@@ -77,7 +82,7 @@ export default defineComponent({
       ],
       table1: 1,
       table2: [2, 3],
-      visible: true
+      visible: false
     });
     const test = () => {
       data.disable = !data.disable;
