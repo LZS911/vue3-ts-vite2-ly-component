@@ -19,12 +19,15 @@
 
 <script lang='ts'>
 import { defineComponent } from 'vue';
+import useDropTable from './hooks';
+import { clickOutSide } from '../../directives';
+import { defaultProps } from './hooks/index.data';
 
-const NAME = 'DropTablePopper';
+const NAME = 'LyDropTablePopper';
 export default defineComponent({
   name: NAME,
   components: {},
-  props: {},
+  props: defaultProps,
   setup() {}
 });
 </script>

@@ -1,3 +1,4 @@
-import LyDroptable from './index.vue';
+import LyDropTable from './index.vue';
+import PopperDropTable from './popperDrop.vue';
 
-export default LyDroptable;
+export { LyDropTable, PopperDropTable };
