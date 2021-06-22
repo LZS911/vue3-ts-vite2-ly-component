@@ -14,7 +14,7 @@ import {
 import 'element-plus/packages/theme-chalk/src/base.scss';
 import './styles/element-variables.scss';
 import router from './router';
-import { LyDropTable, LyPopper, DropTablePopper, PopperDropTable } from './components';
+import { LyDropTable, LyPopper, DropTablePopper } from './components';
 
 const elComponents = [
   ElButton,
@@ -28,8 +28,7 @@ const elComponents = [
   LyDropTable,
   ElPopover,
   LyPopper,
-  DropTablePopper,
-  PopperDropTable
+  DropTablePopper
 ];
 
 const app = createApp(App);
