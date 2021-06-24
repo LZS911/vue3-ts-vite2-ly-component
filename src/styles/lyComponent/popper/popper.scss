@@ -2,6 +2,7 @@
 @import './arrow.scss';
 
 .ly-popper {
+  box-sizing: border-box;
   border: $div-border;
   background-color: #fff;
   color: $font-color;

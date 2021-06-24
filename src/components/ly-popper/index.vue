@@ -9,6 +9,7 @@ const NAME = 'LyPopper';
 export default defineComponent({
   name: NAME,
   components: {},
+  emits: ['focus', 'blur', 'onChange', 'update:modelValue', 'visible-change', 'update:visible'],
   props: defaultProps,
   setup(props, ctx) {
     if (!ctx.slots.trigger) {

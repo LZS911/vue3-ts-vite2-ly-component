@@ -1,6 +1,6 @@
 <template>
   <div class="warrp">
-    <LyDroptable
+    <!-- <LyDroptable
       valueKey="prgNo"
       labelKey="prgName"
       inputWidth="300px"
@@ -25,13 +25,39 @@
       ref="refTable"
       multiple
       defaultFirstRow
+    />-->
+    <DropTablePopper
+      valueKey="prgNo"
+      labelKey="prgName"
+      inputWidth="300px"
+      style="margin-top:10px;"
+      size="mini"
+      :tableList="tableList"
+      :columnList="columnList"
+      v-model="table3"
+      @onChange="change"
+      filterable
+      clearable
+      multiple
     />
-    <!-- <DropTablePopper /> -->
-    <LyPopper :appendBody="false" trigger="click">
+    <DropTablePopper
+      valueKey="prgNo"
+      labelKey="prgName"
+      inputWidth="300px"
+      style="margin-top:10px;"
+      size="mini"
+      :tableList="tableList"
+      :columnList="columnList"
+      v-model="table1"
+      @onChange="change"
+      filterable
+      clearable
+    />
+    <!-- <LyPopper :appendBody="false" trigger="click">
       <template #trigger>
         <div class="test-trigger">123</div>
       </template>
-    </LyPopper>
+    </LyPopper>-->
   </div>
 </template>
 
@@ -80,6 +106,7 @@ export default defineComponent({
           prop: 'prgUrl'
         }
       ],
+      table3: [3],
       table1: 1,
       table2: [2, 3],
       visible: false

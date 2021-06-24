@@ -1,8 +1,8 @@
+import { VISIBLE_EVENT, UPDATE_VISIBLE_EVENT, DEFAULT } from '../../../utils/constants';
 import { isArray, $, isBool } from '../../../utils/index';
 
 import { PatchFlags, getFirstNode } from '../../../utils/vnode';
 import { getDomLength, usePositionByParent } from '../../../utils/dom';
-import { UPDATE_VISIBLE_EVENT, DEFAULT } from '../../../utils/constants';
 
 import { IPropsOptions, TriggerType } from './index.data';
 
@@ -31,7 +31,7 @@ type InternalSlots = {
   [name: string]: Slot | undefined;
 };
 
-type EmitType = 'update:visible';
+type EmitType = 'update:visible' | 'visible-change';
 
 export interface IEventHandle {
   onMouseenter?: (e: Event) => void;
@@ -72,6 +72,10 @@ export function usePopper(props: IPropsOptions, { emit }: SetupContext<EmitType[
       undefined,
       props.arrowOffset
     );
+
+    if (!!props.popperHeight) $(popperRef).style.height = `${props.popperHeight}px`;
+    if (!!props.popperWidth) $(popperRef).style.width = `${props.popperWidth}px`;
+    $(popperRef).style.padding = `${props.boundariesPadding}px`;
   });
 
   const visibleState = ref(false);
@@ -96,10 +100,12 @@ export function usePopper(props: IPropsOptions, { emit }: SetupContext<EmitType[
   const show = () => {
     if (props.manualMode || props.disabled) return;
     _show();
+    emit(VISIBLE_EVENT, true);
   };
   const hide = () => {
     if (props.manualMode) return;
     _hide();
+    emit(VISIBLE_EVENT, false);
   };
 
   const events: IEventHandle = {};

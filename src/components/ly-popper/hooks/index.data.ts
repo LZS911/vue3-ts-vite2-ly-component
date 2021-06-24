@@ -27,6 +27,7 @@ export interface IPropsOptions {
   popperWidth?: number;
   popperHeight?: number;
   modelValue?: boolean;
+  boundariesPadding: number;
 }
 
 export const defaultProps = {
@@ -102,5 +103,9 @@ export const defaultProps = {
     type: Boolean,
     validator: (val: unknown) => typeof val === 'boolean',
     default: undefined
-  }
+  },
+  boundariesPadding: {
+    type: Number,
+    default: 8,
+  },
 };

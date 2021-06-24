@@ -1,19 +1,139 @@
 <template>
-  <div class="warrp"></div>
+  <ly-popper
+    trigger="click"
+    placement="bottom-left"
+    arrowOffset="left"
+    v-model:visible="visibility"
+    :popperHeight="tHeight"
+    :popperWidth="tWidth"
+    :boundariesPadding="6"
+    @visibleChange="showOrHideEvent"
+  >
+    <template #trigger>
+      <div
+        @mouseover="wrapperHovering=true"
+        @mouseleave="wrapperHovering=false"
+        class="ly-input"
+        :style="inputStyle"
+        :class="{'ly-drop-table__show':visibility, 'ly-drop-table__disable':disable}"
+      >
+        <input
+          :placeholder="currentPlaceholder"
+          @keyup.enter="setRow"
+          @keydown.esc.stop.prevent="visibility = false"
+          @keydown.tab="visibility = false"
+          @keydown.down.stop.prevent="navigateOptions(SwitchEnum.next)"
+          @keydown.up.stop.prevent="navigateOptions(SwitchEnum.prev)"
+          @input="filterMethod"
+          :readonly="readonly"
+          ref="inputRef"
+          v-model="dropLabel"
+          :class="{'ly-input__readonly':readonly}"
+        />
+        <div :class="visibility ? 'arrow-up' : 'arrow-down'">
+          <i v-show="showClose" :class="clearIcon" @click="clearValue"></i>
+          <i v-show="!showClose" :class="arrowIcon"></i>
+        </div>
+      </div>
+    </template>
+    <template #default>
+      <teleport to="body" :disabled="!appendToBody">
+        <transition :name="transitionName">
+          <div
+            class="ly-table"
+            v-show="visibility"
+            :class="[{'ly-table__show':visibility}, tableClass]"
+          >
+            <el-table
+              ref="tableRef"
+              :data="filterList"
+              border
+              height="100%"
+              highlight-current-row
+              :header-cell-style="headerCellStyle"
+              @row-click="currentRowClick"
+              :row-class-name="setMultipleBack"
+            >
+              <el-table-column
+                v-for="column in columnList"
+                :key="column.prop"
+                :prop="column.prop"
+                :label="column.label"
+              />
+            </el-table>
+          </div>
+        </transition>
+      </teleport>
+    </template>
+  </ly-popper>
 </template>
 
 <script lang='ts'>
 import { defineComponent } from 'vue';
+import { defaultProps } from './index.data';
+import useDropTable from './hooks';
 
+const NAME = 'DropTablePopper';
 export default defineComponent({
-  name: '',
+  name: NAME,
   components: {},
-  props: {},
-  setup() {}
+  emits: ['focus', 'blur', 'onChange', 'update:modelValue', 'visible-change', 'update:visible'],
+  props: defaultProps,
+  setup(props, ctx) {
+    return {
+      ...useDropTable(props as any, ctx as any)
+    };
+  }
 });
 </script>
 
 <style lang='scss' scoped>
-.warrp {
+@import '../../styles/mixin.scss';
+.ly-input {
+  box-sizing: border-box;
+  @include fontstes;
+  width: 100%;
+  height: 100%;
+  border: $input-border;
+  border-radius: $border-radius;
+  padding: 4px 10px;
+  cursor: pointer !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  input {
+    @include fontstes;
+    cursor: pointer !important;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    outline: none;
+    padding: 0;
+  }
+
+  .arrow-up {
+    transform: scaleY(-1);
+    transition: transform 0.5s;
+  }
+  .arrow-down {
+    transform: scaleY(1);
+    transition: transform 0.5s;
+  }
+  .ly-drop-table__show {
+    border: $input-focus-border;
+  }
+  .ly-drop-table__disable {
+    background: #f5f7fa !important;
+    input {
+      background: #f5f7fa !important;
+    }
+  }
+  .ly-input__disable {
+    background: #fff !important;
+  }
+}
+
+.ly-table {
+  height: 100%;
 }
 </style>

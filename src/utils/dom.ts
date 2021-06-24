@@ -108,7 +108,7 @@ export const usePositionByParent = (
   cls: string = 'ly-popper',
   arrowOffset: ArrowOffset = 'center' as ArrowOffset
 ) => {
-  if (!$(parentDom).getBoundingClientRect) {
+  if (!$(parentDom)?.getBoundingClientRect) {
     throwError('popper', 'should a single node');
   }
   const sizeObj = $(parentDom).getBoundingClientRect();
