@@ -1,8 +1,10 @@
 <template>
-  <div class="ly-menu">MENU</div>
+  <div class="ly-menu">
+    <slot></slot>
+  </div>
 </template>
 
-<script lang='ts' setup>
+<script lang='ts'>
 import { defineComponent } from 'vue';
 
 const NAME = 'LyMenu';

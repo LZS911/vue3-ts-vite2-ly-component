@@ -1,6 +1,6 @@
 <template>
   <div class="warrp">
-    <ly-menu />
+    <ly-menu>hello world</ly-menu>
   </div>
 </template>
 
