@@ -2,6 +2,7 @@
   <div class="warrp">
     <router-link to="/dropTable">dropTable</router-link>
     <router-link to="/modal">modal</router-link>
+    <router-link to="/menu">menu</router-link>
     <router-view />
   </div>
 </template>

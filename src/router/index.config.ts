@@ -10,5 +10,9 @@ export const routes = [
   {
     path: '/modal',
     component: () => import('../page/Modal.vue')
+  },
+  {
+    path: '/menu',
+    component: () => import('../page/Menu.vue')
   }
 ];

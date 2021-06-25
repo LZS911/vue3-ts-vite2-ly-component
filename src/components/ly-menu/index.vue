@@ -1,12 +1,13 @@
 <template>
-  <div class="warrp"></div>
+  <div class="ly-menu">MENU</div>
 </template>
 
-<script lang='ts'>
+<script lang='ts' setup>
 import { defineComponent } from 'vue';
 
+const NAME = 'LyMenu';
 export default defineComponent({
-  name: '',
+  name: NAME,
   components: {},
   props: {},
   setup() {}
@@ -14,6 +15,6 @@ export default defineComponent({
 </script>
 
 <style lang='scss' scoped>
-.warrp {
+.ly-menu {
 }
 </style>
