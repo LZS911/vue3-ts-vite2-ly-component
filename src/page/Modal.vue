@@ -3,7 +3,7 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'; // 假设视频播放为3s
 
 export default defineComponent({
   name: '',
