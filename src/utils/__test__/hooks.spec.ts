@@ -1,4 +1,5 @@
 import { $ } from '..';
+import { digitalRoot, multiply } from '../codewars';
 import { useState } from '../hooks';
 
 describe('hooks.ts', () => {
@@ -22,5 +23,17 @@ describe('hooks.ts', () => {
     tmp = { a: '5', b: '9' };
     expect($(obj)).not.toEqual(tmp);
     expect($(obj)).toEqual({ a: '1', b: '2' });
+  });
+});
+
+describe('codewars.ts', () => {
+  test('multiply', () => {
+    expect(multiply(1, 1)).toEqual(2);
+  });
+
+  test('digitalRoot', () => {
+    expect(digitalRoot(2)).toEqual(2);
+    expect(digitalRoot(16)).toEqual(7);
+    expect(digitalRoot(456)).toEqual(6);
   });
 });
