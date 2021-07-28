@@ -1,8 +1,8 @@
 import { $ } from '..';
 import {
   digitalRoot, multiply, objToTree, addTwoNumbers, ListNode,
-  add, judgePalindrome, myAtoi, convert, isMatch, indexAll, maxArea, isSpecial, getNumberArr,
-  intToRoman
+  add, judgePalindrome, myAtoi, convert, isMatch, indexAll, maxArea, isSpecial, getNumberArr, intToRoman,
+  inToRoman2
 } from '../codewars';
 import { useState } from '../hooks';
 import _ from 'lodash';
@@ -200,6 +200,33 @@ describe('hooks.ts', () => {
     expect(isSpecial(500)).toBe(false);
     expect(isSpecial(900)).toBe(true);
   });
+  test('inToRoman2', () => {
+    expect(inToRoman2(1)).toBe('I');
+    expect(inToRoman2(2)).toBe('II');
+    expect(inToRoman2(3)).toBe('III');
+    expect(inToRoman2(4)).toBe('IV');
+    expect(inToRoman2(40)).toBe('XL');
+    expect(inToRoman2(400)).toBe('CD');
+    expect(inToRoman2(5)).toBe('V');
+    expect(inToRoman2(6)).toBe('VI');
+    expect(inToRoman2(7)).toBe('VII');
+    expect(inToRoman2(8)).toBe('VIII');
+    expect(inToRoman2(9)).toBe('IX');
+    expect(inToRoman2(10)).toBe('X');
+    expect(inToRoman2(11)).toBe('XI');
+    expect(inToRoman2(12)).toBe('XII');
+    expect(inToRoman2(13)).toBe('XIII');
+    expect(inToRoman2(14)).toBe('XIV');
+    expect(inToRoman2(15)).toBe('XV');
+    expect(inToRoman2(16)).toBe('XVI');
+    expect(inToRoman2(60)).toBe('LX');
+    expect(inToRoman2(61)).toBe('LXI');
+    expect(inToRoman2(90)).toBe('XC');
+    expect(inToRoman2(900)).toBe('CM');
+    // expect(inToRoman2(10)).toBe('X');
+    // expect(inToRoman2(20)).toBe('XX');
+    // expect(inToRoman2(30)).toBe('XXX');
+  });
   test('intToRoman', () => {
     expect(intToRoman(1)).toBe('I');
     expect(intToRoman(2)).toBe('II');
@@ -223,8 +250,8 @@ describe('hooks.ts', () => {
     expect(intToRoman(61)).toBe('LXI');
     expect(intToRoman(90)).toBe('XC');
     expect(intToRoman(900)).toBe('CM');
-    // expect(intToRoman(10)).toBe('X');
-    // expect(intToRoman(20)).toBe('XX');
-    // expect(intToRoman(30)).toBe('XXX');
+    // expect(inToRoman2(10)).toBe('X');
+    // expect(inToRoman2(20)).toBe('XX');
+    // expect(inToRoman2(30)).toBe('XXX');
   });
 });

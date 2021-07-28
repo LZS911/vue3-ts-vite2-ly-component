@@ -262,7 +262,8 @@ export function maxArea(nums: number[]): number {
   return res;
 }
 export function isSpecial(num: number) {
-  if ((num > 10 && num % 10)) return '';
+  //只考虑 为10 的整数倍
+  if ((num > 10 && num % 10)) return false;
   while (num > 10) {
     num /= 10;
   }
@@ -356,5 +357,25 @@ export function intToRoman(num: number): string {
     }
   });
 
+  return res;
+}
+
+export function inToRoman2(num: number) {
+  // int values[]={1000,900,500,400,100,90,50,40,10,9,5,4,1};
+  // string reps[]={"M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"};
+  //大佬 思维
+  let res = '';
+  if (num < 1 || num > 3999) return res;
+
+  const map = new Map<number, string>([
+    [1000, 'M'], [900, 'CM'], [500, 'D'], [400, 'CD'],
+    [100, 'C'], [90, 'XC'], [50, 'L'], [40, 'XL'], [10, 'X'], [9, 'IX'],
+    [5, 'V'], [4, 'IV'], [1, 'I']]);
+  map.forEach((val, key) => {
+    while (num >= key) {
+      num -= key;
+      res += val;
+    }
+  });
   return res;
 }
