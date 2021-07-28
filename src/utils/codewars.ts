@@ -262,7 +262,7 @@ export function maxArea(nums: number[]): number {
   return res;
 }
 export function isSpecial(num: number) {
-  if ((num > 10 && num % 10)) return false;
+  if ((num > 10 && num % 10)) return '';
   while (num > 10) {
     num /= 10;
   }
@@ -271,9 +271,90 @@ export function isSpecial(num: number) {
   return false;
 }
 
+export function getNumberArr(num: number) {
+  if (!num) return [0];
+  const res: number[] = [];
+  while (num) {
+    res.push(num % 10);
+    num = parseInt((num / 10).toString());
+  }
+  return res;
+}
+
 export function intToRoman(num: number): string {
-  const res = '';
-  if (num < 1) return '';
+  // 题目限制  1 <= num <= 3999
+  let res = '';
+
+  if (num < 1 || num > 3999) return res;
+
+  //拿到数组形式的数据   expect(getNumberArr(1234)).toEqual([4, 3, 2, 1]);
+  const nums = getNumberArr(num);
+  let p = '';
+  let q = '';
+  let z = '';
+  nums.forEach((item, index) => {
+    if (!item) return;
+    switch (index) {
+      //个位数下的情况
+      case 0:
+        p = 'I';
+        q = 'V';
+        z = 'X';
+        break;
+      //十位数下的情况
+      case 1:
+        p = 'X';
+        q = 'L';
+        z = 'C';
+        break;
+      //百位位数下的情况
+      case 2:
+        p = 'C';
+        q = 'D';
+        z = 'M';
+        break;
+      case 3:
+        //千位数下的情况
+        p = 'M';
+        q = '';
+        break;
+      default: break;
+    }
+
+    //计算倍数
+    let multiple = 1;
+    while (index > 0 && index--) {
+      multiple * 10;
+    }
+    //计算当前的值  1234 对应的四次值 为 4, 30, 200, 1000
+    const current = item * multiple;
+
+    //如果是 4 或 9 的情况
+    if (isSpecial(current)) {
+      if (current % 4) {
+        //为 9, 按照要求拼接字符串
+        res = `${p}${z}${res}`;
+      } else {
+        //为4
+        res = `${p}${q}${res}`;
+      }
+    } else if (item === 5) {
+      //为 5
+      res = `${q}${res}`;
+    } else if (item < 5) {
+      //小与 5
+      while (item--) {
+        res = `${p}${res}`;
+      }
+    } else {
+      //大与 5, 取出减去 5的余数, 然后拼接
+      let tmp = item - 5;
+      while (tmp--) {
+        res = `${p}${res}`;
+      }
+      res = q + res;
+    }
+  });
 
   return res;
 }
