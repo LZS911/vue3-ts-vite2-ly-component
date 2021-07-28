@@ -1,7 +1,7 @@
 import { $ } from '..';
 import {
   digitalRoot, multiply, objToTree, addTwoNumbers, ListNode,
-  add, judgePalindrome, myAtoi, convert, isMatch, indexAll, maxArea
+  add, judgePalindrome, myAtoi, convert, isMatch, indexAll, maxArea, isSpecial
 } from '../codewars';
 import { useState } from '../hooks';
 import _ from 'lodash';
@@ -133,8 +133,6 @@ describe('hooks.ts', () => {
   //     expect(myAtoi('+12')).toBe(12);
   //   });
 
-  //#endregion
-
   // test('isMatch', () => {
   //   expect(isMatch('', '')).toBe(false);
   //   expect(isMatch('123', '')).toBe(false);
@@ -157,6 +155,8 @@ describe('hooks.ts', () => {
   //   expect(indexAll('....', '.')).toEqual([0, 1, 2, 3]);
   // });
 
+  //#endregion
+
   test('maxArea', () => {
     expect(maxArea([])).toBe(0);
     expect(maxArea([1])).toBe(0);
@@ -165,5 +165,20 @@ describe('hooks.ts', () => {
     expect(maxArea([4, 3, 2, 1, 4])).toBe(16);
     expect(maxArea([1, 2, 1])).toBe(2);
     expect(maxArea([1, 8, 6, 2, 5, 4, 8, 3, 7])).toBe(49);
+  });
+  test('isSpecial', () => {
+    expect(isSpecial(0)).toBe(false);
+    expect(isSpecial(1)).toBe(false);
+    expect(isSpecial(3)).toBe(false);
+    expect(isSpecial(4)).toBe(true);
+    expect(isSpecial(5)).toBe(false);
+    expect(isSpecial(9)).toBe(true);
+    expect(isSpecial(10)).toBe(false);
+    expect(isSpecial(40)).toBe(true);
+    expect(isSpecial(50)).toBe(false);
+    expect(isSpecial(90)).toBe(true);
+    expect(isSpecial(400)).toBe(true);
+    expect(isSpecial(500)).toBe(false);
+    expect(isSpecial(900)).toBe(true);
   });
 });

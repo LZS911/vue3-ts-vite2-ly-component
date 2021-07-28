@@ -93,6 +93,7 @@ export function addTwoNumbers(l1: ListNode | null, l2: ListNode | null): ListNod
     l1 = l1 && l1.next;
     l2 = l2 && l2.next;
   }
+
   return res.next;
 }
 
@@ -258,5 +259,21 @@ export function maxArea(nums: number[]): number {
     if (nums[i] > nums[j]) j--;
     else i++;
   }
+  return res;
+}
+export function isSpecial(num: number) {
+  if ((num > 10 && num % 10)) return false;
+  while (num > 10) {
+    num /= 10;
+  }
+
+  if (10 - num === 1 || 5 - num === 1) return true;
+  return false;
+}
+
+export function intToRoman(num: number): string {
+  const res = '';
+  if (num < 1) return '';
+
   return res;
 }
