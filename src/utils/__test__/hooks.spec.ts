@@ -2,7 +2,7 @@ import { $ } from '..';
 import {
   digitalRoot, multiply, objToTree, addTwoNumbers, ListNode,
   add, judgePalindrome, myAtoi, convert, isMatch, indexAll, maxArea, isSpecial, getNumberArr, intToRoman,
-  inToRoman2
+  inToRoman2, longestCommonPrefix, generateArr
 } from '../codewars';
 import { useState } from '../hooks';
 import _ from 'lodash';
@@ -156,8 +156,6 @@ describe('hooks.ts', () => {
   //   expect(indexAll('....', '.')).toEqual([0, 1, 2, 3]);
   // });
 
-  //#endregion
-
   // test('maxArea', () => {
   //   expect(maxArea([])).toBe(0);
   //   expect(maxArea([1])).toBe(0);
@@ -168,90 +166,109 @@ describe('hooks.ts', () => {
   //   expect(maxArea([1, 8, 6, 2, 5, 4, 8, 3, 7])).toBe(49);
   // });
 
-  test('getNumberArr', () => {
-    expect(getNumberArr(0)).toEqual([0]);
-    expect(getNumberArr(1)).toEqual([1]);
-    expect(getNumberArr(12)).toEqual([2, 1]);
-    expect(getNumberArr(123)).toEqual([3, 2, 1]);
-    expect(getNumberArr(1234)).toEqual([4, 3, 2, 1]);
-    expect(getNumberArr(10)).toEqual([0, 1]);
-    expect(getNumberArr(101)).toEqual([1, 0, 1]);
-    expect(getNumberArr(1012)).toEqual([2, 1, 0, 1]);
-    expect(getNumberArr(1000)).toEqual([0, 0, 0, 1]);
-    expect(getNumberArr(10000)).toEqual([0, 0, 0, 0, 1]);
-    expect(getNumberArr(-1)).toEqual([-1]);
-    expect(getNumberArr(400)).toEqual([0, 0, 4]);
-    expect(getNumberArr(9)).toEqual([9]);
-    expect(getNumberArr(2)).toEqual([2]);
-    expect(getNumberArr(40)).toEqual([0, 4]);
+  // test('getNumberArr', () => {
+  //   expect(getNumberArr(0)).toEqual([0]);
+  //   expect(getNumberArr(1)).toEqual([1]);
+  //   expect(getNumberArr(12)).toEqual([2, 1]);
+  //   expect(getNumberArr(123)).toEqual([3, 2, 1]);
+  //   expect(getNumberArr(1234)).toEqual([4, 3, 2, 1]);
+  //   expect(getNumberArr(10)).toEqual([0, 1]);
+  //   expect(getNumberArr(101)).toEqual([1, 0, 1]);
+  //   expect(getNumberArr(1012)).toEqual([2, 1, 0, 1]);
+  //   expect(getNumberArr(1000)).toEqual([0, 0, 0, 1]);
+  //   expect(getNumberArr(10000)).toEqual([0, 0, 0, 0, 1]);
+  //   expect(getNumberArr(-1)).toEqual([-1]);
+  //   expect(getNumberArr(400)).toEqual([0, 0, 4]);
+  //   expect(getNumberArr(9)).toEqual([9]);
+  //   expect(getNumberArr(2)).toEqual([2]);
+  //   expect(getNumberArr(40)).toEqual([0, 4]);
+  // });
+  // test('isSpecial', () => {
+  //   expect(isSpecial(0)).toBe(false);
+  //   expect(isSpecial(1)).toBe(false);
+  //   expect(isSpecial(3)).toBe(false);
+  //   expect(isSpecial(4)).toBe(true);
+  //   expect(isSpecial(5)).toBe(false);
+  //   expect(isSpecial(9)).toBe(true);
+  //   expect(isSpecial(10)).toBe(false);
+  //   expect(isSpecial(40)).toBe(true);
+  //   expect(isSpecial(50)).toBe(false);
+  //   expect(isSpecial(90)).toBe(true);
+  //   expect(isSpecial(400)).toBe(true);
+  //   expect(isSpecial(500)).toBe(false);
+  //   expect(isSpecial(900)).toBe(true);
+  // });
+  // test('inToRoman2', () => {
+  //   expect(inToRoman2(1)).toBe('I');
+  //   expect(inToRoman2(2)).toBe('II');
+  //   expect(inToRoman2(3)).toBe('III');
+  //   expect(inToRoman2(4)).toBe('IV');
+  //   expect(inToRoman2(40)).toBe('XL');
+  //   expect(inToRoman2(400)).toBe('CD');
+  //   expect(inToRoman2(5)).toBe('V');
+  //   expect(inToRoman2(6)).toBe('VI');
+  //   expect(inToRoman2(7)).toBe('VII');
+  //   expect(inToRoman2(8)).toBe('VIII');
+  //   expect(inToRoman2(9)).toBe('IX');
+  //   expect(inToRoman2(10)).toBe('X');
+  //   expect(inToRoman2(11)).toBe('XI');
+  //   expect(inToRoman2(12)).toBe('XII');
+  //   expect(inToRoman2(13)).toBe('XIII');
+  //   expect(inToRoman2(14)).toBe('XIV');
+  //   expect(inToRoman2(15)).toBe('XV');
+  //   expect(inToRoman2(16)).toBe('XVI');
+  //   expect(inToRoman2(60)).toBe('LX');
+  //   expect(inToRoman2(61)).toBe('LXI');
+  //   expect(inToRoman2(90)).toBe('XC');
+  //   expect(inToRoman2(900)).toBe('CM');
+  //   // expect(inToRoman2(10)).toBe('X');
+  //   // expect(inToRoman2(20)).toBe('XX');
+  //   // expect(inToRoman2(30)).toBe('XXX');
+  // });
+  // test('intToRoman', () => {
+  //   expect(intToRoman(1)).toBe('I');
+  //   expect(intToRoman(2)).toBe('II');
+  //   expect(intToRoman(3)).toBe('III');
+  //   expect(intToRoman(4)).toBe('IV');
+  //   expect(intToRoman(40)).toBe('XL');
+  //   expect(intToRoman(400)).toBe('CD');
+  //   expect(intToRoman(5)).toBe('V');
+  //   expect(intToRoman(6)).toBe('VI');
+  //   expect(intToRoman(7)).toBe('VII');
+  //   expect(intToRoman(8)).toBe('VIII');
+  //   expect(intToRoman(9)).toBe('IX');
+  //   expect(intToRoman(10)).toBe('X');
+  //   expect(intToRoman(11)).toBe('XI');
+  //   expect(intToRoman(12)).toBe('XII');
+  //   expect(intToRoman(13)).toBe('XIII');
+  //   expect(intToRoman(14)).toBe('XIV');
+  //   expect(intToRoman(15)).toBe('XV');
+  //   expect(intToRoman(16)).toBe('XVI');
+  //   expect(intToRoman(60)).toBe('LX');
+  //   expect(intToRoman(61)).toBe('LXI');
+  //   expect(intToRoman(90)).toBe('XC');
+  //   expect(intToRoman(900)).toBe('CM');
+  //   // expect(inToRoman2(10)).toBe('X');
+  //   // expect(inToRoman2(20)).toBe('XX');
+  //   // expect(inToRoman2(30)).toBe('XXX');
+  // });
+  //#endregion
+
+  test('longestCommonPrefix', () => {
+    expect(longestCommonPrefix([])).toBe('');
+    expect(longestCommonPrefix(['', 'ab'])).toBe('');
+    expect(longestCommonPrefix(['abc', 'cd'])).toBe('');
+    expect(longestCommonPrefix(['abc', 'acd'])).toBe('a');
+    expect(longestCommonPrefix(['acdbc', 'acd'])).toBe('acd');
+    expect(longestCommonPrefix(['flower', 'flow', 'flight'])).toBe('fl');
+    expect(longestCommonPrefix(['dog', 'racecar', 'car'])).toBe('');
+    expect(longestCommonPrefix(['cir', 'car'])).toBe('c');
+    expect(longestCommonPrefix(['aaa', 'aa', 'aaa'])).toBe('aa');
   });
-  test('isSpecial', () => {
-    expect(isSpecial(0)).toBe(false);
-    expect(isSpecial(1)).toBe(false);
-    expect(isSpecial(3)).toBe(false);
-    expect(isSpecial(4)).toBe(true);
-    expect(isSpecial(5)).toBe(false);
-    expect(isSpecial(9)).toBe(true);
-    expect(isSpecial(10)).toBe(false);
-    expect(isSpecial(40)).toBe(true);
-    expect(isSpecial(50)).toBe(false);
-    expect(isSpecial(90)).toBe(true);
-    expect(isSpecial(400)).toBe(true);
-    expect(isSpecial(500)).toBe(false);
-    expect(isSpecial(900)).toBe(true);
-  });
-  test('inToRoman2', () => {
-    expect(inToRoman2(1)).toBe('I');
-    expect(inToRoman2(2)).toBe('II');
-    expect(inToRoman2(3)).toBe('III');
-    expect(inToRoman2(4)).toBe('IV');
-    expect(inToRoman2(40)).toBe('XL');
-    expect(inToRoman2(400)).toBe('CD');
-    expect(inToRoman2(5)).toBe('V');
-    expect(inToRoman2(6)).toBe('VI');
-    expect(inToRoman2(7)).toBe('VII');
-    expect(inToRoman2(8)).toBe('VIII');
-    expect(inToRoman2(9)).toBe('IX');
-    expect(inToRoman2(10)).toBe('X');
-    expect(inToRoman2(11)).toBe('XI');
-    expect(inToRoman2(12)).toBe('XII');
-    expect(inToRoman2(13)).toBe('XIII');
-    expect(inToRoman2(14)).toBe('XIV');
-    expect(inToRoman2(15)).toBe('XV');
-    expect(inToRoman2(16)).toBe('XVI');
-    expect(inToRoman2(60)).toBe('LX');
-    expect(inToRoman2(61)).toBe('LXI');
-    expect(inToRoman2(90)).toBe('XC');
-    expect(inToRoman2(900)).toBe('CM');
-    // expect(inToRoman2(10)).toBe('X');
-    // expect(inToRoman2(20)).toBe('XX');
-    // expect(inToRoman2(30)).toBe('XXX');
-  });
-  test('intToRoman', () => {
-    expect(intToRoman(1)).toBe('I');
-    expect(intToRoman(2)).toBe('II');
-    expect(intToRoman(3)).toBe('III');
-    expect(intToRoman(4)).toBe('IV');
-    expect(intToRoman(40)).toBe('XL');
-    expect(intToRoman(400)).toBe('CD');
-    expect(intToRoman(5)).toBe('V');
-    expect(intToRoman(6)).toBe('VI');
-    expect(intToRoman(7)).toBe('VII');
-    expect(intToRoman(8)).toBe('VIII');
-    expect(intToRoman(9)).toBe('IX');
-    expect(intToRoman(10)).toBe('X');
-    expect(intToRoman(11)).toBe('XI');
-    expect(intToRoman(12)).toBe('XII');
-    expect(intToRoman(13)).toBe('XIII');
-    expect(intToRoman(14)).toBe('XIV');
-    expect(intToRoman(15)).toBe('XV');
-    expect(intToRoman(16)).toBe('XVI');
-    expect(intToRoman(60)).toBe('LX');
-    expect(intToRoman(61)).toBe('LXI');
-    expect(intToRoman(90)).toBe('XC');
-    expect(intToRoman(900)).toBe('CM');
-    // expect(inToRoman2(10)).toBe('X');
-    // expect(inToRoman2(20)).toBe('XX');
-    // expect(inToRoman2(30)).toBe('XXX');
+
+  test('generateArr', () => {
+    expect(generateArr(['abc', 'dfg'])).toEqual(['ad', 'bf', 'cg']);
+    expect(generateArr(['abc', 'cd'])).toEqual(['ac', 'bd', 'c ']);
+    expect(generateArr(['aaa', 'aa', 'aaa'])).toEqual(['aaa', 'aaa', 'a a']);
   });
 });

@@ -379,3 +379,46 @@ export function inToRoman2(num: number) {
   });
   return res;
 }
+
+export function longestCommonPrefix(strs: string[]): string {
+  let res = '';
+  /** */
+  if (strs.includes('') || !strs.length) return res;
+  if (strs.length === 1) return strs[0];
+
+  const tmpArr: string[] = [];
+
+  strs.forEach((str) => {
+    // Array.from(str).forEach((s, index) => {
+    //   tmpArr[index] = (tmpArr[index] ? tmpArr[index] : '') + s;
+    // });
+    for (let i = 0; i < strs[0].length; ++i) {
+      tmpArr[i] = (tmpArr[i] ? tmpArr[i] : '') + (str[i] ?? ' ');
+    }
+  });
+
+  for (let i = 0; i < tmpArr.length; ++i) {
+    const tmp = tmpArr[i];
+    if (/^(\w)\1*$/.test(tmp) && tmp.length > 1) {
+      res += tmp[0];
+    } else {
+      break;
+    }
+  }
+
+  return res;
+}
+
+export function generateArr(strs: string[]) {
+  const tmpArr: string[] = [];
+
+  strs.forEach((str) => {
+    // Array.from(str).forEach((s, index) => {
+    //   tmpArr[index] = (tmpArr[index] ? tmpArr[index] : '') + s;
+    // });
+    for (let i = 0; i < strs[0].length; ++i) {
+      tmpArr[i] = (tmpArr[i] ? tmpArr[i] : '') + (str[i] ?? ' ');
+    }
+  });
+  return tmpArr;
+}
