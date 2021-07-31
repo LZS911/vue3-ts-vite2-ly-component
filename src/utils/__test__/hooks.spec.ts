@@ -2,7 +2,7 @@ import { $ } from '..';
 import {
   digitalRoot, multiply, objToTree, addTwoNumbers, ListNode,
   add, judgePalindrome, myAtoi, convert, isMatch, indexAll, maxArea, isSpecial, getNumberArr, intToRoman,
-  inToRoman2, longestCommonPrefix, generateArr
+  inToRoman2, longestCommonPrefix, generateArr, removeArr, getArrByAdd, threeSum, getOppositeNumber, threeSumClosest
 } from '../codewars';
 import { useState } from '../hooks';
 import _ from 'lodash';
@@ -252,23 +252,61 @@ describe('hooks.ts', () => {
   //   // expect(inToRoman2(20)).toBe('XX');
   //   // expect(inToRoman2(30)).toBe('XXX');
   // });
+
+  // test('longestCommonPrefix', () => {
+  //   expect(longestCommonPrefix([])).toBe('');
+  //   expect(longestCommonPrefix(['', 'ab'])).toBe('');
+  //   expect(longestCommonPrefix(['abc', 'cd'])).toBe('');
+  //   expect(longestCommonPrefix(['abc', 'acd'])).toBe('a');
+  //   expect(longestCommonPrefix(['acdbc', 'acd'])).toBe('acd');
+  //   expect(longestCommonPrefix(['flower', 'flow', 'flight'])).toBe('fl');
+  //   expect(longestCommonPrefix(['dog', 'racecar', 'car'])).toBe('');
+  //   expect(longestCommonPrefix(['cir', 'car'])).toBe('c');
+  //   expect(longestCommonPrefix(['aaa', 'aa', 'aaa'])).toBe('aa');
+  // });
+
+  // test('generateArr', () => {
+  //   expect(generateArr(['abc', 'dfg'])).toEqual(['ad', 'bf', 'cg']);
+  //   expect(generateArr(['abc', 'cd'])).toEqual(['ac', 'bd', 'c ']);
+  //   expect(generateArr(['aaa', 'aa', 'aaa'])).toEqual(['aaa', 'aaa', 'a a']);
+  // });
+
+  // test('threeSum', () => {
+  //   expect(threeSum([])).toEqual([]);
+  //   expect(threeSum([0])).toEqual([]);
+  //   expect(threeSum([0, 0, 0])).toEqual([[0, 0, 0]]);
+  //   expect(threeSum([1, 2, 4])).toEqual([]);
+  //   expect(threeSum([-1, 0, 1, 2, -1, -4])).toEqual([[-1, 0, 1], [-1, -1, 2]]);
+  // });
+
+  // test('removeArr', () => {
+  //   expect(removeArr([1, 2, 3, 4], 1)).toEqual([2, 3, 4]);
+  //   expect(removeArr([1, 2, 3, 4], 5)).toEqual([1, 2, 3, 4]);
+  //   expect(removeArr([], 5)).toEqual([]);
+  // });
+
+  // test('getArrByAdd', () => {
+  //   expect(getArrByAdd([1, 2, 3, 4], 3)).toEqual([1, 2]);
+  //   expect(getArrByAdd([1, 2, 3, 4], 5)).toEqual([2, 3, 1, 4]);
+  //   expect(getArrByAdd([1, 2, 3, 4, 5, 5], 6)).toEqual([2, 4, 1, 5]);
+
+  //   expect(getArrByAdd([0, 1, 2, -1, -4], 1)).toEqual([0, 1, 2, -1]);
+  //   expect(getArrByAdd([-1, 1, 2, -1, -4], 0)).toEqual([-1, 1]);
+  // });
+
+  // test('getOppositeNumber', () => {
+  //   expect(getOppositeNumber(1)).toBe(-1);
+  //   expect(getOppositeNumber(12)).toBe(-12);
+  //   expect(getOppositeNumber(-2)).toBe(2);
+  //   expect(getOppositeNumber(-12)).toBe(12);
+  //   expect(getOppositeNumber(0)).toBe(0);
+  // });
   //#endregion
 
-  test('longestCommonPrefix', () => {
-    expect(longestCommonPrefix([])).toBe('');
-    expect(longestCommonPrefix(['', 'ab'])).toBe('');
-    expect(longestCommonPrefix(['abc', 'cd'])).toBe('');
-    expect(longestCommonPrefix(['abc', 'acd'])).toBe('a');
-    expect(longestCommonPrefix(['acdbc', 'acd'])).toBe('acd');
-    expect(longestCommonPrefix(['flower', 'flow', 'flight'])).toBe('fl');
-    expect(longestCommonPrefix(['dog', 'racecar', 'car'])).toBe('');
-    expect(longestCommonPrefix(['cir', 'car'])).toBe('c');
-    expect(longestCommonPrefix(['aaa', 'aa', 'aaa'])).toBe('aa');
-  });
-
-  test('generateArr', () => {
-    expect(generateArr(['abc', 'dfg'])).toEqual(['ad', 'bf', 'cg']);
-    expect(generateArr(['abc', 'cd'])).toEqual(['ac', 'bd', 'c ']);
-    expect(generateArr(['aaa', 'aa', 'aaa'])).toEqual(['aaa', 'aaa', 'a a']);
+  test('threeSumClosest', () => {
+    expect(threeSumClosest([-1, 2, 1, -4], 1)).toBe(2);
+    expect(threeSumClosest([1, 4, 3, -4, 2], 1)).toBe(1);
+    expect(threeSumClosest([0, 0, 0, 1], 1)).toBe(1);
+    expect(threeSumClosest([0, 0, 0], 1)).toBe(0);
   });
 });

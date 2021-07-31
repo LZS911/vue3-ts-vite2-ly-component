@@ -46,12 +46,63 @@
 
     <script>
       // window.onload = test;
-      function test() {
-        const now = Date.now();
-        while (true) {
-          if (Date.now() - now > 3000) break;
-        }
+      // function test() {
+      //   const now = Date.now();
+      //   while (true) {
+      //     if (Date.now() - now > 3000) break;
+      //   }
+      // }
+
+      function removeValue(arr, value) {
+        const index = arr.findIndex((item) => item === value);
+        return arr.filter((_, i) => i !== index);
       }
+
+      function threeSum(nums) {
+        const res = [];
+        if (nums.length < 3) return [];
+        let list = nums;
+        new Set(nums).forEach((item) => {
+          let tmp = [];
+          list = removeValue(list, item);
+          tmp = tmpFunction(list, getOppositeNumber(item));
+          if (tmp.length > 0) {
+            for (let i = 0; i < tmp.length; i += 2) {
+              const val = [item, ...tmp.slice(i, i + 2)].sort((a, b) => a - b);
+              let flag = true;
+              if (res.length) {
+                console.log(val);
+                res.forEach((item) => {
+                  if (item[0] === val[0] && item[1] === val[1] && item[2] === val[2]) {
+                    flag = false;
+                  }
+                });
+              }
+              flag && res.push(val);
+            }
+          }
+        });
+        console.log(res);
+        return res;
+      }
+
+      function tmpFunction(arr, num) {
+        const map = new Map();
+        const tmp = [];
+        for (let i = 0; i < arr.length; ++i) {
+          if (map.has(arr[i]) && !tmp.includes(arr[i])) {
+            tmp.push(arr[map.get(arr[i])]);
+            tmp.push(arr[i]);
+          }
+          map.set(num - arr[i], i);
+        }
+        return tmp;
+      }
+
+      function getOppositeNumber(num) {
+        return ~num + 1;
+      }
+      threeSum([-1, 0, 1, 2, -1, -4]);
     </script>
   </body>
 </html>

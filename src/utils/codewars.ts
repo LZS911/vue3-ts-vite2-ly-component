@@ -1,3 +1,4 @@
+/* eslint-disable no-multi-assign */
 /* eslint-disable prefer-const */
 /* eslint-disable no-loop-func */
 /* eslint-disable no-param-reassign */
@@ -399,7 +400,7 @@ export function longestCommonPrefix(strs: string[]): string {
 
   for (let i = 0; i < tmpArr.length; ++i) {
     const tmp = tmpArr[i];
-    if (/^(\w)\1*$/.test(tmp) && tmp.length > 1) {
+    if (/^(\w)\1{1,}$/.test(tmp)) {
       res += tmp[0];
     } else {
       break;
@@ -421,4 +422,78 @@ export function generateArr(strs: string[]) {
     }
   });
   return tmpArr;
+}
+
+export function threeSum(nums: number[]): number[][] {
+  const res: number[][] = [];
+  if (nums.length < 3) return [];
+  let list = nums;
+  nums.forEach((item) => {
+    let tmp: number[] = [];
+    list = removeArr(list, item);
+    tmp = (getArrByAdd(list, getOppositeNumber(item)));
+    if (tmp.length > 0) {
+      for (let i = 0; i < tmp.length; i += 2) {
+        const val = [item, ...tmp.slice(i, i + 2)].sort((a, b) => a - b);
+        let flag = true;
+        if (res.length) {
+          res.forEach((item) => {
+            if (item[0] === val[0] && item[1] === val[1] && item[2] === val[2]) {
+              flag = false;
+            }
+          });
+        }
+        flag && res.push(val);
+      }
+    }
+  });
+  return res;
+}
+
+export function getArrByAdd(arr: number[], num: number) {
+  const map = new Map<number, number>();
+  const tmp: number[] = [];
+  for (let i = 0; i < arr.length; ++i) {
+    if (map.has(arr[i]) && !tmp.includes(arr[i])) {
+      tmp.push(arr[map.get(arr[i])!]);
+      tmp.push(arr[i]);
+    }
+    map.set(num - arr[i], i);
+  }
+  return tmp;
+}
+
+export function getOppositeNumber(num: number) {
+  return ~num + 1;
+}
+
+export function removeArr<T>(arr: T[], value: T) {
+  let index = arr.findIndex((p) => p === value);
+  return arr.filter((val, _index) => index !== _index);
+}
+
+//-1, 2, 1, -4  ===> -4, -1, 1, 2
+// 1, 4, 3, -4, 2], 1 ===> -4, 1, 2, 3, 4
+export function threeSumClosest(nums: number[], target: number): number {
+  if (nums.length < 3) return 0;
+  nums.sort((a, b) => a - b);
+  const tmp: number[] = [];
+  for (let i = 1; i < nums.length - 1; ++i) {
+    let j = 0;
+    let k = nums.length - 1;
+    while (j < k) {
+      const val = nums[i] + nums[j] + nums[k];
+      if (val === target) return target;
+      if (val < target) {
+        if (++j === i) ++j;
+      }
+      if ((val > target)) {
+        if (--k === i) --k;
+      }
+      tmp.push(val);
+    }
+  }
+  const min = tmp.map((item) => Math.abs(target - item)).sort((a, b) => a - b)[0];
+  const index = tmp.map((item) => Math.abs(target - item)).findIndex((item) => item === min);
+  return tmp[index];
 }
