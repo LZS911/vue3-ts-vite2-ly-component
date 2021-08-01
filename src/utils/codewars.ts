@@ -497,3 +497,30 @@ export function threeSumClosest(nums: number[], target: number): number {
   const index = tmp.map((item) => Math.abs(target - item)).findIndex((item) => item === min);
   return tmp[index];
 }
+
+export function letterCombinations(digits: string) {
+  let res: string[] = [];
+  const tmp: string[][] = [];
+  if (!digits || Array.from(digits).some((item) => +item < 2)) return res;
+  const map = new Map([
+    [2, ['a', 'b', 'c']],
+    [3, ['d', 'e', 'f']], [4, ['g', 'h', 'i']],
+    [5, ['j', 'k', 'l']], [6, ['m', 'n', 'o']],
+    [7, ['p', 'q', 'r', 's']], [8, ['t', 'u', 'v']],
+    [9, ['w', 'x', 'y', 'z']]
+  ]);
+
+  for (let i = 0; i < digits.length; ++i) {
+    if (map.has(+digits[i])) tmp.push(map.get(+digits[i])!);
+  }
+
+  res = tmp.reduce((res, current) => flatArray<string>(res.map((r) => current.map((c) => r + c))));
+
+  return res;
+}
+
+//数组降维
+export function flatArray<T>(arr: any[]): T[] {
+  return arr.reduce((res, current) => Array.isArray(current) ? [...res, ...flatArray(current)] :
+    [...res, current], []);
+}

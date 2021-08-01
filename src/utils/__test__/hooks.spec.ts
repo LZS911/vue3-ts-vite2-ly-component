@@ -2,7 +2,8 @@ import { $ } from '..';
 import {
   digitalRoot, multiply, objToTree, addTwoNumbers, ListNode,
   add, judgePalindrome, myAtoi, convert, isMatch, indexAll, maxArea, isSpecial, getNumberArr, intToRoman,
-  inToRoman2, longestCommonPrefix, generateArr, removeArr, getArrByAdd, threeSum, getOppositeNumber, threeSumClosest
+  inToRoman2, longestCommonPrefix, generateArr, removeArr, getArrByAdd, threeSum, getOppositeNumber,
+  threeSumClosest, letterCombinations, flatArray
 } from '../codewars';
 import { useState } from '../hooks';
 import _ from 'lodash';
@@ -301,12 +302,34 @@ describe('hooks.ts', () => {
   //   expect(getOppositeNumber(-12)).toBe(12);
   //   expect(getOppositeNumber(0)).toBe(0);
   // });
+  // test('threeSumClosest', () => {
+  //   expect(threeSumClosest([-1, 2, 1, -4], 1)).toBe(2);
+  //   expect(threeSumClosest([1, 4, 3, -4, 2], 1)).toBe(1);
+  //   expect(threeSumClosest([0, 0, 0, 1], 1)).toBe(1);
+  //   expect(threeSumClosest([0, 0, 0], 1)).toBe(0);
+  // });
   //#endregion
+  it('letterCombinations', () => {
+    expect(letterCombinations('')).toEqual([]);
+    expect(letterCombinations('1')).toEqual([]);
+    expect(letterCombinations('123')).toEqual([]);
+    expect(letterCombinations('23')).toEqual(['ad', 'ae', 'af', 'bd', 'be', 'bf', 'cd', 'ce', 'cf']);
+    expect(letterCombinations('234')).toEqual([
+      'adg', 'adh', 'adi', 'aeg',
+      'aeh', 'aei', 'afg', 'afh',
+      'afi', 'bdg', 'bdh', 'bdi',
+      'beg', 'beh', 'bei', 'bfg',
+      'bfh', 'bfi', 'cdg', 'cdh',
+      'cdi', 'ceg', 'ceh', 'cei',
+      'cfg', 'cfh', 'cfi'
+    ]);
+  });
 
-  test('threeSumClosest', () => {
-    expect(threeSumClosest([-1, 2, 1, -4], 1)).toBe(2);
-    expect(threeSumClosest([1, 4, 3, -4, 2], 1)).toBe(1);
-    expect(threeSumClosest([0, 0, 0, 1], 1)).toBe(1);
-    expect(threeSumClosest([0, 0, 0], 1)).toBe(0);
+  it('flatArray', () => {
+    expect(flatArray([[]])).toEqual([]);
+    expect(flatArray([[1, 2, 3], [4, 5, 6]])).toEqual([1, 2, 3, 4, 5, 6]);
+    expect(flatArray([[1, 2, 3]])).toEqual([1, 2, 3]);
+    expect(flatArray([[[1], [2], [3]], [[4], [5], [6]]])).toEqual([1, 2, 3, 4, 5, 6]);
+    expect(flatArray([[1, [[2]], [3]], [[4], [5], [6]]])).toEqual([1, 2, 3, 4, 5, 6]);
   });
 });
