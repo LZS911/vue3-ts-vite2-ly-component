@@ -580,37 +580,50 @@ export function fourSum(nums: number[], target: number): number[][] {
  */
 
 export function removeNthFromEnd(head: ListNode | null, n: number): ListNode | null {
-  if (!head) return null;
+  if (!head || !head.next) return null;
   //head 长度
   let length = 1;
-
-  let tmp1 = null;
-  let tmp2 = null;
-
-  let next = head?.next;
-  while (next?.val !== undefined) {
-    next = next.next;
+  let target = null;
+  let next = head;
+  while (next.next) {
+    next = next.next as any;
     length++;
   }
   let next2 = new ListNode();
   next2 = head;
   for (let i = 0; i < length; ++i) {
     if (i === length - n - 1) {
-      tmp1 = new ListNode();
-      tmp1 = next2;
-    }
-    if (i === length - n + 1) {
-      tmp2 = new ListNode();
-      tmp2 = next2;
+      target = new ListNode();
+      target = next2;
     }
     next2 = next2?.next!;
   }
-
-  if (!!tmp1) {
-    tmp1.next = tmp2;
+  if (!!target) {
+    target.next = target?.next?.next ?? null;
   } else {
     return head.next;
   }
 
+  return head;
+}
+
+export function removeNthFromEnd2(head: ListNode | null, n: number): ListNode | null {
+  if (!head || !head.next) return null;
+  //快指针
+  let fast = head;
+  //慢指针
+  let slow = head;
+  while (n--) {
+    //先将快指针 走 n 步
+    if (!fast.next) {
+      return head.next;
+    }
+    fast = fast.next;
+  }
+  while (fast.next) {
+    fast = fast.next;
+    slow = slow.next!;
+  }
+  slow.next = slow.next!.next;
   return head;
 }
