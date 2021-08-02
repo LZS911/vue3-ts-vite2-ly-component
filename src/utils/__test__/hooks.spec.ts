@@ -3,7 +3,7 @@ import {
   digitalRoot, multiply, objToTree, addTwoNumbers, ListNode,
   add, judgePalindrome, myAtoi, convert, isMatch, indexAll, maxArea, isSpecial, getNumberArr, intToRoman,
   inToRoman2, longestCommonPrefix, generateArr, removeArr, getArrByAdd, threeSum, getOppositeNumber,
-  threeSumClosest, letterCombinations, flatArray
+  threeSumClosest, letterCombinations, flatArray, fourSum
 } from '../codewars';
 import { useState } from '../hooks';
 import _ from 'lodash';
@@ -308,28 +308,35 @@ describe('hooks.ts', () => {
   //   expect(threeSumClosest([0, 0, 0, 1], 1)).toBe(1);
   //   expect(threeSumClosest([0, 0, 0], 1)).toBe(0);
   // });
-  //#endregion
-  it('letterCombinations', () => {
-    expect(letterCombinations('')).toEqual([]);
-    expect(letterCombinations('1')).toEqual([]);
-    expect(letterCombinations('123')).toEqual([]);
-    expect(letterCombinations('23')).toEqual(['ad', 'ae', 'af', 'bd', 'be', 'bf', 'cd', 'ce', 'cf']);
-    expect(letterCombinations('234')).toEqual([
-      'adg', 'adh', 'adi', 'aeg',
-      'aeh', 'aei', 'afg', 'afh',
-      'afi', 'bdg', 'bdh', 'bdi',
-      'beg', 'beh', 'bei', 'bfg',
-      'bfh', 'bfi', 'cdg', 'cdh',
-      'cdi', 'ceg', 'ceh', 'cei',
-      'cfg', 'cfh', 'cfi'
-    ]);
-  });
+  // it('letterCombinations', () => {
+  //   expect(letterCombinations('')).toEqual([]);
+  //   expect(letterCombinations('1')).toEqual([]);
+  //   expect(letterCombinations('123')).toEqual([]);
+  //   expect(letterCombinations('23')).toEqual(['ad', 'ae', 'af', 'bd', 'be', 'bf', 'cd', 'ce', 'cf']);
+  //   expect(letterCombinations('234')).toEqual([
+  //     'adg', 'adh', 'adi', 'aeg',
+  //     'aeh', 'aei', 'afg', 'afh',
+  //     'afi', 'bdg', 'bdh', 'bdi',
+  //     'beg', 'beh', 'bei', 'bfg',
+  //     'bfh', 'bfi', 'cdg', 'cdh',
+  //     'cdi', 'ceg', 'ceh', 'cei',
+  //     'cfg', 'cfh', 'cfi'
+  //   ]);
+  // });
 
-  it('flatArray', () => {
-    expect(flatArray([[]])).toEqual([]);
-    expect(flatArray([[1, 2, 3], [4, 5, 6]])).toEqual([1, 2, 3, 4, 5, 6]);
-    expect(flatArray([[1, 2, 3]])).toEqual([1, 2, 3]);
-    expect(flatArray([[[1], [2], [3]], [[4], [5], [6]]])).toEqual([1, 2, 3, 4, 5, 6]);
-    expect(flatArray([[1, [[2]], [3]], [[4], [5], [6]]])).toEqual([1, 2, 3, 4, 5, 6]);
-  });
+  // it('flatArray', () => {
+  //   expect(flatArray([[]])).toEqual([]);
+  //   expect(flatArray([[1, 2, 3], [4, 5, 6]])).toEqual([1, 2, 3, 4, 5, 6]);
+  //   expect(flatArray([[1, 2, 3]])).toEqual([1, 2, 3]);
+  //   expect(flatArray([[[1], [2], [3]], [[4], [5], [6]]])).toEqual([1, 2, 3, 4, 5, 6]);
+  //   expect(flatArray([[1, [[2]], [3]], [[4], [5], [6]]])).toEqual([1, 2, 3, 4, 5, 6]);
+  // });
+  // it('fourSum', () => {
+  //   expect(fourSum([], 10)).toEqual([]);
+  //   expect(fourSum([1, 2, 3, 4, 5], 10)).toEqual([[1, 2, 3, 4]]);
+  //   expect(fourSum([1, 0, -1, 0, 0, -2, 2], 0)).toEqual([[-2, -1, 1, 2], [-2, 0, 0, 2], [-1, 0, 0, 1]]);
+  //   expect(fourSum([-3, -2, -1, 0, 0, 1, 2, 3], 0)).toEqual([[-3, -2, 2, 3], [-3, -1, 1, 3], [-3, 0, 0, 3], [-3, 0, 1, 2], [-2, -1, 0, 3], [-2, -1, 1, 2], [-2, 0, 0, 2], [-1, 0, 0, 1]]);
+  // });
+  //#endregion
+
 });

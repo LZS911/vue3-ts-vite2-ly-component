@@ -1,3 +1,4 @@
+/* eslint-disable no-lonely-if */
 /* eslint-disable no-multi-assign */
 /* eslint-disable prefer-const */
 /* eslint-disable no-loop-func */
@@ -9,6 +10,7 @@
 /* eslint-disable no-empty-function */
 /* eslint-disable-next-line no-useless-escape */
 import _ from 'lodash';
+import { tmpdir } from 'os';
 
 export const MAX_NUMBER = Math.pow(2, 31) - 1;
 export const MIN_NUMBER = Math.pow(-2, 31);
@@ -523,4 +525,92 @@ export function letterCombinations(digits: string) {
 export function flatArray<T>(arr: any[]): T[] {
   return arr.reduce((res, current) => Array.isArray(current) ? [...res, ...flatArray(current)] :
     [...res, current], []);
+}
+
+export function fourSum(nums: number[], target: number): number[][] {
+  const res: number[][] = [];
+  if (!nums.length) return res;
+  nums.sort((a, b) => a - b);
+  for (let i = 0; i < nums.length; ++i) {
+    for (let j = i + 1; j < nums.length; ++j) {
+      let k = j + 1;
+      let l = nums.length - 1;
+      while (k < l) {
+        const val = nums[i] + nums[j] + nums[k] + nums[l];
+        if (val === target) {
+          let flag = true;
+          res.forEach((item) => {
+            if (item[0] === nums[i] && item[1] === nums[j] && item[2] === nums[k] && item[3] === nums[l]) {
+              flag = false;
+            }
+          });
+          if (flag) {
+            const tmp: number[] = [];
+            tmp.push(nums[i]);
+            tmp.push(nums[j]);
+            tmp.push(nums[k]);
+            tmp.push(nums[l]);
+            res.push(tmp);
+          }
+
+          k++;
+          l--;
+        }
+
+        if (val < target) k++;
+        if (val > target) l--;
+      }
+    }
+  }
+  console.log(res);
+
+  return res;
+}
+
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     val: number
+ *     next: ListNode | null
+ *     constructor(val?: number, next?: ListNode | null) {
+ *         this.val = (val===undefined ? 0 : val)
+ *         this.next = (next===undefined ? null : next)
+ *     }
+ * }
+ */
+
+export function removeNthFromEnd(head: ListNode | null, n: number): ListNode | null {
+  if (!head) return null;
+  //head 长度
+  let length = 1;
+
+  let tmp1 = null;
+  let tmp2 = null;
+
+  let next = head?.next;
+  while (next?.val !== undefined) {
+    next = next.next;
+    length++;
+  }
+  let next2 = new ListNode();
+  next2 = head;
+  for (let i = 0; i < length; ++i) {
+    if (i === length - n - 1) {
+      tmp1 = new ListNode();
+      tmp1 = next2;
+    }
+    if (i === length - n + 1) {
+      tmp2 = new ListNode();
+      tmp2 = next2;
+    }
+    next2 = next2?.next!;
+  }
+
+  if (!!tmp1) {
+    tmp1.next = tmp2;
+  } else {
+    return head.next;
+  }
+
+  return head;
 }
