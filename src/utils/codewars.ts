@@ -690,3 +690,44 @@ export function isValid(s: string): boolean {
   //若成功pop完数组, 并且数组内容为空, 则符合条件
   return !st.length;
 }
+/*
+ * 题目描述:
+ * 将两个升序链表合并为一个新的 升序 链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。
+ *
+ * 大致思路:
+ * 比较 l1和 l2 的 val,
+ * @param l1
+ * @param l2
+ */
+export function mergeTwoLists(l1: ListNode | null, l2: ListNode | null): ListNode | null {
+  if (!l1 && !l2) return null;
+  let tmp = new ListNode();
+  let res = tmp;
+  while (l1 && l2) {
+    if (l1.val < l2.val) {
+      tmp.next = l1;
+      l1 = l1.next;
+    } else {
+      tmp.next = l2;
+      l2 = l2.next;
+    }
+    tmp = tmp.next;
+  }
+  //有一个为空
+  if (!l1) {
+    //l1 为空
+    tmp.next = l2;
+  } else {
+    //l2 为空
+    tmp.next = l1;
+  }
+  return res.next;
+
+  //大佬递归思路
+  // if (l1!.val < l2!.val) {
+  //   l1!.next = mergeTwoLists(l1?.next ?? null, l2);
+  //   return l1;
+  // }
+  // l2!.next = mergeTwoLists(l1, l2!.next ?? null);
+  // return l2;
+}

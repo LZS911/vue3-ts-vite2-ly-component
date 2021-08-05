@@ -3,7 +3,7 @@ import {
   digitalRoot, multiply, objToTree, addTwoNumbers, ListNode,
   add, judgePalindrome, myAtoi, convert, isMatch, indexAll, maxArea, isSpecial, getNumberArr, intToRoman,
   inToRoman2, longestCommonPrefix, generateArr, removeArr, getArrByAdd, threeSum, getOppositeNumber,
-  threeSumClosest, letterCombinations, flatArray, fourSum, isValid
+  threeSumClosest, letterCombinations, flatArray, fourSum, isValid, mergeTwoLists
 } from '../codewars';
 import { useState } from '../hooks';
 import _ from 'lodash';
@@ -349,5 +349,49 @@ describe('hooks.ts', () => {
     expect(isValid('({]})')).toBe(false);
     expect(isValid('(){}[')).toBe(false);
     expect(isValid('(){}[]]')).toBe(false);
+  });
+  it('mergeTwoLists', () => {
+    const l1: ListNode = {
+      val: 1,
+      next: {
+        val: 2,
+        next: {
+          val: 3,
+          next: null
+        }
+      }
+    };
+    const l2: ListNode = {
+      val: 1,
+      next: {
+        val: 3,
+        next: {
+          val: 4,
+          next: null
+        }
+      }
+    };
+
+    const l3: ListNode = {
+      val: 1,
+      next: {
+        val: 1,
+        next: {
+          val: 2,
+          next: {
+            val: 3,
+            next: {
+              val: 3,
+              next: {
+                val: 4,
+                next: null
+              }
+            }
+          }
+        }
+      }
+    };
+
+    expect(mergeTwoLists(l1, l2)).toEqual(l3);
   });
 });
