@@ -337,61 +337,61 @@ describe('hooks.ts', () => {
   //   expect(fourSum([1, 0, -1, 0, 0, -2, 2], 0)).toEqual([[-2, -1, 1, 2], [-2, 0, 0, 2], [-1, 0, 0, 1]]);
   //   expect(fourSum([-3, -2, -1, 0, 0, 1, 2, 3], 0)).toEqual([[-3, -2, 2, 3], [-3, -1, 1, 3], [-3, 0, 0, 3], [-3, 0, 1, 2], [-2, -1, 0, 3], [-2, -1, 1, 2], [-2, 0, 0, 2], [-1, 0, 0, 1]]);
   // });
+  // it('isValid', () => {
+  //   expect(isValid('()')).toBe(true);
+  //   expect(isValid('{}')).toBe(true);
+  //   expect(isValid('[]')).toBe(true);
+  //   expect(isValid('(){}[]')).toBe(true);
+  //   expect(isValid('({[]})')).toBe(true);
+  //   expect(isValid('(}')).toBe(false);
+  //   expect(isValid('({]})')).toBe(false);
+  //   expect(isValid('(){}[')).toBe(false);
+  //   expect(isValid('(){}[]]')).toBe(false);
+  // });
+  // it('mergeTwoLists', () => {
+  //   const l1: ListNode = {
+  //     val: 1,
+  //     next: {
+  //       val: 2,
+  //       next: {
+  //         val: 3,
+  //         next: null
+  //       }
+  //     }
+  //   };
+  //   const l2: ListNode = {
+  //     val: 1,
+  //     next: {
+  //       val: 3,
+  //       next: {
+  //         val: 4,
+  //         next: null
+  //       }
+  //     }
+  //   };
+
+  //   const l3: ListNode = {
+  //     val: 1,
+  //     next: {
+  //       val: 1,
+  //       next: {
+  //         val: 2,
+  //         next: {
+  //           val: 3,
+  //           next: {
+  //             val: 3,
+  //             next: {
+  //               val: 4,
+  //               next: null
+  //             }
+  //           }
+  //         }
+  //       }
+  //     }
+  //   };
+
+  //   expect(mergeTwoLists(l1, l2)).toEqual(l3);
+  // });
   //#endregion
 
-  it('isValid', () => {
-    expect(isValid('()')).toBe(true);
-    expect(isValid('{}')).toBe(true);
-    expect(isValid('[]')).toBe(true);
-    expect(isValid('(){}[]')).toBe(true);
-    expect(isValid('({[]})')).toBe(true);
-    expect(isValid('(}')).toBe(false);
-    expect(isValid('({]})')).toBe(false);
-    expect(isValid('(){}[')).toBe(false);
-    expect(isValid('(){}[]]')).toBe(false);
-  });
-  it('mergeTwoLists', () => {
-    const l1: ListNode = {
-      val: 1,
-      next: {
-        val: 2,
-        next: {
-          val: 3,
-          next: null
-        }
-      }
-    };
-    const l2: ListNode = {
-      val: 1,
-      next: {
-        val: 3,
-        next: {
-          val: 4,
-          next: null
-        }
-      }
-    };
-
-    const l3: ListNode = {
-      val: 1,
-      next: {
-        val: 1,
-        next: {
-          val: 2,
-          next: {
-            val: 3,
-            next: {
-              val: 3,
-              next: {
-                val: 4,
-                next: null
-              }
-            }
-          }
-        }
-      }
-    };
-
-    expect(mergeTwoLists(l1, l2)).toEqual(l3);
-  });
 });

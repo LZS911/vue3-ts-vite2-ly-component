@@ -731,3 +731,46 @@ export function mergeTwoLists(l1: ListNode | null, l2: ListNode | null): ListNod
   // l2!.next = mergeTwoLists(l1, l2!.next ?? null);
   // return l2;
 }
+
+/**
+ *
+ * @param n
+ *
+ * 题目描述:
+ * 数字 n 代表生成括号的对数，请你设计一个函数，用于能够生成所有可能的并且 有效的 括号组合。
+ * 示例 1：
+ * 输入：n = 3
+ * 输出：["((()))","(()())","(())()","()(())","()()()"]
+ * 示例 2：
+ * 输入：n = 1
+ * 输出：["()"]
+ *
+ * res: 返回值
+ * resStr: 返回值的每一项, 长度为2n
+ *
+ * 规则 resStr 以 '(' 开头, 以')'结尾
+ * += 一次 '(' 对应 += 一次 ')'
+ *
+ * 难点: res 的长度怎么得到?
+ *
+ */
+
+export function generateParenthesis(n: number): string[] {
+  const res: string[] = [];
+  let tmp: string[] = [];
+
+  for (let i = 0; i < 3; ++i) {
+    tmp.push('(');
+  }
+  for (let i = 0; i < 3; ++i) {
+    tmp.push(')');
+  }
+
+  const generateStr = () => {
+    let str = '(';
+    let count = 1;
+
+    return { str, count };
+  };
+  return res;
+}
