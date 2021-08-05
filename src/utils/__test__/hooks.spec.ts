@@ -3,7 +3,7 @@ import {
   digitalRoot, multiply, objToTree, addTwoNumbers, ListNode,
   add, judgePalindrome, myAtoi, convert, isMatch, indexAll, maxArea, isSpecial, getNumberArr, intToRoman,
   inToRoman2, longestCommonPrefix, generateArr, removeArr, getArrByAdd, threeSum, getOppositeNumber,
-  threeSumClosest, letterCombinations, flatArray, fourSum
+  threeSumClosest, letterCombinations, flatArray, fourSum, isValid
 } from '../codewars';
 import { useState } from '../hooks';
 import _ from 'lodash';
@@ -339,4 +339,15 @@ describe('hooks.ts', () => {
   // });
   //#endregion
 
+  it('isValid', () => {
+    expect(isValid('()')).toBe(true);
+    expect(isValid('{}')).toBe(true);
+    expect(isValid('[]')).toBe(true);
+    expect(isValid('(){}[]')).toBe(true);
+    expect(isValid('({[]})')).toBe(true);
+    expect(isValid('(}')).toBe(false);
+    expect(isValid('({]})')).toBe(false);
+    expect(isValid('(){}[')).toBe(false);
+    expect(isValid('(){}[]]')).toBe(false);
+  });
 });

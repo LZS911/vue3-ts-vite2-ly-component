@@ -326,22 +326,28 @@ export function intToRoman(num: number): string {
     }
 
     //计算倍数
-    let multiple = 1;
-    while (index > 0 && index--) {
-      multiple * 10;
-    }
+    // let multiple = 1;
+    // while (index > 0 && index--) {
+    //   multiple * 10;
+    // }
     //计算当前的值  1234 对应的四次值 为 4, 30, 200, 1000
-    const current = item * multiple;
+    // const current = item * multiple;
 
     //如果是 4 或 9 的情况
-    if (isSpecial(current)) {
-      if (current % 4) {
-        //为 9, 按照要求拼接字符串
-        res = `${p}${z}${res}`;
-      } else {
-        //为4
-        res = `${p}${q}${res}`;
-      }
+    // if (isSpecial(current)) {
+    //   if (current % 4) {
+    //     //为 9, 按照要求拼接字符串
+    //     res = `${p}${z}${res}`;
+    //   } else {
+    //     //为4
+    //     res = `${p}${q}${res}`;
+    //   }
+    // }
+
+    if (item === 4) {
+      res = `${p}${q}${res}`;
+    } else if (item === 9) {
+      res = `${p}${z}${res}`;
     } else if (item === 5) {
       //为 5
       res = `${q}${res}`;
@@ -626,4 +632,61 @@ export function removeNthFromEnd2(head: ListNode | null, n: number): ListNode | 
   }
   slow.next = slow.next!.next;
   return head;
+}
+
+/**
+ *
+ *
+ 题目描述:
+给定一个只包括  ('，')'，'{'，'}'，'['，'] 的字符串 s ，判断字符串是否有效。
+有效字符串需满足：
+左括号必须用相同类型的右括号闭合。
+左括号必须以正确的顺序闭合。
+
+限制:
+1 <= s.length <= 104
+s 仅由括号 '()[]{}' 组成
+ *
+ 大致思路:
+ 先判断出不符合条件的几种情况:
+  1. 长度为奇数, 分为一下两种情况:
+  · 左边的括号多一个   expect(isValid('(){}[')).toBe(false);
+  · 右边的括号多一个   expect(isValid('(){}[]]')).toBe(false);
+  2. 符号对应不上     expect(isValid('(}')).toBe(false);
+ *
+ * @param s : 需要判断的字符串
+ */
+export function isValid(s: string): boolean {
+  //添加限制
+  if (s.length < 1 || s.length > 104 || !(/^[\{\}\(\)\[\]]+$/.test(s))) return false;
+  //奇数直接false
+  if (s.length % 2) return false;
+
+  //建立数组, 用来比较
+  const st: string[] = [];
+
+  //建立对应关系字典
+  const map: { [key: string]: string } = Object.create(null);
+  map['('] = ')';
+  map['{'] = '}';
+  map['['] = ']';
+
+  //遍历字符串
+  for (let i = 0; i < s.length; ++i) {
+    // 如果当前为左括号 将左括号对应的右括号push进数组
+    if (map[s[i]]) st.push(map[s[i]]);
+
+    /**
+     * 当前分支为s[i]为 右括号 值
+     * pop:弹出数组最后push进去的元素(栈 后进先出原则)
+     * 利用数组pop函数的返回值(移出的元素), 用来和s[i]对比,
+     * 如果符合对称关系, 则其应该相等, 如若有不相等, 则返回false
+     */
+    else if (s[i] !== st.pop()) {
+      return false;
+    }
+  }
+
+  //若成功pop完数组, 并且数组内容为空, 则符合条件
+  return !st.length;
 }
