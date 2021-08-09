@@ -4,6 +4,8 @@ import { isString, toRawType } from '@vue/shared';
 import { Ref, computed } from 'vue';
 import _ from 'lodash';
 
+export { isString };
+
 export const isBool = (val: unknown): val is boolean => typeof val === 'boolean';
 export const isNumber = (val: unknown): val is number => typeof val === 'number';
 export const isArray = <T>(val: unknown): val is Array<T> => Array.isArray(val);
@@ -12,6 +14,7 @@ export function $<T>(ref: Ref<T>) {
   return ref.value;
 }
 
+export const isFunction = (val: unknown): val is Function => typeof val === 'function';
 export const isEmpty = (val: unknown) => {
   if (isNumber(val)) {
     return false;

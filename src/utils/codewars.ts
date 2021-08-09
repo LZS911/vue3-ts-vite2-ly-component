@@ -220,18 +220,6 @@ export function isMatch(target: string, validate: string): boolean {
   return true;
 }
 
-export function indexAll(params: string, target: string) {
-  const res: number[] = [];
-  let index = 0;
-  for (let i = 0; params.includes(target); ++i) {
-    index += params.indexOf(target) + (i ? 1 : 0);
-    res.push(index);
-    params = params.slice(params.indexOf(target) + 1);
-  }
-
-  return res;
-}
-
 export function maxArea(nums: number[]): number {
   if (nums.length < 1) return 0;
   let res = 0;
@@ -477,7 +465,7 @@ export function getOppositeNumber(num: number) {
 
 export function removeArr<T>(arr: T[], value: T) {
   let index = arr.findIndex((p) => p === value);
-  return arr.filter((val, _index) => index !== _index);
+  return arr.filter((_, _index) => index !== _index);
 }
 
 //-1, 2, 1, -4  ===> -4, -1, 1, 2
@@ -766,6 +754,191 @@ export function generateParenthesis(n: number): string[] {
     //左侧括号小于右侧括号
     lCount < rCount && generateStr(lCount, rCount - 1, `${str})`);
   };
+<<<<<<< HEAD
   generateStr(n, n, '');
+=======
+
+  return res;
+}
+/**
+ *
+ // 给你一个有序数组 nums ，请你 原地 删除重复出现的元素，使每个元素 只出现一次 ，返回删除后数组的新长度。
+// 不要使用额外的数组空间，你必须在 原地 修改输入数组 并在使用 O(1) 额外空间的条件下完成。
+//
+// 说明:
+// 为什么返回数值是整数，但输出的答案是数组呢?
+// 请注意，输入数组是以「引用」方式传递的，这意味着在函数里修改输入数组对于调用者是可见的。
+// 你可以想象内部操作如下:
+// // nums 是以“引用”方式传递的。也就是说，不对实参做任何拷贝
+// int len = removeDuplicates(nums);
+// // 在函数里修改输入数组对于调用者是可见的。
+// // 根据你的函数返回的长度, 它会打印出数组中 该长度范围内 的所有元素。
+// for (int i = 0; i < len; i++) {
+//  print(nums[i]);
+// }
+//
+// 示例 1：
+
+// 输入：nums = [1,1,2]
+// 输出：2, nums = [1,2]
+// 解释：函数应该返回新的长度 2 ，并且原数组 nums 的前两个元素被修改为 1, 2 。不需要考虑数组中超出新长度后面的元素。
+// 示例 2：
+
+// 输入：nums = [0,0,1,1,1,2,2,3,3,4]
+// 输出：5, nums = [0,1,2,3,4]
+// 解释：函数应该返回新的长度 5 ， 并且原数组 nums 的前五个元素被修改为 0, 1, 2, 3, 4 。不需要考虑数组中超出新长度后面的元素。
+
+* @param nums
+* @returns
+*/
+
+export function removeDuplicates(nums: number[]): number {
+  // while (i < len && nums[i] !== undefined) {
+  //   if (nums[i + 1] === nums[i]) {
+  //     nums.splice(i + 1, 1);
+  //   } else {
+  //     i += 1;
+  //   }
+  // }
+  // return nums.length;
+
+  let fast = 1;
+  let slow = 0;
+  while (fast < nums.length) {
+    if (nums[fast] > nums[slow]) nums[++slow] = nums[fast];
+    fast++;
+  }
+  console.log(nums);
+  return ++slow;
+}
+
+/**
+ *
+ * 给你一个数组 nums 和一个值 val，你需要 原地 移除所有数值等于 val 的元素，并返回移除后数组的新长度。
+  不要使用额外的数组空间，你必须仅使用 O(1) 额外空间并 原地 修改输入数组。
+  元素的顺序可以改变。你不需要考虑数组中超出新长度后面的元素。
+   输入：nums = [0,1,2,2,3,0,4,2], val = 2
+   输出：5, nums = [0,1,4,0,3]
+
+   [1, 2, 3] 1 => [2, 3]
+ * @param nums
+ * @param val
+ */
+export function removeElement(nums: number[], val: number): number {
+  let fast = 0;
+  let slow = 0;
+
+  while (fast < nums.length) {
+    if (nums[fast] !== val) {
+      nums[slow] = nums[fast];
+      slow++;
+    }
+    fast++;
+  }
+  return slow;
+}
+
+/**
+ *
+ * @param haystack 实现 strStr() 函数。
+
+给你两个字符串 haystack 和 needle ，请你在 haystack 字符串中找出 needle 字符串出现的第一个位置（下标从 0 开始）。如果不存在，则返回  -1 。
+
+说明：
+
+当 needle 是空字符串时，我们应当返回什么值呢？这是一个在面试中很好的问题。
+
+对于本题而言，当 needle 是空字符串时我们应当返回 0 。这与 C 语言的 strstr() 以及 Java 的 indexOf() 定义相符。
+
+示例 1：
+
+输入：haystack = "hello", needle = "ll"
+输出：2
+示例 2：
+
+输入：haystack = "aaaaa", needle = "bba"
+输出：-1
+示例 3：
+
+输入：haystack = "", needle = ""
+输出：0
+ * @param needle
+ */
+export function strStr(haystack: string, needle: string): number {
+  if (!needle.length) return 0;
+  let index = -1;
+  for (let i = 0; i < haystack.length; ++i) {
+    if (haystack[i] === needle[0] && haystack.substring(i, needle.length + i) === needle) {
+      index = i;
+      break;
+    }
+  }
+
+  return index;
+}
+/**
+ * 返回数组中所有包含的项的一个数组
+ * @param params 原始字符串
+ * @param target 目标值
+ * @returns number[]
+ */
+export function indexAll(params: string, target: string) {
+  const res: number[] = [];
+  let index = 0;
+  for (let i = 0; params.includes(target); ++i) {
+    index += params.indexOf(target) + (i ? 1 : 0);
+    res.push(index);
+    params = params.slice(params.indexOf(target) + 1);
+  }
+
+  return res;
+}
+/**
+ * 给定一个字符串 s 和一些 长度相同 的单词 words 。找出 s 中恰好可以由 words 中所有单词串联形成的子串的起始位置。
+注意子串要与 words 中的单词完全匹配，中间不能有其他字符 ，但不需要考虑 words 中单词串联的顺序。
+示例 1：
+输入：s = "barfoothefoobarman", words = ["foo","bar"]
+输出：[0,9]
+解释：
+从索引 0 和 9 开始的子串分别是 "barfoo" 和 "foobar" 。
+输出的顺序不重要, [9,0] 也是有效答案。
+示例 2：
+输入：s = "wordgoodgoodgoodbestword", words = ["word","good","best","word"]
+输出：[]
+示例 3：
+输入：s = "barfoofoobarthefoobarman", words = ["bar","foo","the"]
+输出：[6,9,12]
+ */
+export function findSubstring(s: string, words: string[]): number[] {
+  if (!s.length || !words.length) return [];
+  let res: number[] = [];
+  //递归 暴力破解失败, 超时 --
+  // let len = words[0].length * words.length;
+  // const generateWord = (str: string, arr: string[]) => {
+  //   if (str.length === len) {
+  //     for (let i = 0; i < s.length; ++i) {
+  //       if (s[i] === str[0] && s.substring(i, str.length + i) === str) {
+  //         res.push(i);
+  //       }
+  //     }
+  //     return;
+  //   }
+  //   arr.forEach((item: string) => {
+  //     let res = str + item;
+  //     generateWord(res, removeArr(arr, item));
+  //   });
+  // };
+  // generateWord('', words);
+
+  // const wordLen = words[0].length;
+  // //换个思路
+  // for(let i = 0; i < s.length; ++i){
+  //   for(let j = 0; j < words.length; ++j){
+  //     if(s.substring(i, wordLen) === words[j]){
+
+  //     }
+  //   }
+  // }
+>>>>>>> 8411174d6dc13d657ccbfaa0b2356320bb0f754d
   return res;
 }
