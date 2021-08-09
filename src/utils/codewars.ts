@@ -754,9 +754,7 @@ export function generateParenthesis(n: number): string[] {
     //左侧括号小于右侧括号
     lCount < rCount && generateStr(lCount, rCount - 1, `${str})`);
   };
-<<<<<<< HEAD
   generateStr(n, n, '');
-=======
 
   return res;
 }
@@ -939,6 +937,5 @@ export function findSubstring(s: string, words: string[]): number[] {
   //     }
   //   }
   // }
->>>>>>> 8411174d6dc13d657ccbfaa0b2356320bb0f754d
   return res;
 }
