@@ -3,7 +3,8 @@ import {
   digitalRoot, multiply, objToTree, addTwoNumbers, ListNode,
   add, judgePalindrome, myAtoi, convert, isMatch, indexAll, maxArea, isSpecial, getNumberArr, intToRoman,
   inToRoman2, longestCommonPrefix, generateArr, removeArr, getArrByAdd, threeSum, getOppositeNumber,
-  threeSumClosest, letterCombinations, flatArray, fourSum, isValid, mergeTwoLists
+  threeSumClosest, letterCombinations, flatArray, fourSum, isValid, mergeTwoLists, removeDuplicates, removeElement,
+  strStr, findSubstring
 } from '../codewars';
 import { useState } from '../hooks';
 import _ from 'lodash';
@@ -392,6 +393,41 @@ describe('hooks.ts', () => {
 
   //   expect(mergeTwoLists(l1, l2)).toEqual(l3);
   // });
+  // it('removeDuplicates', () => {
+  //   // expect(removeDuplicates([])).toBe(0);
+  //   // expect(removeDuplicates([1])).toBe(1);
+  //   // expect(removeDuplicates([1, 2])).toBe(2);
+  //   // expect(removeDuplicates([1, 1, 2, 2, 3])).toBe(3);
+  //   // expect(removeDuplicates([0, 0, 1, 1, 1, 2, 2, 3, 3, 4])).toBe(5);
+  // });
+
+  // it('removeElement', () => {
+  //   expect(removeElement([], 1)).toBe(0);
+  //   expect(removeElement([1, 2, 3], 1)).toBe(2);
+  //   expect(removeElement([3, 2, 2, 3], 3)).toBe(2);
+  //   expect(removeElement([0, 1, 2, 2, 3, 0, 4, 2], 2)).toBe(5);
+  // });
+
+  // it('strStr', () => {
+  //   expect(strStr('', '')).toBe(0);
+  //   expect(strStr('', 'a')).toBe(-1);
+  //   expect(strStr('a', '')).toBe(0);
+  //   expect(strStr('abc', 'a')).toBe(0);
+  //   expect(strStr('abc', 'd')).toBe(-1);
+  //   expect(strStr('hello', 'll')).toBe(2);
+  //   expect(strStr('hello', 'lll')).toBe(-1);
+  //   expect(strStr('aaaaa', 'bba')).toBe(-1);
+  // });
   //#endregion
 
+  it('findSubstring', () => {
+    // expect(findSubstring('', ['foo', 'bar'])).toEqual([]);
+    // expect(findSubstring('13', [])).toEqual([]);
+    // expect(findSubstring('barfoothefoobarman', ['foo', 'bar'])).toEqual([9, 0]);
+    // expect(findSubstring('wordgoodgoodgoodbestword', ['word', 'good', 'best', 'word'])).toEqual([]);
+    // expect(findSubstring('barfoofoobarthefoobarman', ['bar', 'foo', 'the'])).toEqual([9, 6, 12]);
+    // expect(findSubstring('foobarfoobar', ['foo', 'bar'])).toEqual([0, 6, 3]);
+    // expect(findSubstring('pjzkrkevzztxductzzxmxsvwjkxpvukmfjywwetvfnujhweiybwvvsrfequzkhossmootkmyxgjgfordrpapjuunmqnxxdrqrfgkrsjqbszgiqlcfnrpjlcwdrvbumtotzylshdvccdmsqoadfrpsvnwpizlwszrtyclhgilklydbmfhuywotjmktnwrfvizvnmfvvqfiokkdprznnnjycttprkxpuykhmpchiksyucbmtabiqkisgbhxngmhezrrqvayfsxauampdpxtafniiwfvdufhtwajrbkxtjzqjnfocdhekumttuqwovfjrgulhekcpjszyynadxhnttgmnxkduqmmyhzfnjhducesctufqbumxbamalqudeibljgbspeotkgvddcwgxidaiqcvgwykhbysjzlzfbupkqunuqtraxrlptivshhbihtsigtpipguhbhctcvubnhqipncyxfjebdnjyetnlnvmuxhzsdahkrscewabejifmxombiamxvauuitoltyymsarqcuuoezcbqpdaprxmsrickwpgwpsoplhugbikbkotzrtqkscekkgwjycfnvwfgdzogjzjvpcvixnsqsxacfwndzvrwrycwxrcismdhqapoojegggkocyrdtkzmiekhxoppctytvphjynrhtcvxcobxbcjjivtfjiwmduhzjokkbctweqtigwfhzorjlkpuuliaipbtfldinyetoybvugevwvhhhweejogrghllsouipabfafcxnhukcbtmxzshoyyufjhzadhrelweszbfgwpkzlwxkogyogutscvuhcllphshivnoteztpxsaoaacgxyaztuixhunrowzljqfqrahosheukhahhbiaxqzfmmwcjxountkevsvpbzjnilwpoermxrtlfroqoclexxisrdhvfsindffslyekrzwzqkpeocilatftymodgztjgybtyheqgcpwogdcjlnlesefgvimwbxcbzvaibspdjnrpqtyeilkcspknyylbwndvkffmzuriilxagyerjptbgeqgebiaqnvdubrtxibhvakcyotkfonmseszhczapxdlauexehhaireihxsplgdgmxfvaevrbadbwjbdrkfbbjjkgcztkcbwagtcnrtqryuqixtzhaakjlurnumzyovawrcjiwabuwretmdamfkxrgqgcdgbrdbnugzecbgyxxdqmisaqcyjkqrntxqmdrczxbebemcblftxplafnyoxqimkhcykwamvdsxjezkpgdpvopddptdfbprjustquhlazkjfluxrzopqdstulybnqvyknrchbphcarknnhhovweaqawdyxsqsqahkepluypwrzjegqtdoxfgzdkydeoxvrfhxusrujnmjzqrrlxglcmkiykldbiasnhrjbjekystzilrwkzhontwmehrfsrzfaqrbbxncphbzuuxeteshyrveamjsfiaharkcqxefghgceeixkdgkuboupxnwhnfigpkwnqdvzlydpidcljmflbccarbiegsmweklwngvygbqpescpeichmfidgsjmkvkofvkuehsmkkbocgejoiqcnafvuokelwuqsgkyoekaroptuvekfvmtxtqshcwsztkrzwrpabqrrhnlerxjojemcxel',
+    //   ['dhvf', 'sind', 'ffsl', 'yekr', 'zwzq', 'kpeo', 'cila', 'tfty', 'modg', 'ztjg', 'ybty', 'heqg', 'cpwo', 'gdcj', 'lnle', 'sefg', 'vimw', 'bxcb'])).toEqual([0, 6, 3]);
+  });
 });
