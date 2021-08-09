@@ -3,7 +3,7 @@ import {
   digitalRoot, multiply, objToTree, addTwoNumbers, ListNode,
   add, judgePalindrome, myAtoi, convert, isMatch, indexAll, maxArea, isSpecial, getNumberArr, intToRoman,
   inToRoman2, longestCommonPrefix, generateArr, removeArr, getArrByAdd, threeSum, getOppositeNumber,
-  threeSumClosest, letterCombinations, flatArray, fourSum, isValid, mergeTwoLists
+  threeSumClosest, letterCombinations, flatArray, fourSum, isValid, mergeTwoLists, generateParenthesis
 } from '../codewars';
 import { useState } from '../hooks';
 import _ from 'lodash';
@@ -393,5 +393,8 @@ describe('hooks.ts', () => {
   //   expect(mergeTwoLists(l1, l2)).toEqual(l3);
   // });
   //#endregion
-
+  it('generateParenthesis', () => {
+    expect(generateParenthesis(1)).toEqual(['()']);
+    expect(generateParenthesis(3)).toEqual(['((()))', '(()())', '(())()', '()(())', '()()()']);
+  });
 });

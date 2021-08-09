@@ -745,32 +745,27 @@ export function mergeTwoLists(l1: ListNode | null, l2: ListNode | null): ListNod
  * 输入：n = 1
  * 输出：["()"]
  *
- * res: 返回值
- * resStr: 返回值的每一项, 长度为2n
- *
- * 规则 resStr 以 '(' 开头, 以')'结尾
- * += 一次 '(' 对应 += 一次 ')'
- *
- * 难点: res 的长度怎么得到?
- *
  */
 
 export function generateParenthesis(n: number): string[] {
   const res: string[] = [];
-  let tmp: string[] = [];
-
-  for (let i = 0; i < 3; ++i) {
-    tmp.push('(');
-  }
-  for (let i = 0; i < 3; ++i) {
-    tmp.push(')');
-  }
-
-  const generateStr = () => {
-    let str = '(';
-    let count = 1;
-
-    return { str, count };
+  /**
+   *
+   * @param lCount 左括号数量
+   * @param rCount 右括号数量
+   * @param str  拼接的字符串
+   */
+  const generateStr = (lCount: number, rCount: number, str: string) => {
+    //递归什么时候结束:  当 lCount === 0 &&  rCount === 0
+    if (lCount === 0 && rCount === 0) {
+      res.push(str);
+      return;
+    }
+    //左侧括号还有剩余
+    lCount > 0 && generateStr(lCount - 1, rCount, `${str}(`);
+    //左侧括号小于右侧括号
+    lCount < rCount && generateStr(lCount, rCount - 1, `${str})`);
   };
+  generateStr(n, n, '');
   return res;
 }
