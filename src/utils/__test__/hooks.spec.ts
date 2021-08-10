@@ -1,10 +1,12 @@
+/* eslint-disable prefer-const */
 import { $ } from '..';
 import {
   digitalRoot, multiply, objToTree, addTwoNumbers, ListNode,
   add, judgePalindrome, myAtoi, convert, isMatch, indexAll, maxArea, isSpecial, getNumberArr, intToRoman,
   inToRoman2, longestCommonPrefix, generateArr, removeArr, getArrByAdd, threeSum, getOppositeNumber,
-  threeSumClosest, letterCombinations, flatArray, fourSum, isValid, mergeTwoLists, removeDuplicates, removeElement,
-  strStr, findSubstring
+  threeSumClosest, letterCombinations, flatArray, fourSum, isValid, mergeTwoLists, generateParenthesis,
+  removeDuplicates, removeElement,
+  strStr, findSubstring, nextPermutation
 } from '../codewars';
 import { useState } from '../hooks';
 import _ from 'lodash';
@@ -418,16 +420,49 @@ describe('hooks.ts', () => {
   //   expect(strStr('hello', 'lll')).toBe(-1);
   //   expect(strStr('aaaaa', 'bba')).toBe(-1);
   // });
+  // it('generateParenthesis', () => {
+  //   expect(generateParenthesis(1)).toEqual(['()']);
+  //   expect(generateParenthesis(3)).toEqual(['((()))', '(()())', '(())()', '()(())', '()()()']);
+  // });
+  // it('findSubstring', () => {
+  //   // expect(findSubstring('', ['foo', 'bar'])).toEqual([]);
+  //   // expect(findSubstring('13', [])).toEqual([]);
+  //   // expect(findSubstring('barfoothefoobarman', ['foo', 'bar'])).toEqual([9, 0]);
+  //   // expect(findSubstring('wordgoodgoodgoodbestword', ['word', 'good', 'best', 'word'])).toEqual([]);
+  //   // expect(findSubstring('barfoofoobarthefoobarman', ['bar', 'foo', 'the'])).toEqual([9, 6, 12]);
+  //   // expect(findSubstring('foobarfoobar', ['foo', 'bar'])).toEqual([0, 6, 3]);
+  //   // expect(findSubstring('pjzkrkevzztxductzzxmxsvwjkxpvukmfjywwetvfnujhweiybwvvsrfequzkhossmootkmyxgjgfordrpapjuunmqnxxdrqrfgkrsjqbszgiqlcfnrpjlcwdrvbumtotzylshdvccdmsqoadfrpsvnwpizlwszrtyclhgilklydbmfhuywotjmktnwrfvizvnmfvvqfiokkdprznnnjycttprkxpuykhmpchiksyucbmtabiqkisgbhxngmhezrrqvayfsxauampdpxtafniiwfvdufhtwajrbkxtjzqjnfocdhekumttuqwovfjrgulhekcpjszyynadxhnttgmnxkduqmmyhzfnjhducesctufqbumxbamalqudeibljgbspeotkgvddcwgxidaiqcvgwykhbysjzlzfbupkqunuqtraxrlptivshhbihtsigtpipguhbhctcvubnhqipncyxfjebdnjyetnlnvmuxhzsdahkrscewabejifmxombiamxvauuitoltyymsarqcuuoezcbqpdaprxmsrickwpgwpsoplhugbikbkotzrtqkscekkgwjycfnvwfgdzogjzjvpcvixnsqsxacfwndzvrwrycwxrcismdhqapoojegggkocyrdtkzmiekhxoppctytvphjynrhtcvxcobxbcjjivtfjiwmduhzjokkbctweqtigwfhzorjlkpuuliaipbtfldinyetoybvugevwvhhhweejogrghllsouipabfafcxnhukcbtmxzshoyyufjhzadhrelweszbfgwpkzlwxkogyogutscvuhcllphshivnoteztpxsaoaacgxyaztuixhunrowzljqfqrahosheukhahhbiaxqzfmmwcjxountkevsvpbzjnilwpoermxrtlfroqoclexxisrdhvfsindffslyekrzwzqkpeocilatftymodgztjgybtyheqgcpwogdcjlnlesefgvimwbxcbzvaibspdjnrpqtyeilkcspknyylbwndvkffmzuriilxagyerjptbgeqgebiaqnvdubrtxibhvakcyotkfonmseszhczapxdlauexehhaireihxsplgdgmxfvaevrbadbwjbdrkfbbjjkgcztkcbwagtcnrtqryuqixtzhaakjlurnumzyovawrcjiwabuwretmdamfkxrgqgcdgbrdbnugzecbgyxxdqmisaqcyjkqrntxqmdrczxbebemcblftxplafnyoxqimkhcykwamvdsxjezkpgdpvopddptdfbprjustquhlazkjfluxrzopqdstulybnqvyknrchbphcarknnhhovweaqawdyxsqsqahkepluypwrzjegqtdoxfgzdkydeoxvrfhxusrujnmjzqrrlxglcmkiykldbiasnhrjbjekystzilrwkzhontwmehrfsrzfaqrbbxncphbzuuxeteshyrveamjsfiaharkcqxefghgceeixkdgkuboupxnwhnfigpkwnqdvzlydpidcljmflbccarbiegsmweklwngvygbqpescpeichmfidgsjmkvkofvkuehsmkkbocgejoiqcnafvuokelwuqsgkyoekaroptuvekfvmtxtqshcwsztkrzwrpabqrrhnlerxjojemcxel',
+  //   //   ['dhvf', 'sind', 'ffsl', 'yekr', 'zwzq', 'kpeo', 'cila', 'tfty', 'modg', 'ztjg', 'ybty', 'heqg', 'cpwo', 'gdcj', 'lnle', 'sefg', 'vimw', 'bxcb'])).toEqual([0, 6, 3]);
+  // });
   //#endregion
 
-  it('findSubstring', () => {
-    // expect(findSubstring('', ['foo', 'bar'])).toEqual([]);
-    // expect(findSubstring('13', [])).toEqual([]);
-    // expect(findSubstring('barfoothefoobarman', ['foo', 'bar'])).toEqual([9, 0]);
-    // expect(findSubstring('wordgoodgoodgoodbestword', ['word', 'good', 'best', 'word'])).toEqual([]);
-    // expect(findSubstring('barfoofoobarthefoobarman', ['bar', 'foo', 'the'])).toEqual([9, 6, 12]);
-    // expect(findSubstring('foobarfoobar', ['foo', 'bar'])).toEqual([0, 6, 3]);
-    // expect(findSubstring('pjzkrkevzztxductzzxmxsvwjkxpvukmfjywwetvfnujhweiybwvvsrfequzkhossmootkmyxgjgfordrpapjuunmqnxxdrqrfgkrsjqbszgiqlcfnrpjlcwdrvbumtotzylshdvccdmsqoadfrpsvnwpizlwszrtyclhgilklydbmfhuywotjmktnwrfvizvnmfvvqfiokkdprznnnjycttprkxpuykhmpchiksyucbmtabiqkisgbhxngmhezrrqvayfsxauampdpxtafniiwfvdufhtwajrbkxtjzqjnfocdhekumttuqwovfjrgulhekcpjszyynadxhnttgmnxkduqmmyhzfnjhducesctufqbumxbamalqudeibljgbspeotkgvddcwgxidaiqcvgwykhbysjzlzfbupkqunuqtraxrlptivshhbihtsigtpipguhbhctcvubnhqipncyxfjebdnjyetnlnvmuxhzsdahkrscewabejifmxombiamxvauuitoltyymsarqcuuoezcbqpdaprxmsrickwpgwpsoplhugbikbkotzrtqkscekkgwjycfnvwfgdzogjzjvpcvixnsqsxacfwndzvrwrycwxrcismdhqapoojegggkocyrdtkzmiekhxoppctytvphjynrhtcvxcobxbcjjivtfjiwmduhzjokkbctweqtigwfhzorjlkpuuliaipbtfldinyetoybvugevwvhhhweejogrghllsouipabfafcxnhukcbtmxzshoyyufjhzadhrelweszbfgwpkzlwxkogyogutscvuhcllphshivnoteztpxsaoaacgxyaztuixhunrowzljqfqrahosheukhahhbiaxqzfmmwcjxountkevsvpbzjnilwpoermxrtlfroqoclexxisrdhvfsindffslyekrzwzqkpeocilatftymodgztjgybtyheqgcpwogdcjlnlesefgvimwbxcbzvaibspdjnrpqtyeilkcspknyylbwndvkffmzuriilxagyerjptbgeqgebiaqnvdubrtxibhvakcyotkfonmseszhczapxdlauexehhaireihxsplgdgmxfvaevrbadbwjbdrkfbbjjkgcztkcbwagtcnrtqryuqixtzhaakjlurnumzyovawrcjiwabuwretmdamfkxrgqgcdgbrdbnugzecbgyxxdqmisaqcyjkqrntxqmdrczxbebemcblftxplafnyoxqimkhcykwamvdsxjezkpgdpvopddptdfbprjustquhlazkjfluxrzopqdstulybnqvyknrchbphcarknnhhovweaqawdyxsqsqahkepluypwrzjegqtdoxfgzdkydeoxvrfhxusrujnmjzqrrlxglcmkiykldbiasnhrjbjekystzilrwkzhontwmehrfsrzfaqrbbxncphbzuuxeteshyrveamjsfiaharkcqxefghgceeixkdgkuboupxnwhnfigpkwnqdvzlydpidcljmflbccarbiegsmweklwngvygbqpescpeichmfidgsjmkvkofvkuehsmkkbocgejoiqcnafvuokelwuqsgkyoekaroptuvekfvmtxtqshcwsztkrzwrpabqrrhnlerxjojemcxel',
-    //   ['dhvf', 'sind', 'ffsl', 'yekr', 'zwzq', 'kpeo', 'cila', 'tfty', 'modg', 'ztjg', 'ybty', 'heqg', 'cpwo', 'gdcj', 'lnle', 'sefg', 'vimw', 'bxcb'])).toEqual([0, 6, 3]);
+  it('nextPermutation', () => {
+    const arr1 = [1, 2, 3, 1];
+    nextPermutation(arr1);
+    expect(arr1).toEqual([1, 3, 1, 2]);
+
+    const arr2 = [3, 2, 1];
+    nextPermutation(arr2);
+    expect(arr2).toEqual([1, 2, 3]);
+
+    const arr3 = [1, 1, 5];
+    nextPermutation(arr3);
+    expect(arr3).toEqual([1, 5, 1]);
+
+    const arr4 = [1, 4, 3, 5];
+    nextPermutation(arr4);
+    expect(arr4).toEqual([1, 4, 5, 3]);
+
+    const arr5 = [1, 0, 0, 0];
+    nextPermutation(arr5);
+    expect(arr5).toEqual([0, 0, 0, 1]);
+
+    let arr6 = [2, 3, 1];
+    nextPermutation(arr6);
+    expect(arr6).toEqual([3, 1, 2]);
+
+    let arr7 = [5, 4, 7, 5, 3, 2];
+    nextPermutation(arr7);
+    expect(arr7).toEqual([5, 5, 2, 3, 4, 7]);
   });
 });

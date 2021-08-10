@@ -733,33 +733,28 @@ export function mergeTwoLists(l1: ListNode | null, l2: ListNode | null): ListNod
  * 输入：n = 1
  * 输出：["()"]
  *
- * res: 返回值
- * resStr: 返回值的每一项, 长度为2n
- *
- * 规则 resStr 以 '(' 开头, 以')'结尾
- * += 一次 '(' 对应 += 一次 ')'
- *
- * 难点: res 的长度怎么得到?
- *
  */
 
 export function generateParenthesis(n: number): string[] {
   const res: string[] = [];
-  let tmp: string[] = [];
-
-  for (let i = 0; i < 3; ++i) {
-    tmp.push('(');
-  }
-  for (let i = 0; i < 3; ++i) {
-    tmp.push(')');
-  }
-
-  const generateStr = () => {
-    let str = '(';
-    let count = 1;
-
-    return { str, count };
+  /**
+   *
+   * @param lCount 左括号数量
+   * @param rCount 右括号数量
+   * @param str  拼接的字符串
+   */
+  const generateStr = (lCount: number, rCount: number, str: string) => {
+    //递归什么时候结束:  当 lCount === 0 &&  rCount === 0
+    if (lCount === 0 && rCount === 0) {
+      res.push(str);
+      return;
+    }
+    //左侧括号还有剩余
+    lCount > 0 && generateStr(lCount - 1, rCount, `${str}(`);
+    //左侧括号小于右侧括号
+    lCount < rCount && generateStr(lCount, rCount - 1, `${str})`);
   };
+  generateStr(n, n, '');
 
   return res;
 }
@@ -943,4 +938,45 @@ export function findSubstring(s: string, words: string[]): number[] {
   //   }
   // }
   return res;
+}
+
+/**
+ * 找出这个数组排序出的所有数中，刚好比当前数大的那个数
+
+比如当前 nums = [1,2,3]。这个数是123，找出1，2，3这3个数字排序可能的所有数，排序后，比123大的那个数 也就是132
+
+如果当前 nums = [3,2,1]。这就是1，2，3所有排序中最大的那个数，那么就返回1，2，3排序后所有数中最小的那个，也就是1，2，3 -> [1,2,3]
+
+[1, 4, 3, 5] => 1 4 5 3
+[1, 4, 5, 3] => 1 5 4 3
+ * @param nums
+ */
+export function nextPermutation(nums: number[]): void {
+  let flag = true;
+  for (let i = nums.length - 1; i > 0; --i) {
+    if (nums[i - 1] < nums[i] && flag) {
+      flag = false;
+      let min = Math.min(...nums.slice(i, nums.length).filter((item) => item > nums[i - 1]));
+      if (nums[i - 1] < min) {
+        let minIndexOf = nums.slice(i, nums.length).indexOf(min) + i;
+        let tmp = nums[i - 1];
+        nums[i - 1] = nums[minIndexOf];
+        nums[minIndexOf] = tmp;
+      } else {
+        let tmp = nums[i - 1];
+        nums[i - 1] = nums[i];
+        nums[i] = tmp;
+      }
+      for (let j = 0; j < nums.length - i - 1; j++) {
+        for (let k = i; k < nums.length - j - 1; k++) {
+          if (nums[k] > nums[k + 1]) {
+            let tmp = nums[k];
+            nums[k] = nums[k + 1];
+            nums[k + 1] = tmp;
+          }
+        }
+      }
+    }
+  }
+  if (flag) nums.sort((a, b) => a - b);
 }
