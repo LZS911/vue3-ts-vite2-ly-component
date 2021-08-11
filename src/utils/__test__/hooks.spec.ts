@@ -6,7 +6,7 @@ import {
   inToRoman2, longestCommonPrefix, generateArr, removeArr, getArrByAdd, threeSum, getOppositeNumber,
   threeSumClosest, letterCombinations, flatArray, fourSum, isValid, mergeTwoLists, generateParenthesis,
   removeDuplicates, removeElement,
-  strStr, findSubstring, nextPermutation
+  strStr, findSubstring, nextPermutation,
 } from '../codewars';
 import { useState } from '../hooks';
 import _ from 'lodash';
@@ -437,32 +437,32 @@ describe('hooks.ts', () => {
   //#endregion
 
   it('nextPermutation', () => {
-    const arr1 = [1, 2, 3, 1];
-    nextPermutation(arr1);
-    expect(arr1).toEqual([1, 3, 1, 2]);
+    // const arr1 = [1, 2, 3, 1];
+    // nextPermutation(arr1);
+    // expect(arr1).toEqual([1, 3, 1, 2]);
 
-    const arr2 = [3, 2, 1];
-    nextPermutation(arr2);
-    expect(arr2).toEqual([1, 2, 3]);
+    // const arr2 = [3, 2, 1];
+    // nextPermutation(arr2);
+    // expect(arr2).toEqual([1, 2, 3]);
 
-    const arr3 = [1, 1, 5];
-    nextPermutation(arr3);
-    expect(arr3).toEqual([1, 5, 1]);
+    // const arr3 = [1, 1, 5];
+    // nextPermutation(arr3);
+    // expect(arr3).toEqual([1, 5, 1]);
 
-    const arr4 = [1, 4, 3, 5];
-    nextPermutation(arr4);
-    expect(arr4).toEqual([1, 4, 5, 3]);
+    // const arr4 = [1, 4, 3, 5];
+    // nextPermutation(arr4);
+    // expect(arr4).toEqual([1, 4, 5, 3]);
 
-    const arr5 = [1, 0, 0, 0];
-    nextPermutation(arr5);
-    expect(arr5).toEqual([0, 0, 0, 1]);
+    // const arr5 = [1, 0, 0, 0];
+    // nextPermutation(arr5);
+    // expect(arr5).toEqual([0, 0, 0, 1]);
 
-    let arr6 = [2, 3, 1];
-    nextPermutation(arr6);
-    expect(arr6).toEqual([3, 1, 2]);
+    // let arr6 = [2, 3, 1];
+    // nextPermutation(arr6);
+    // expect(arr6).toEqual([3, 1, 2]);
 
-    let arr7 = [5, 4, 7, 5, 3, 2];
-    nextPermutation(arr7);
-    expect(arr7).toEqual([5, 5, 2, 3, 4, 7]);
+    // let arr7 = [5, 4, 7, 5, 3, 2];
+    // nextPermutation(arr7);
+    // expect(arr7).toEqual([5, 5, 2, 3, 4, 7]);
   });
 });

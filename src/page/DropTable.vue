@@ -30,7 +30,7 @@
       valueKey="prgNo"
       labelKey="prgName"
       inputWidth="300px"
-      style="margin-top:10px;"
+      style="margin-top: 10px"
       size="mini"
       :tableList="tableList"
       :columnList="columnList"
@@ -44,7 +44,7 @@
       valueKey="prgNo"
       labelKey="prgName"
       inputWidth="300px"
-      style="margin-top:10px;"
+      style="margin-top: 10px"
       size="mini"
       :tableList="tableList"
       :columnList="columnList"
@@ -63,11 +63,15 @@
 
 <script lang='ts'>
 import { defineComponent, reactive, toRefs, ref } from 'vue';
+import { glPromiseDemo } from '../utils/promise';
 
 export default defineComponent({
   components: {},
   props: {},
   setup() {
+    const { demo07 } = glPromiseDemo();
+    demo07();
+
     const refTable = ref(null);
     const data = reactive({
       qwr: '123232342342342342342424',
