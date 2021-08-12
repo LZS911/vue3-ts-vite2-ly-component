@@ -981,3 +981,40 @@ export function nextPermutation(nums: number[]): void {
   }
   if (flag) nums.sort((a, b) => a - b);
 }
+/**
+ *
+ * @param matrix 给你一个 m x n 的矩阵 matrix 。如果这个矩阵是托普利茨矩阵，返回 true ；否则，返回 false 。
+
+如果矩阵上每一条由左上到右下的对角线上的元素都相同，那么这个矩阵是 托普利茨矩阵 。
+
+示例 1：
+
+输入：matrix = [[1,2,3,4],[5,1,2,3],[9,5,1,2]]
+输出：true
+解释：
+在上述矩阵中, 其对角线为:
+"[9]", "[5, 5]", "[1, 1, 1]", "[2, 2, 2]", "[3, 3]", "[4]"。
+各条对角线上的所有元素均相同, 因此答案是 True 。
+ */
+
+export function isToeplitzMatrix(matrix: number[][]): boolean {
+  const comparison = (arr1: number[], arr2: number[]) => {
+    if (arr1.length !== arr2.length) return false;
+    for (let i = 0; i < arr1.length; i++) {
+      if (arr1[i] !== arr2[i]) return false;
+    }
+    return true;
+  };
+
+  const itemLen = matrix[0].length;
+  for (let i = 0; i < matrix.length - 1; ++i) {
+    const arr1 = matrix[i].slice(0, itemLen - 1);
+    const arr2 = matrix[i + 1].slice(1, itemLen);
+    const diff = comparison(arr1, arr2);
+    if (!diff) {
+      console.log('123');
+      return false;
+    }
+  }
+  return true;
+}

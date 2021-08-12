@@ -6,7 +6,7 @@ import {
   inToRoman2, longestCommonPrefix, generateArr, removeArr, getArrByAdd, threeSum, getOppositeNumber,
   threeSumClosest, letterCombinations, flatArray, fourSum, isValid, mergeTwoLists, generateParenthesis,
   removeDuplicates, removeElement,
-  strStr, findSubstring, nextPermutation,
+  strStr, findSubstring, nextPermutation, isToeplitzMatrix
 } from '../codewars';
 import { useState } from '../hooks';
 import _ from 'lodash';
@@ -464,5 +464,10 @@ describe('hooks.ts', () => {
     // let arr7 = [5, 4, 7, 5, 3, 2];
     // nextPermutation(arr7);
     // expect(arr7).toEqual([5, 5, 2, 3, 4, 7]);
+  });
+
+  it('isToeplitzMatrix', () => {
+    const res = isToeplitzMatrix([[1, 2, 3, 4], [5, 1, 2, 3], [9, 5, 1, 2]]);
+    expect(res).toBe(true);
   });
 });
