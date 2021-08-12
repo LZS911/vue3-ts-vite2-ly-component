@@ -65,12 +65,84 @@ describe('promise async', () => {
   //   const { demo07 } = promiseDemo();
   //   return demo07();
   // });
+  // it('demo08', () => {
+  //   const { demo08 } = promiseDemo();
+  //   return demo08();
+  // });
+  // it('demo09', () => {
+  //   const { demo09 } = promiseDemo();
+  //   return demo09();
+  // });
+
+  // it('demo10', () => {
+  //   const { demo10 } = promiseDemo();
+  //   return demo10();
+  // });
+
+  // it('demo11', () => {
+  //   const { demo11 } = promiseDemo();
+  //   return demo11();
+  // });
+  // it('demo12', () => {
+  //   const { demo12 } = promiseDemo();
+  //   return demo12();
+  // });
+  // it('demo13', () => {
+  //   const { demo13 } = promiseDemo();
+  //   return demo13();
+  // });
+  // it('demo14', () => {
+  //   const { demo14 } = promiseDemo();
+  //   return demo14();
+  // });
+  // it('demo15', () => {
+  //   const { demo15 } = promiseDemo();
+  //   return demo15();
+  // });
 });
 
 describe('gl promise async', () => {
-  it('demo07', () => {
-    const { demo07 } = glPromiseDemo();
-    return demo07();
-    // console.log('demo07 xi xi ha ha ');
+  // it('demo07', () => {
+  //   const { demo07 } = glPromiseDemo();
+  //   return demo07();
+  // });
+
+  // it('demo08', () => {
+  //   const { demo08 } = glPromiseDemo();
+  //   return demo08();
+  // });
+  // it('demo09', () => {
+  //   const { demo09 } = glPromiseDemo();
+  //   return demo09();
+  // });
+
+  // it('demo10', () => {
+  //   const { demo10 } = glPromiseDemo();
+  //   return demo10();
+  // });
+
+  // it('demo11', () => {
+  //   const { demo11 } = glPromiseDemo();
+  //   return demo11();
+  // });
+  // it('demo12', () => {
+  //   const { demo12 } = glPromiseDemo();
+  //   return demo12();
+  // });
+  // it('demo13', () => {
+  //   const { demo13 } = glPromiseDemo();
+  //   return demo13();
+  // });
+  // it('demo14', () => {
+  //   const { demo14 } = glPromiseDemo();
+  //   return demo14();
+  // });
+  // it('demo15', () => {
+  //   const { demo15 } = glPromiseDemo();
+  //   return demo15();
+  // });
+  it('demo16', () => {
+    const { demo16 } = glPromiseDemo();
+    return demo16();
   });
 });

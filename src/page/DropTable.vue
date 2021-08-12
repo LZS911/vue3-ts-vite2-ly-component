@@ -69,8 +69,9 @@ export default defineComponent({
   components: {},
   props: {},
   setup() {
-    const { demo07 } = glPromiseDemo();
-    demo07();
+    const { demo08 } = glPromiseDemo();
+    demo08();
+    console.log('object');
 
     const refTable = ref(null);
     const data = reactive({

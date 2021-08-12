@@ -10,7 +10,6 @@
 /* eslint-disable no-empty-function */
 /* eslint-disable-next-line no-useless-escape */
 import _ from 'lodash';
-import { tmpdir } from 'os';
 
 export const MAX_NUMBER = Math.pow(2, 31) - 1;
 export const MIN_NUMBER = Math.pow(-2, 31);
