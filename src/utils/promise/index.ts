@@ -1,5 +1,5 @@
 /* eslint-disable no-throw-literal */
-import { isFunction, isArray } from '..';
+import { isFunction } from '..';
 
 /* eslint-disable prefer-promise-reject-errors */
 export const promiseDemo = () => {
