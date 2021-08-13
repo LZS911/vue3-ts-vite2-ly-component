@@ -1017,3 +1017,107 @@ export function isToeplitzMatrix(matrix: number[][]): boolean {
   }
   return true;
 }
+
+/**
+ *
+ * @param s
+ *   给定字符串J  代表石头中宝石的类型，和字符串  S代表你拥有的石头。  S  中每个字符代表了一种你拥有的石头的类型，你想知道你拥有的石头中有多少是宝石。
+
+J  中的字母不重复，J  和  S中的所有字符都是字母。字母区分大小写，因此"a"和"A"是不同类型的石头。
+
+示例 1:
+
+输入: J = "aA", S = "aAAbbbb"
+输出: 3
+示例 2:
+
+输入: J = "z", S = "ZZ"
+输出: 0
+
+ */
+export function numJewelsInStones(jewels: string, stones: string): number {
+  let num = 0;
+  for (let i = 0; i < stones.length; ++i) {
+    if (jewels.includes(stones[i])) {
+      num++;
+    }
+  }
+  return num;
+}
+
+/**
+ *
+ * @param n
+ * 在第一行我们写上一个 0。接下来的每一行，将前一行中的0替换为01，1替换为10。
+给定行数  N  和序数 K，返回第 N 行中第 K个字符。（K从1开始）
+
+例子:
+
+输入: N = 1, K = 1
+输出: 0
+
+输入: N = 2, K = 1
+输出: 0
+
+输入: N = 2, K = 2
+输出: 1
+
+输入: N = 4, K = 5
+输出: 1
+
+解释:
+第一行: 0
+第二行: 01
+第三行: 01 10
+第四行: 01 10 10 01
+第五行: 01 10 10 01 10 01 01 10
+第六行: 01 10 10 01 10 01 01 10 10 01 01 10 01 10 10 01
+
+1 ==> 0
+2 ==> 1
+3 ==> 1
+4 ==> 0
+5 ==> 1
+6 ==> 0
+7 ==> 0
+8 ==> 1
+
+ * @param k
+ */
+export function kthGrammar(n: number, k: number): number {
+  if (k > Math.pow(2, n - 1) || k < 1) throw Error('expect k');
+  if (k === 1) return 0;
+  if (k === 2) return 1;
+
+  // 暴力 递归 超时...
+  // const res: number[][] = [];
+  // const fn = (nums: number[], i: number) => {
+  //   if (i >= n) return;
+  //   res[i] = Array.isArray(res[i]) ? [...res[i], ...nums] : nums;
+  //   nums.forEach((item) => {
+  //     if (item === 0) fn([0, 1], i + 1);
+  //     if (item === 1) fn([1, 0], i + 1);
+  //   });
+  // };
+
+  // fn([0], 0);
+  // return res[n - 1]?.[k - 1] ?? 0;
+
+  //超出数组长度...
+  // const res = Array.from({ length: n }).reduce((res: number[], current) => {
+  //   // console.log(res, current);
+  //   const tmp: number[] = [];
+  //   res.forEach((item) => {
+  //     item === 0 ? tmp.push(...[0, 1]) : tmp.push(...[1, 0]);
+  //   });
+  //   return tmp;
+  // }, [0]);
+  // return res[k - 1] ?? 0;
+
+  //找规律
+  const len = Math.pow(2, n - 1);
+  if (k > len / 2) {
+    return kthGrammar(n - 1, k - len / 2) === 0 ? 1 : 0;
+  }
+  return kthGrammar(n - 1, k);
+}
