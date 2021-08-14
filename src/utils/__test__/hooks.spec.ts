@@ -6,7 +6,7 @@ import {
   inToRoman2, longestCommonPrefix, generateArr, removeArr, getArrByAdd, threeSum, getOppositeNumber,
   threeSumClosest, letterCombinations, flatArray, fourSum, isValid, mergeTwoLists, generateParenthesis,
   removeDuplicates, removeElement,
-  strStr, findSubstring, nextPermutation, isToeplitzMatrix, numJewelsInStones, kthGrammar
+  strStr, findSubstring, nextPermutation, isToeplitzMatrix, numJewelsInStones, kthGrammar, Find
 } from '../codewars';
 import { useState } from '../hooks';
 import _ from 'lodash';
@@ -479,5 +479,12 @@ describe('hooks.ts', () => {
     // expect(kthGrammar(2, 2)).toBe(1);
     // expect(kthGrammar(3, 3)).toBe(1);
     // expect(kthGrammar(30, 434991989)).toBe(0);
+  });
+
+  it('Find', () => {
+    // expect(Find(7, [])).toBe(false);
+    // expect(Find(7, [[1, 2, 8, 9], [2, 4, 9, 12], [4, 7, 10, 13], [6, 8, 11, 15]])).toBe(true);
+    // expect(Find(0, [[1, 2, 8, 9], [2, 4, 9, 12], [4, 7, 10, 13], [6, 8, 11, 15]])).toBe(false);
+    expect(Find(5, [[1, 2, 8, 9], [2, 4, 9, 12], [4, 7, 10, 13], [6, 8, 11, 15]])).toBe(false);
   });
 });
