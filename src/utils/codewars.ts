@@ -1192,3 +1192,114 @@ export function Find(target: number, array: number[][]): boolean {
   }
   return false;
 }
+
+/**
+ *
+ * @param nums
+ * 给定一个按照升序排列的整数数组 nums，和一个目标值 target。找出给定目标值在数组中的开始位置和结束位置。
+
+如果数组中不存在目标值 target，返回 [-1, -1]。
+
+进阶：
+
+你可以设计并实现时间复杂度为 O(log n) 的算法解决此问题吗？
+
+示例 1：
+
+输入：nums = [5,7,7,8,8,10], target = 8
+输出：[3,4]
+示例 2：
+
+输入：nums = [5,7,7,8,8,10], target = 6
+输出：[-1,-1]
+示例 3：
+
+输入：nums = [], target = 0
+输出：[-1,-1]
+
+ * @param target
+ */
+export function searchRange(nums: number[], target: number): number[] {
+  const res: number[] = [];
+  if (nums.length === 0 || nums[0] > target) return [-1, -1];
+
+  // let i = 0;
+  // let j = nums.length - 1;
+  // while (i <= j) {
+  //   const mid = Math.floor((i + j) / 2);
+  //   if (nums[mid] === target) {
+  //     let a = mid;
+  //     let b = mid;
+  //     while (a >= 0) {
+  //       if (nums[--a] !== target) {
+  //         res.push(a + 1);
+  //         break;
+  //       }
+  //     }
+  //     while (b <= nums.length - 1) {
+  //       if (nums[++b] !== target) {
+  //         res.push(b - 1);
+  //         break;
+  //       }
+  //     }
+  //     return res;
+  //   }
+
+  //   if (nums[mid] > target) {
+  //     j = mid - 1;
+  //   } else if (nums[mid] < target) {
+  //     i = mid + 1;
+  //   }
+  // }
+  const find = (model: 'left' | 'right') => {
+    let left = 0;
+    let right = nums.length - 1;
+    let result = -1;
+    while (left <= right) {
+      const mid = Math.floor((left + right) / 2);
+      if (nums[mid] === target) {
+        result = mid;
+        if (model === 'left') {
+          right = mid - 1;
+        } else if (model === 'right') {
+          left = mid + 1;
+        }
+      }
+
+      if (nums[mid] > target) {
+        right = mid - 1;
+      } else if (nums[mid] < target) {
+        left = mid + 1;
+      }
+    }
+    return result;
+  };
+  res[0] = find('left');
+  res[1] = find('right');
+  return res;
+}
+
+/**
+ * @param arr 需要进行排序的原始数组
+ * @param start 需要进行排序的原始数组起始项的索引
+ * @param end 需要进行排序的原始数组结束项的索引
+ */
+export const quickSort = (arr: number[], start: number = 0, end: number = arr.length - 1) => {
+  let left = start;
+  let right = end;
+  if (end - start < 1 || start < 0 || end < 0) {
+    return;
+  }
+  const flag = arr[left];
+
+  while (left !== right) {
+    while (left !== right && arr[right] >= flag) right--;
+    arr[left] = arr[right];
+
+    while (left !== right && arr[left] <= flag) left++;
+    arr[right] = arr[left];
+  }
+  arr[left] = flag;
+  quickSort(arr, start, left - 1);
+  quickSort(arr, left + 1, end);
+};

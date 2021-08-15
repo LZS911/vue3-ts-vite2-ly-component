@@ -78,89 +78,76 @@ export const entityify = (text: any) => String(text).replace(/&/g, '&amp;')
   .replace(/>/g, '&gt:')
   .replace(/\\/g, '&bslo;')
   .replace(/"|'/g, '&quot;');
-
-//  ========================================== typescript ==========================================
-interface Eg1 {
-  name: string;
-  age: string;
-}
-
-type T1 = keyof Eg1; // 'age' | 'name'
-
-class Eg2 {
-  private name: string = '';
-
-  public age: string = '';
-
-  protected sex: string = '';
-}
-
-type T2 = keyof Eg2; // 'age' only get public property
-
-interface Eg3 {
-  name: string;
-  age: number;
-}
-type T3 = Eg3['name']; // string
-type T4 = Eg3['name' | 'age']; // string | number
-type T5 = Eg3[keyof Eg3] // string | number
-
-type T6 = Eg1 & Eg3;
-
-/**
- * @example
- * type A1 = '1'
- */
-type A1 = 'x' extends 'x' ? '1' : '2'
-
-/**
- * @example
- * type A1 = '2'
- */
-type A2 = 'x' | 'y' extends 'x' ? '1' : '2'
-
-type P<T> = T extends 'x' ? '1' : '2'
-
-/**
- * @example
- * type A1 = '1' | '2'
- */
-type A3 = P<'x' | 'y'>;
-
-/**
- * @example
- * type A1 = '2'
- */
-type A4 = P<['x' | 'y']>
-
-interface Par {
-  name: string;
-}
-
-interface Chi extends Par {
-  sex: string;
-}
-
-let a: Par = {
-  name: 'ly'
+export const integer = (from: number = 0, to: number = Infinity, step: number = 1) => () => {
+  if (from < to) {
+    const result = from;
+    from += step;
+    return result;
+  }
 };
-const b: Chi = {
-  name: 'lzs',
-  sex: '1'
+export const element = <T>(arr: T[], gen = integer(0, arr.length)) => () => {
+  const element_nr = gen();
+  if (element_nr !== undefined) {
+    return arr[element_nr];
+  }
+};
+export const property = (o: { [key in string]: any }, gen = element(Object.keys(o))) => () => {
+  const key = gen();
+  if (key && o[key] !== undefined) {
+    return [key, o[key]];
+  }
 };
 
-a = b;
-// b = a; not
+export const collect = <T>(generator: () => T | undefined, array: T[]) => () => {
+  const value = generator();
+  if (value !== undefined) {
+    array.push(value);
+  }
+  return value;
+};
 
-// type A = 1 | 2 | 3;
-// type B = 2 | 3;
-// let a: A;
-// let b: B;
+export const repeat = <T>(generator: () => T | undefined): void => {
+  if (generator() !== undefined) {
+    return repeat(generator);
+  }
+};
 
-// // 不可赋值
-// b = a;
-// // 可以赋值
-// a = b;
+export const harvest = <T>(generator: () => T | undefined) => {
+  const array: T[] = [];
+  repeat(collect(generator, array));
+  return array;
+};
 
-//interface 情况下, 类型多的为子类, 子类可以赋值给父类
-//type 情况下, 类型多的为父类, 子类可以赋值给父类
+export const testObj = {
+  fn() {
+    console.log(this);
+    const fnn = () => {
+      console.log(this);
+    };
+
+    function fnnN() {
+      // console.log(this); undefined
+    }
+
+    fnn();
+    fnnN();
+    return { fnn, fnnN };
+  }
+};
+
+export function pubsub() {
+  const subscribers: any[] = [];
+  return {
+    subscribe(subscriber: any) {
+      subscribers.push(subscriber);
+    },
+    publish(publication: any) {
+      // for (let i = 0; i < subscribers.length; ++i) {
+      //   subscribers[i](publication); //这种方式调用函数时会动态绑定 this在数组上, 暴露该数组是不安全的
+      // }
+      subscribers.forEach((item) => {
+        item(publication); //不会动态绑定this
+      });
+    }
+  };
+}

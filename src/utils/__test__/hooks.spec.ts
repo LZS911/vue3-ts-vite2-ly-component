@@ -5,8 +5,9 @@ import {
   add, judgePalindrome, myAtoi, convert, isMatch, indexAll, maxArea, isSpecial, getNumberArr, intToRoman,
   inToRoman2, longestCommonPrefix, generateArr, removeArr, getArrByAdd, threeSum, getOppositeNumber,
   threeSumClosest, letterCombinations, flatArray, fourSum, isValid, mergeTwoLists, generateParenthesis,
-  removeDuplicates, removeElement,
-  strStr, findSubstring, nextPermutation, isToeplitzMatrix, numJewelsInStones, kthGrammar, Find
+  removeDuplicates, removeElement, quickSort,
+  strStr, findSubstring, nextPermutation, isToeplitzMatrix, numJewelsInStones,
+  kthGrammar, Find, searchRange
 } from '../codewars';
 import { useState } from '../hooks';
 import _ from 'lodash';
@@ -487,4 +488,39 @@ describe('hooks.ts', () => {
     // expect(Find(0, [[1, 2, 8, 9], [2, 4, 9, 12], [4, 7, 10, 13], [6, 8, 11, 15]])).toBe(false);
     expect(Find(5, [[1, 2, 8, 9], [2, 4, 9, 12], [4, 7, 10, 13], [6, 8, 11, 15]])).toBe(false);
   });
+
+  it('searchRange', () => {
+    const invalid = [-1, -1];
+    expect(searchRange([], 1)).toEqual(invalid);
+    expect(searchRange([1], 1)).toEqual([0, 0]);
+    expect(searchRange([2, 2], 2)).toEqual([0, 1]);
+    expect(searchRange([2, 3], 1)).toEqual(invalid);
+    expect(searchRange([2, 3], 2)).toEqual([0, 0]);
+    expect(searchRange([3, 3, 3], 3)).toEqual([0, 2]);
+    expect(searchRange([3, 3, 3, 3, 3, 3], 3)).toEqual([0, 5]);
+    expect(searchRange([5, 7, 7, 8, 8, 10], 8)).toEqual([3, 4]);
+    expect(searchRange([5, 7, 7, 8, 8, 10], 6)).toEqual(invalid);
+  });
+
+  it('quickSort', () => {
+    // const arr = [7, 34, 45, 13, 67, 87, 2, 3, 4, 5, 1, 4232, 43, 657, 869, 989, 45, 3423];
+    const arr1 = [4, 43, 54, 6, 1, 3, 8, 0];
+    quickSort(arr1);
+    console.log(arr1);
+  });
 });
+
+// flag = 4
+
+// 4 43 54 6 1 3 8 0
+
+// 0 43 54 6 1 3 8 0
+
+// 0 43 54 6 1 3 8 43
+
+// 0 3 54 6 1 3 8 43
+
+// 0 3 54 6 1 54 8 43
+// 0 3 1 6 1 54 8 43
+
+// 0 3 1 4 6 54 8 43
