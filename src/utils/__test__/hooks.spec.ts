@@ -7,7 +7,7 @@ import {
   threeSumClosest, letterCombinations, flatArray, fourSum, isValid, mergeTwoLists, generateParenthesis,
   removeDuplicates, removeElement, quickSort,
   strStr, findSubstring, nextPermutation, isToeplitzMatrix, numJewelsInStones,
-  kthGrammar, Find, searchRange
+  kthGrammar, Find, searchRange, searchInsert, searchInsertRecursion
 } from '../codewars';
 import { useState } from '../hooks';
 import _ from 'lodash';
@@ -506,7 +506,25 @@ describe('hooks.ts', () => {
     // const arr = [7, 34, 45, 13, 67, 87, 2, 3, 4, 5, 1, 4232, 43, 657, 869, 989, 45, 3423];
     const arr1 = [4, 43, 54, 6, 1, 3, 8, 0];
     quickSort(arr1);
-    console.log(arr1);
+  });
+
+  it('searchInsert', () => {
+    expect(searchInsert([], 1)).toBe(0);
+    expect(searchInsert([1], 1)).toBe(0);
+    expect(searchInsert([1, 3, 5, 6], 5)).toBe(2);
+    expect(searchInsert([1, 3, 5, 6], 2)).toBe(1);
+    expect(searchInsert([1, 3, 5, 6], 0)).toBe(0);
+    expect(searchInsert([1, 3, 5, 6], 4)).toBe(2);
+    expect(searchInsert([1, 3, 5, 6, 8], 7)).toBe(4);
+  });
+  it('searchInsertRecursion', () => {
+    expect(searchInsert([], 1)).toBe(0);
+    expect(searchInsertRecursion([1], 1)).toBe(0);
+    expect(searchInsertRecursion([1, 3, 5, 6], 5)).toBe(2);
+    expect(searchInsertRecursion([1, 3, 5, 6], 2)).toBe(1);
+    expect(searchInsertRecursion([1, 3, 5, 6], 0)).toBe(0);
+    expect(searchInsertRecursion([1, 3, 5, 6], 4)).toBe(2);
+    expect(searchInsertRecursion([1, 3, 5, 6, 8], 7)).toBe(4);
   });
 });
 

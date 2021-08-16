@@ -555,7 +555,6 @@ export function fourSum(nums: number[], target: number): number[][] {
       }
     }
   }
-  console.log(res);
 
   return res;
 }
@@ -805,7 +804,6 @@ export function removeDuplicates(nums: number[]): number {
     if (nums[fast] > nums[slow]) nums[++slow] = nums[fast];
     fast++;
   }
-  console.log(nums);
   return ++slow;
 }
 
@@ -1011,7 +1009,6 @@ export function isToeplitzMatrix(matrix: number[][]): boolean {
     const arr2 = matrix[i + 1].slice(1, itemLen);
     const diff = comparison(arr1, arr2);
     if (!diff) {
-      console.log('123');
       return false;
     }
   }
@@ -1303,3 +1300,53 @@ export const quickSort = (arr: number[], start: number = 0, end: number = arr.le
   quickSort(arr, start, left - 1);
   quickSort(arr, left + 1, end);
 };
+
+/**
+ * 搜索插入位置
+给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，
+返回它将会被按顺序插入的位置。
+
+请必须使用时间复杂度为 O(log n) 的算法。
+
+1 <= nums.length <= 104
+-104 <= nums[i] <= 104
+nums 为无重复元素的升序排列数组
+-104 <= target <= 104
+ * @param nums
+ * @param target
+ */
+export function searchInsert(nums: number[], target: number): number {
+  if (nums.length === 0) return 0;
+  let left = 0;
+  let right = nums.length - 1;
+  while (left < right) {
+    const mid = Math.floor((left + right) / 2);
+    if (nums[mid] === target) {
+      return mid;
+    }
+    if (nums[mid] < target) {
+      left = mid + 1;
+    } else if (nums[mid] > target) {
+      right = mid - 1;
+    }
+  }
+  if (nums[left] >= target) return left;
+  return left + 1;
+}
+
+export function searchInsertRecursion(nums: number[], target: number, start: number = 0, end: number = nums.length - 1): number {
+  if (nums.length === 0) return 0;
+  if (end - start < 1) {
+    if (nums[start] >= target) {
+      return start;
+    }
+    return start + 1;
+  }
+
+  const mid = Math.floor((start + end) / 2);
+  if (nums[mid] === target) return mid;
+
+  return nums[mid] > target
+    ? searchInsertRecursion(nums, target, start, mid - 1)
+    : searchInsertRecursion(nums, target, mid + 1, end);
+}
