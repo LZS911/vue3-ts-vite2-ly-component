@@ -23,5 +23,8 @@
     "source.fixAll": true
   },
   "editor.formatOnSave": true,
-  "vetur.validation.template": false
+  "vetur.validation.template": false,
+  "cSpell.words": [
+    "instanceof"
+  ]
 }
