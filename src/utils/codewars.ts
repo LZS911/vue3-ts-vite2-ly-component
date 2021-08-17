@@ -1350,3 +1350,98 @@ export function searchInsertRecursion(nums: number[], target: number, start: num
     ? searchInsertRecursion(nums, target, start, mid - 1)
     : searchInsertRecursion(nums, target, mid + 1, end);
 }
+
+export const checkVersion = (version: string, currentVersion: string) => {
+  const versionArr = version.split('.');
+  const currentArr = currentVersion.split('.');
+
+  if (!(/^\d+.\d+.\d+$/.test(version)) || !(/^\d+.\d+.\d+$/.test(currentVersion))) {
+    return 'error';
+  }
+
+  for (let i = 0; i < versionArr.length; ++i) {
+    if (i < 2 && Number(currentArr[i]) > Number(versionArr[i])) {
+      return 'upgradeVersionTooHigh';
+    }
+    if (Number(currentArr[i]) < Number(versionArr[i])) {
+      return 'upgradeVersionTooLow';
+    }
+  }
+
+  return '';
+};
+
+export function isValidSudoku(board: string[][]): boolean {
+  /*
+     实现一个id生成器, 将 . 转化成 不相同且以1递增的参数
+     当然也有别的处理方式, 这里这样处理只是因为最近有看到讲闭包的文章用这个栗子, 于是试下手
+  */
+  const integer = (from: number, to: number = Infinity, step: number = 1) => () => {
+    if (from < to) {
+      const result = from;
+      from += step;
+      return result;
+    }
+    return -1;
+  };
+
+  //创建id生成器, 以10开始, 避免和已有数据冲突
+  const generateId = integer(10);
+
+  /**
+   * 数组转换函数, 将 string[] => number[]
+   * 1. 若值为 ., 转化为任意递增不重复的id
+   * 2. 若值不符合规则, 返回-1, 后续判断时若数组中含有-1, 则返回false
+   * 3. 返回转化为数值后的值
+   **/
+  const transform = (str: string) => {
+    if (str === '.') return generateId();
+    if (Number.isNaN(Number(str))) return -1;
+    if (Number(str) < 1 || Number(str) > 9) return -1;
+    return Number(str);
+  };
+
+  /**
+   * 规则校验函数
+   * 1. 判断数组中是否含有-1, 若有, 则为false
+   * 2. 判断数组中时候含有重复的数据, 通过 ES6 Set 转换后比较长度即可, 当长度不相同时, 即包含重复值, 返回false
+   */
+  const checkValid = (arr: number[]) => !arr.includes(-1) && (([...new Set(arr)]).length === arr.length);
+
+  for (let i = 0; i < board.length; ++i) {
+    // 对二维数组中横向数组做校验, 有不符合规则的直接返回false
+    if (!checkValid(board[i].map(transform))) {
+      return false;
+    }
+
+    // 二维数组中的纵向数组
+    const verticalArr: number[] = [];
+    // 九空格数组
+    let sudokuArr: number[] = [];
+
+    for (let j = 0; j < board.length; ++j) {
+      //这里获取的是纵向数组
+      verticalArr.push(transform(board[j][i]));
+
+      if (!(i % 3) && j !== 0 && !(j % 3)) {
+        //纵向每 3 列进行一次校验
+        if (!checkValid(sudokuArr)) {
+          return false;
+        }
+
+        //校验完后且符合规则后清空数组, 用来下次存储九空格数据
+        sudokuArr = [];
+      }
+
+      //获取九宫格数组
+      !(i % 3) && sudokuArr.push(...board[j].slice(i, i + 3).map(transform));
+    }
+
+    //校验纵向数组, 这里需要注意的是还需要校验一次九宫格数组, 因为上面循环中最后三列的九宫格在循环中不会进行校验
+    if (!checkValid(verticalArr) || !checkValid(sudokuArr)) {
+      return false;
+    }
+  }
+
+  return true;
+}

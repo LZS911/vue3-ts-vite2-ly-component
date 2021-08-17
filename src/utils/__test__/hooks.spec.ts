@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 /* eslint-disable prefer-const */
 import { $ } from '..';
 import {
@@ -7,7 +8,7 @@ import {
   threeSumClosest, letterCombinations, flatArray, fourSum, isValid, mergeTwoLists, generateParenthesis,
   removeDuplicates, removeElement, quickSort,
   strStr, findSubstring, nextPermutation, isToeplitzMatrix, numJewelsInStones,
-  kthGrammar, Find, searchRange, searchInsert, searchInsertRecursion
+  kthGrammar, Find, searchRange, searchInsert, searchInsertRecursion, checkVersion, isValidSudoku
 } from '../codewars';
 import { useState } from '../hooks';
 import _ from 'lodash';
@@ -525,6 +526,68 @@ describe('hooks.ts', () => {
     expect(searchInsertRecursion([1, 3, 5, 6], 0)).toBe(0);
     expect(searchInsertRecursion([1, 3, 5, 6], 4)).toBe(2);
     expect(searchInsertRecursion([1, 3, 5, 6, 8], 7)).toBe(4);
+  });
+
+  it('checkVersion', () => {
+    expect(checkVersion('福.d.', '5.3.0')).toBe('error');
+    expect(checkVersion('4.d.', '5.3.0')).toBe('error');
+
+    expect(checkVersion('4.3', '5.3.1')).toBe('error');
+
+    expect(checkVersion('4.3.1', '5.3.1')).toBe('upgradeVersionTooHigh');
+    expect(checkVersion('4.3.1', '4.5.1')).toBe('upgradeVersionTooHigh');
+    expect(checkVersion('8.3.1', '22.5.1')).toBe('upgradeVersionTooHigh');
+    expect(checkVersion('4.4.1', '4.5.1')).toBe('upgradeVersionTooHigh');
+
+    expect(checkVersion('4.3.1', '3.3.1')).toBe('upgradeVersionTooLow');
+    expect(checkVersion('4.3.1', '4.3.0')).toBe('upgradeVersionTooLow');
+    expect(checkVersion('4.3.1', '4.1.0')).toBe('upgradeVersionTooLow');
+    expect(checkVersion('6.3.1', '5.3.2')).toBe('upgradeVersionTooLow');
+
+    expect(checkVersion('4.3.1', '4.3.2')).toBe('');
+    expect(checkVersion('4.3.0', '4.3.2')).toBe('');
+    expect(checkVersion('4.3.5', '4.3.17')).toBe('');
+  });
+
+  it('isValidSudoku', () => {
+    // const board1 =
+    //   [['5', '3', '.', '.', '7', '.', '.', '.', '.'],
+    //   ['6', '.', '.', '1', '9', '5', '.', '.', '.'],
+    //   ['.', '9', '8', '.', '.', '.', '.', '6', '.'],
+    //   ['8', '.', '.', '.', '6', '.', '.', '.', '3'],
+    //   ['4', '.', '.', '8', '.', '3', '.', '.', '1'],
+    //   ['7', '.', '.', '.', '2', '.', '.', '.', '6'],
+    //   ['.', '6', '.', '.', '.', '.', '2', '8', '.'],
+    //   ['.', '.', '.', '4', '1', '9', '.', '.', '5'],
+    //   ['.', '.', '.', '.', '8', '.', '.', '7', '9']];
+
+    // expect(isValidSudoku(board1)).toBeTruthy();
+
+    // const board2 =
+    //   [['8', '3', '.', '.', '7', '.', '.', '.', '.'],
+    //   ['6', '.', '.', '1', '9', '5', '.', '.', '.'],
+    //   ['.', '9', '8', '.', '.', '.', '.', '6', '.'],
+    //   ['8', '.', '.', '.', '6', '.', '.', '.', '3'],
+    //   ['4', '.', '.', '8', '.', '3', '.', '.', '1'],
+    //   ['7', '.', '.', '.', '2', '.', '.', '.', '6'],
+    //   ['.', '6', '.', '.', '.', '.', '2', '8', '.'],
+    //   ['.', '.', '.', '4', '1', '9', '.', '.', '5'],
+    //   ['.', '.', '.', '.', '8', '.', '.', '7', '9']];
+
+    // expect(isValidSudoku(board2)).toBeFalsy();
+
+    const board3 = [
+      ['.', '.', '.', '.', '.', '.', '5', '.', '.'],
+      ['.', '.', '.', '.', '.', '.', '.', '.', '.'],
+      ['.', '.', '.', '.', '.', '.', '.', '.', '.'],
+      ['9', '3', '.', '.', '2', '.', '4', '.', '.'],
+      ['.', '.', '7', '.', '.', '.', '3', '.', '.'],
+      ['.', '.', '.', '.', '.', '.', '.', '.', '.'],
+      ['.', '.', '.', '3', '4', '.', '.', '.', '.'],
+      ['.', '.', '.', '.', '.', '3', '.', '.', '.'],
+      ['.', '.', '.', '.', '.', '5', '2', '.', '.']];
+
+    expect(isValidSudoku(board3)).toBeFalsy();
   });
 });
 
