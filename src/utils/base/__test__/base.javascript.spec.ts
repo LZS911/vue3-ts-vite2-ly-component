@@ -1,4 +1,7 @@
-import { baseType, myTypeof, myInstanceof, valuePassed } from '..';
+/* eslint-disable guard-for-in */
+import {
+  baseType, myTypeof, myInstanceof, deepClone, forEach
+} from '..';
 
 describe('base type', () => {
   it('should typeof return string equal', () => {
@@ -71,25 +74,60 @@ describe('base type', () => {
     expect(myTypeof(() => { })).toBe('function');
   });
 
-  it('valuePassed', () => {
-    const name = 'ly';
-    valuePassed(name);
-    expect(name).toBe('ly');
-
+  it('test', () => {
+    const bar = { name: 'ly', sex: '1' };
+    const foo = Object.create(bar);
+    foo.age = 18;
     expect(!!null).toBe(!!undefined);
     expect(!!null).toBeFalsy();
     expect(!!undefined).toBeFalsy();
     expect(Number(null)).toBe(0);
     expect(Number(undefined)).toBe(NaN);
+    expect(Object.keys(foo)).toEqual(['age']);
+    const keyArr: string[] = [];
+    for (const key in foo) {
+      keyArr.push(key);
+    }
+    expect(keyArr).toEqual(['age', 'name', 'sex']);
+
+    const o1: any = { arr: [2, 3, 4] };
+    const o2: any = {};
+    o2.arr = o1.arr;
+    o1.arr.push(34);
+
+    const arr1 = [1, 23];
+    const arr2 = arr1;
+    arr2.push(123);
   });
 
-  it('test', () => {
-    const bar = { name: 'ly', sex: '1' };
-    const foo = Object.create(bar);
-    foo.age = 18;
-    // console.log(Object.keys(foo));
-    // for (const key in foo) {
-    //   console.log(key);
-    // }
+  it('forEach', () => {
+    // const a = [1, 2, 3];
+    // forEach(a, (item: number) => {
+    //   console.log(item);
+    // });
+  });
+
+  it('deepClone', () => {
+    const target: any = {
+      field1: 1,
+      field2: undefined,
+      field3: 'ly',
+      field4: {
+        child: 'child',
+        child2: {
+          child2: 'child2'
+        }
+      },
+      field5: () => 'function',
+      field6: { arr: [2, 4, 8] }
+    };
+
+    target.target = target;
+
+    const clone = deepClone(target);
+    expect(clone.field5()).toBe('function');
+    clone.field6.arr.push(123);
+    clone.target = {};
+    console.log(clone, target);
   });
 });

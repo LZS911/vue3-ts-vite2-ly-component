@@ -60,6 +60,26 @@ export const myTypeof = (target: unknown): MyTypeOfReturnT => {
   return tmpArr[1].substring(0, tmpArr[1].length - 1).toLocaleLowerCase() as MyTypeOfReturnT;
 };
 
-export const valuePassed = (name: string) => {
-  name = 'gll';
+export const forEach = <T>(array: T[], cb: (item: T, index: number, array: T[]) => void) => {
+  let index = -1;
+  const len = array.length;
+  while (++index < len) {
+    cb(array[index], index, array);
+  }
+};
+
+export const deepClone = (target: { [key in string]: any }, map = new WeakMap<{ [key in string]: any }, any>()) => {
+  if (myTypeof(target) === 'object' || myTypeof(target) === 'array') {
+    const cloneTarget: any = myTypeof(target) === 'array' ? [] : {};
+    if (map.get(target)) {
+      return map.get(target);
+    }
+    map.set(target, cloneTarget);
+    Object.keys(target).forEach((key) => {
+      cloneTarget[key] = deepClone(target[key], map);
+    });
+
+    return cloneTarget;
+  }
+  return target;
 };
