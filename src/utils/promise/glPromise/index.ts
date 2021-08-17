@@ -48,7 +48,7 @@ export default class GlPromise<T> implements IGlPromise<T> {
    * 构造函数中的回调函数的第二个参数
    * 进行操作:
    * 0. 判断状态时候为  pending, 不为 pending 代表该 promise 已经有结果了, 无法更改状态, 直接 return
-   * 1. 将 PromiseStatus 从 pending ===> rejected, 状态改变后, then中的成功回调才会执行
+   * 1. 将 PromiseStatus 从 pending ===> rejected, 状态改变后, catch中的成功回调才会执行
    * 2. 将参数赋值给 PromiseResult
    * @param reason:any
    * @returns void
