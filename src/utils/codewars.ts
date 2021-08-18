@@ -1445,3 +1445,58 @@ export function isValidSudoku(board: string[][]): boolean {
 
   return true;
 }
+
+// export function groupBy<T>(arr: T[], key?: string) {
+//   const initVal: T[][] = [];
+//   const map = new Map<any, number>();
+//   return arr.reduce((acc, cur: any, index) => {
+//     const val = key ? cur[key] as any : cur;
+//     if (map.has(val)) {
+//       acc[map.get(val)!].push(cur);
+//     } else {
+//       map.set(val, acc.length);
+//       acc.push([cur]);
+//     }
+//     return acc;
+//   }, initVal);
+// }
+
+export function groupBy(arr: string[]) {
+  const initVal: string[][] = [];
+  const map = new Map<string, number>();
+  return arr.reduce((acc, cur, index) => {
+    if (map.has(cur) && acc.length - 1 === map.get(cur)!) {
+      acc[map.get(cur)!].push(cur);
+    } else {
+      map.set(cur, acc.length);
+      acc.push([cur]);
+    }
+    return acc;
+  }, initVal);
+}
+
+export function transformArr(arr: string[][]) {
+  const transform = (len: number, val: string) => String(len) + val;
+  let res = '';
+  arr.forEach((item) => {
+    const len = item.length;
+    const val = item[0];
+    res += transform(len, val);
+  });
+
+  return res;
+}
+
+export function countAndSay(n: number) {
+  if (n < 1 || n > 30) return '';
+
+  if (n === 1) return '1';
+
+  let str = '';
+  while (--n) {
+    const arr = groupBy(Array.from(str || '1'));
+    str = transformArr(arr);
+  }
+
+  return str;
+}

@@ -8,7 +8,8 @@ import {
   threeSumClosest, letterCombinations, flatArray, fourSum, isValid, mergeTwoLists, generateParenthesis,
   removeDuplicates, removeElement, quickSort,
   strStr, findSubstring, nextPermutation, isToeplitzMatrix, numJewelsInStones,
-  kthGrammar, Find, searchRange, searchInsert, searchInsertRecursion, checkVersion, isValidSudoku
+  kthGrammar, Find, searchRange, searchInsert, searchInsertRecursion,
+  checkVersion, isValidSudoku, countAndSay, groupBy, transformArr
 } from '../codewars';
 import { useState } from '../hooks';
 import _ from 'lodash';
@@ -588,6 +589,37 @@ describe('hooks.ts', () => {
       ['.', '.', '.', '.', '.', '5', '2', '.', '.']];
 
     expect(isValidSudoku(board3)).toBeFalsy();
+  });
+
+  it('groupBy', () => {
+    //相邻的才分组
+    expect(groupBy(['1', '2', '2', '1', '3'])).toEqual([['1'], ['2', '2'], ['1'], ['3']]);
+    // expect(groupBy([1, 1, 2])).toEqual([[1, 1], [2]]);
+    // expect(groupBy([1, 2, 1, 1])).toEqual([[1], [2], [1, 1]]);
+    expect(groupBy(['1', '1', '1', '2', '2', '1']))
+      .toEqual([['1', '1', '1'], ['2', '2'], ['1']]);
+    // const objArr = [{ name: 'lzs', sex: '1' }, { name: 'ly', sex: '1' }, { name: 'he he', sex: '0' }];
+
+    // expect(groupBy(objArr, 'sex')).toEqual([
+    //   [{ name: 'lzs', sex: '1' }, { name: 'ly', sex: '1' }],
+    //   [{ name: 'he he', sex: '0' }]
+    // ]);
+  });
+
+  it('transformArr', () => {
+    expect(transformArr([['1']])).toEqual('11');
+    expect(transformArr([['1', '1']])).toEqual('21');
+    expect(transformArr([['2'], ['1']])).toEqual('1211');
+    expect(transformArr([['1', '1'], ['2']])).toEqual('2112');
+  });
+
+  it('countAndSay', () => {
+    // console.log(countAndSay(1));
+    // console.log(countAndSay(2));
+    // console.log(countAndSay(3));
+    // console.log(countAndSay(4));
+    // console.log(countAndSay(5));
+    console.log(countAndSay(6));
   });
 });
 
