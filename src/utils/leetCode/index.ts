@@ -10,6 +10,7 @@
 /* eslint-disable no-empty-function */
 /* eslint-disable-next-line no-useless-escape */
 import _ from 'lodash';
+import { deepClone } from '../base';
 
 export const MAX_NUMBER = Math.pow(2, 31) - 1;
 export const MIN_NUMBER = Math.pow(-2, 31);
@@ -1446,8 +1447,7 @@ export function isValidSudoku(board: string[][]): boolean {
   return true;
 }
 
-// export function groupBy<T>(arr: T[], key?: string) {
-//   const initVal: T[][] = [];
+// export function groupBy1<T>(arr: T[], key?: string) {
 //   const map = new Map<any, number>();
 //   return arr.reduce((acc, cur: any, index) => {
 //     const val = key ? cur[key] as any : cur;
@@ -1458,7 +1458,7 @@ export function isValidSudoku(board: string[][]): boolean {
 //       acc.push([cur]);
 //     }
 //     return acc;
-//   }, initVal);
+//   }, [] as T[][]);
 // }
 
 export function groupBy(arr: string[]) {
@@ -1499,4 +1499,115 @@ export function countAndSay(n: number) {
   }
 
   return str;
+}
+
+/**
+ *
+ * @param candidates 给定一个无重复元素的正整数数组 candidates 和一个正整数 target ，'
+ * 找出 candidates 中所有可以使数字和为目标数 target 的唯一组合。
+
+candidates 中的数字可以无限制重复被选取。如果至少一个所选数字数量不同，则两种组合是唯一的。
+
+对于给定的输入，保证和为 target 的唯一组合数少于 150 个。
+ * @param target
+ */
+export function combinationSum(candidates: number[], target: number): number[][] {
+  const res: number[][] = [];
+
+  if (candidates.length === 0) {
+    return [];
+  }
+
+  const fn = (residue: number, path: number[], index: number) => {
+    if (path.length > 150) {
+      return;
+    }
+    if (residue === 0) {
+      res.push([...path]);
+      return;
+    }
+
+    for (let i = index; i < candidates.length; i++) {
+      if (candidates[i] > residue) {
+        continue;
+      }
+      path.push(candidates[i]);
+
+      fn(residue - candidates[i], path, i);
+
+      path.pop();
+    }
+  };
+
+  fn(target, [], 0);
+
+  return res;
+}
+
+/**
+ * 给定一个数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。
+
+candidates 中的每个数字在每个组合中只能使用一次。
+
+注意：解集不能包含重复的组合。
+ * @param candidates
+ * @param target
+ * @returns
+ */
+export function combinationSum2(candidates: number[], target: number): number[][] {
+  const res: number[][] = [];
+
+  if (candidates.length === 0) {
+    return [];
+  }
+
+  const fn = (residue: number, path: number[], index: number) => {
+    if (path.length > 150) {
+      return;
+    }
+    if (residue === 0) {
+      res.push([...path]);
+      return;
+    }
+
+    for (let i = index; i < candidates.length; i++) {
+      if (candidates[i] > residue) {
+        continue;
+      }
+      path.push(candidates[i]);
+
+      fn(residue - candidates[i], path, i);
+
+      path.pop();
+    }
+  };
+
+  fn(target, [], 0);
+
+  return res;
+}
+
+//全排列
+export function fullPermutation(nums: number[]) {
+  const res: number[][] = [];
+
+  const fn = (index: number, path: number[]) => {
+    if (path.length === nums.length) {
+      res.push([...path]);
+      return;
+    }
+    for (let i = index; i < nums.length; ++i) {
+      path.push(nums[i]);
+      fn(i, path);
+      path.pop();
+    }
+  };
+
+  fn(0, []);
+  return res;
+}
+
+// 无重复的全排列
+export function fullPermutation2(nums: number[]) {
+
 }

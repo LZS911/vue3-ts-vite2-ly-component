@@ -1,6 +1,6 @@
 /* eslint-disable indent */
 /* eslint-disable prefer-const */
-import { $ } from '..';
+import { $ } from '../..';
 import {
   digitalRoot, multiply, objToTree, addTwoNumbers, ListNode,
   add, judgePalindrome, myAtoi, convert, isMatch, indexAll, maxArea, isSpecial, getNumberArr, intToRoman,
@@ -9,9 +9,10 @@ import {
   removeDuplicates, removeElement, quickSort,
   strStr, findSubstring, nextPermutation, isToeplitzMatrix, numJewelsInStones,
   kthGrammar, Find, searchRange, searchInsert, searchInsertRecursion,
-  checkVersion, isValidSudoku, countAndSay, groupBy, transformArr
-} from '../codewars';
-import { useState } from '../hooks';
+  checkVersion, isValidSudoku, countAndSay, groupBy, transformArr, combinationSum,
+  fullPermutation, combinationSum2, fullPermutation2
+} from '..';
+import { useState } from '../../hooks';
 import _ from 'lodash';
 
 describe('hooks.ts', () => {
@@ -619,7 +620,23 @@ describe('hooks.ts', () => {
     // console.log(countAndSay(3));
     // console.log(countAndSay(4));
     // console.log(countAndSay(5));
-    console.log(countAndSay(6));
+    // console.log(countAndSay(6));
+  });
+
+  it('combinationSum', () => {
+    const res = combinationSum([2, 3, 6, 7], 7);
+  });
+
+  it('combinationSum2', () => {
+    const res = combinationSum2([10, 1, 2, 7, 6, 1, 5], 8);
+  });
+
+  it('fullPermutation', () => {
+    fullPermutation([1, 2, 3, 4]);
+  });
+
+  it('fullPermutation2', () => {
+    fullPermutation2([1, 2, 3, 4, 5]);
   });
 });
 
