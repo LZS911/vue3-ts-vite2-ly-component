@@ -1561,10 +1561,8 @@ export function combinationSum2(candidates: number[], target: number): number[][
     return [];
   }
 
+  candidates.sort((a, b) => a - b);
   const fn = (residue: number, path: number[], index: number) => {
-    if (path.length > 150) {
-      return;
-    }
     if (residue === 0) {
       res.push([...path]);
       return;
@@ -1574,16 +1572,18 @@ export function combinationSum2(candidates: number[], target: number): number[][
       if (candidates[i] > residue) {
         continue;
       }
+      if (i > index && candidates[i] === candidates[i - 1]) {
+        continue;
+      }
       path.push(candidates[i]);
 
-      fn(residue - candidates[i], path, i);
+      fn(residue - candidates[i], path, i + 1);
 
       path.pop();
     }
   };
 
   fn(target, [], 0);
-
   return res;
 }
 
@@ -1604,10 +1604,183 @@ export function fullPermutation(nums: number[]) {
   };
 
   fn(0, []);
+
   return res;
 }
 
-// 无重复的全排列
-export function fullPermutation2(nums: number[]) {
+/**
+ * 41. 缺失的第一个正数
+给你一个未排序的整数数组 nums ，请你找出其中没有出现的最小的正整数。
 
+请你实现时间复杂度为 O(n) 并且只使用常数级别额外空间的解决方案。
+
+示例 1：
+
+输入：nums = [1,2,0]
+输出：3
+示例 2：
+
+输入：nums = [3,4,-1,1]
+输出：2
+示例 3：
+
+输入：nums = [7,8,9,11,12]
+输出：1
+ * @param nums
+ */
+export function firstMissingPositive(nums: number[]): number {
+  const len = nums.length;
+  for (let i = 0; i < len; ++i) {
+    while (nums[i] > 0 && nums[i] !== i && nums[i] !== nums[nums[i]]) {
+      const val = nums[i];
+      const tmp = nums[i];
+      nums[i] = nums[val] ?? 0;
+      nums[val] = tmp;
+    }
+  }
+  for (let i = 0; i < nums.length; ++i) {
+    if (nums[i] !== i && i > 0) {
+      return i;
+    }
+  }
+  return nums.length;
+}
+
+/**
+ *
+ * @param nums 给你一个非负整数数组 nums ，你最初位于数组的第一个位置。
+
+数组中的每个元素代表你在该位置可以跳跃的最大长度。
+
+你的目标是使用最少的跳跃次数到达数组的最后一个位置。
+
+假设你总是可以到达数组的最后一个位置。
+
+示例 1:
+
+输入: nums = [2,3,1,1,4]
+输出: 2
+解释: 跳到最后一个位置的最小跳跃数是 2。
+     从下标为 0 跳到下标为 1 的位置，跳 1 步，然后跳 3 步到达数组的最后一个位置。
+示例 2:
+
+输入: nums = [2,3,0,1,4]
+输出: 2
+
+1 <= nums.length <= 104
+0 <= nums[i] <= 1000
+ */
+export function jumpEnd(nums: number[]) {
+  //需要跳的总数
+  const needJump = nums.length - 1;
+}
+
+/**
+ *
+  const obj = {
+      a: { b: 1, c: 2 },
+      d: {
+        e: 3,
+        f: {
+          g: 4,
+          h: 5,
+        },
+      },
+      i: {
+        j: 6,
+        k: {
+          l: 7,
+          m: 8,
+        },
+      },
+    };
+    {value:7, key:'l'}  ===> ['i', 'k', 'l']
+    {value:7, key:'m'}  ===> null
+ */
+export function getObjPath(obj: { [key in string]: any }, keyValue: { key: string, value: number }): string[][] {
+  const result: string[][] = [];
+  const fn = (o: { [key in string]: any }, count: number = 0) => {
+    const res = Object.keys(o).reduce((acc, cur) => {
+      const val = o[cur];
+      if (typeof val !== 'number') {
+        const arr = fn(val, count + 1);
+        if (arr) {
+          acc = [cur, ...arr];
+          count === 0 && result.push(acc);
+        }
+      } else if (keyValue.key === cur && keyValue.value === val) {
+        acc.push(cur);
+      }
+      return acc;
+    }, [] as string[]);
+
+    return res.length ? res : null;
+  };
+
+  fn(obj);
+
+  return result;
+}
+
+/**
+ *
+ * @param nums 给定一个不含重复数字的数组 nums ，返回其 所有可能的全排列 。你可以 按任意顺序 返回答案。
+
+示例 1：
+
+输入：nums = [1,2,3]
+输出：[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
+示例 2：
+
+输入：nums = [0,1]
+输出：[[0,1],[1,0]]
+示例 3：
+
+输入：nums = [1]
+输出：[[1]]
+ */
+
+export function permute(nums: number[]): number[][] {
+  const res: number[][] = [];
+  if (nums.length === 0) {
+    return [];
+  }
+
+  const fn = (path: number[], arr: number[]) => {
+    if (arr.length === 0) {
+      res.push([...path]);
+      return;
+    }
+    for (let i = 0; i < arr.length; ++i) {
+      const tmp = [...path, arr[i]];
+      fn(tmp, arr.filter((item) => item !== arr[i]));
+    }
+  };
+
+  fn([], nums);
+  return res;
+}
+
+export function permuteUnique(nums: number[]): number[][] {
+  const res: number[][] = [];
+  if (nums.length === 0) {
+    return [];
+  }
+  nums.sort((a, b) => a - b);
+
+  const fn = (path: number[], arr: number[]) => {
+    if (arr.length === 0) {
+      res.push([...path]);
+      return;
+    }
+    for (let i = 0; i < arr.length; ++i) {
+      if (arr[i] !== arr[i - 1]) {
+        const tmp = [...path, arr[i]];
+        fn(tmp, removeArr(arr, arr[i]));
+      }
+    }
+  };
+
+  fn([], nums);
+  return res;
 }

@@ -10,7 +10,8 @@ import {
   strStr, findSubstring, nextPermutation, isToeplitzMatrix, numJewelsInStones,
   kthGrammar, Find, searchRange, searchInsert, searchInsertRecursion,
   checkVersion, isValidSudoku, countAndSay, groupBy, transformArr, combinationSum,
-  fullPermutation, combinationSum2, fullPermutation2
+  fullPermutation, combinationSum2, firstMissingPositive, getObjPath,
+  permute, permuteUnique
 } from '..';
 import { useState } from '../../hooks';
 import _ from 'lodash';
@@ -635,8 +636,48 @@ describe('hooks.ts', () => {
     fullPermutation([1, 2, 3, 4]);
   });
 
-  it('fullPermutation2', () => {
-    fullPermutation2([1, 2, 3, 4, 5]);
+  it('firstMissingPositive', () => {
+    expect(firstMissingPositive([1, 0, 5, 4, 7])).toBe(2);
+    expect(firstMissingPositive([1])).toBe(2);
+    expect(firstMissingPositive([1, 1])).toBe(2);
+    expect(firstMissingPositive([2])).toBe(1);
+    expect(firstMissingPositive([-5])).toBe(1);
+    expect(firstMissingPositive([1, 2, 0])).toBe(3);
+    expect(firstMissingPositive([3, 4, -1, 1])).toBe(2);
+    expect(firstMissingPositive([7, 8, 9, 11, 12])).toBe(1);
+  });
+
+  it('getObjPath', () => {
+    const obj = {
+      a: { b: 1, c: 2 },
+      f: { z: 1 },
+      d: {
+        e: 3,
+        f: {
+          g: 4,
+          h: 5,
+          l: 7
+        },
+      },
+      i: {
+        j: 6,
+        k: {
+          l: 7,
+          m: 8,
+        },
+      },
+    };
+    const res = getObjPath(obj, { value: 7, key: 'l' });
+  });
+
+  it('permute', () => {
+    expect(permute([1, 2, 3]));
+  });
+
+  it('permuteUnique', () => {
+    console.log(permuteUnique([1, 1, 2]));
+    console.log(permuteUnique([1, 2, 1]));
+    console.log(permuteUnique([1, 2, 3]));
   });
 });
 
