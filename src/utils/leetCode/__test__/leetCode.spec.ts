@@ -11,7 +11,7 @@ import {
   kthGrammar, Find, searchRange, searchInsert, searchInsertRecursion,
   checkVersion, isValidSudoku, countAndSay, groupBy, transformArr, combinationSum,
   fullPermutation, combinationSum2, firstMissingPositive, getObjPath,
-  permute, permuteUnique
+  permute, permuteUnique, rotateArr
 } from '..';
 import { useState } from '../../hooks';
 import _ from 'lodash';
@@ -675,23 +675,14 @@ describe('hooks.ts', () => {
   });
 
   it('permuteUnique', () => {
-    console.log(permuteUnique([1, 1, 2]));
-    console.log(permuteUnique([1, 2, 1]));
-    console.log(permuteUnique([1, 2, 3]));
+    // console.log(permuteUnique([1, 1, 2]));
+    // console.log(permuteUnique([1, 2, 1]));
+    // console.log(permuteUnique([1, 2, 3]));
+  });
+
+  it('rotateArr', () => {
+    const matrix = [[5, 1, 9, 11], [2, 4, 8, 10], [13, 3, 6, 7], [15, 14, 12, 16]];
+    rotateArr(matrix);
+    console.log(matrix);
   });
 });
-
-// flag = 4
-
-// 4 43 54 6 1 3 8 0
-
-// 0 43 54 6 1 3 8 0
-
-// 0 43 54 6 1 3 8 43
-
-// 0 3 54 6 1 3 8 43
-
-// 0 3 54 6 1 54 8 43
-// 0 3 1 6 1 54 8 43
-
-// 0 3 1 4 6 54 8 43

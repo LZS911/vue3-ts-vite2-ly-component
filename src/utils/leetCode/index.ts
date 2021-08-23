@@ -1784,3 +1784,44 @@ export function permuteUnique(nums: number[]): number[][] {
   fn([], nums);
   return res;
 }
+
+/**
+ *
+ * @param matrix 给定一个 n × n 的二维矩阵 matrix 表示一个图像。请你将图像顺时针旋转 90 度。
+
+你必须在 原地 旋转图像，这意味着你需要直接修改输入的二维矩阵。请不要 使用另一个矩阵来旋转图像。
+
+示例 1：
+
+输入：matrix = [[1,2,3],[4,5,6],[7,8,9]]
+输出：[[7,4,1],[8,5,2],[9,6,3]]
+
+ */
+export function rotateArr(matrix: number[][]): void {
+  const len = matrix.length;
+  for (let i = 0; i < len; ++i) {
+    for (let j = 0; j <= Math.floor((len - 1) / 2); ++j) {
+      [matrix[i][j], matrix[i][len - j - 1]] = [matrix[i][len - j - 1], matrix[i][j]];
+    }
+  }
+  let count = 1;
+  let index = len - 1;
+  for (let j = 0; j < len - 1 && index >= 0; ++j) {
+    let m = index - 1;
+    let n = count++;
+    while (m >= 0 && n < len) {
+      console.log(matrix[j][m], matrix[n][len - j - 1]);
+      [matrix[j][m], matrix[n][len - j - 1]] = [matrix[n][len - j - 1], matrix[j][m]];
+      m--;
+      n++;
+    }
+    index--;
+  }
+}
+
+/**
+ * 5  1  9  11         11  9  1  5         15  13  2  5
+ * 2  4  8  10    ==>  10  8  4  2    ==>  14  3   4  1
+ * 13 3  6  7          7   6  3  13        12  6   8  9
+ * 15 14 12 16         16  12 14 15        16  7   10 11
+ */
