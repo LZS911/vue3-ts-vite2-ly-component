@@ -11,7 +11,7 @@ import {
   kthGrammar, Find, searchRange, searchInsert, searchInsertRecursion,
   checkVersion, isValidSudoku, countAndSay, groupBy, transformArr, combinationSum,
   fullPermutation, combinationSum2, firstMissingPositive, getObjPath,
-  permute, permuteUnique, rotateArr
+  permute, permuteUnique, rotateArr, groupAnagrams, judgeStr1, judgeStr33, lengthOfLastWord
 } from '..';
 import { useState } from '../../hooks';
 import _ from 'lodash';
@@ -473,216 +473,265 @@ describe('hooks.ts', () => {
   //   const res = isToeplitzMatrix([[1, 2, 3, 4], [5, 1, 2, 3], [9, 5, 1, 2]]);
   //   expect(res).toBe(true);
   // });
-  //#endregion
 
   // it('numJewelsInStones', () => {
   //   expect(numJewelsInStones('aA', 'aAAbbbb')).toBe(3);
   // });
 
-  it('kthGrammar', () => {
-    // expect(kthGrammar(1, 1)).toBe(0);
-    // expect(kthGrammar(2, 2)).toBe(1);
-    // expect(kthGrammar(3, 3)).toBe(1);
-    // expect(kthGrammar(30, 434991989)).toBe(0);
+  // it('kthGrammar', () => {
+  //   // expect(kthGrammar(1, 1)).toBe(0);
+  //   // expect(kthGrammar(2, 2)).toBe(1);
+  //   // expect(kthGrammar(3, 3)).toBe(1);
+  //   // expect(kthGrammar(30, 434991989)).toBe(0);
+  // });
+
+  // it('Find', () => {
+  //   // expect(Find(7, [])).toBe(false);
+  //   // expect(Find(7, [[1, 2, 8, 9], [2, 4, 9, 12], [4, 7, 10, 13], [6, 8, 11, 15]])).toBe(true);
+  //   // expect(Find(0, [[1, 2, 8, 9], [2, 4, 9, 12], [4, 7, 10, 13], [6, 8, 11, 15]])).toBe(false);
+  //   expect(Find(5, [[1, 2, 8, 9], [2, 4, 9, 12], [4, 7, 10, 13], [6, 8, 11, 15]])).toBe(false);
+  // });
+
+  // it('searchRange', () => {
+  //   const invalid = [-1, -1];
+  //   expect(searchRange([], 1)).toEqual(invalid);
+  //   expect(searchRange([1], 1)).toEqual([0, 0]);
+  //   expect(searchRange([2, 2], 2)).toEqual([0, 1]);
+  //   expect(searchRange([2, 3], 1)).toEqual(invalid);
+  //   expect(searchRange([2, 3], 2)).toEqual([0, 0]);
+  //   expect(searchRange([3, 3, 3], 3)).toEqual([0, 2]);
+  //   expect(searchRange([3, 3, 3, 3, 3, 3], 3)).toEqual([0, 5]);
+  //   expect(searchRange([5, 7, 7, 8, 8, 10], 8)).toEqual([3, 4]);
+  //   expect(searchRange([5, 7, 7, 8, 8, 10], 6)).toEqual(invalid);
+  // });
+
+  // it('quickSort', () => {
+  //   // const arr = [7, 34, 45, 13, 67, 87, 2, 3, 4, 5, 1, 4232, 43, 657, 869, 989, 45, 3423];
+  //   const arr1 = [4, 43, 54, 6, 1, 3, 8, 0];
+  //   quickSort(arr1);
+  // });
+
+  // it('searchInsert', () => {
+  //   expect(searchInsert([], 1)).toBe(0);
+  //   expect(searchInsert([1], 1)).toBe(0);
+  //   expect(searchInsert([1, 3, 5, 6], 5)).toBe(2);
+  //   expect(searchInsert([1, 3, 5, 6], 2)).toBe(1);
+  //   expect(searchInsert([1, 3, 5, 6], 0)).toBe(0);
+  //   expect(searchInsert([1, 3, 5, 6], 4)).toBe(2);
+  //   expect(searchInsert([1, 3, 5, 6, 8], 7)).toBe(4);
+  // });
+  // it('searchInsertRecursion', () => {
+  //   expect(searchInsert([], 1)).toBe(0);
+  //   expect(searchInsertRecursion([1], 1)).toBe(0);
+  //   expect(searchInsertRecursion([1, 3, 5, 6], 5)).toBe(2);
+  //   expect(searchInsertRecursion([1, 3, 5, 6], 2)).toBe(1);
+  //   expect(searchInsertRecursion([1, 3, 5, 6], 0)).toBe(0);
+  //   expect(searchInsertRecursion([1, 3, 5, 6], 4)).toBe(2);
+  //   expect(searchInsertRecursion([1, 3, 5, 6, 8], 7)).toBe(4);
+  // });
+
+  // it('checkVersion', () => {
+  //   expect(checkVersion('福.d.', '5.3.0')).toBe('error');
+  //   expect(checkVersion('4.d.', '5.3.0')).toBe('error');
+
+  //   expect(checkVersion('4.3', '5.3.1')).toBe('error');
+
+  //   expect(checkVersion('4.3.1', '5.3.1')).toBe('upgradeVersionTooHigh');
+  //   expect(checkVersion('4.3.1', '4.5.1')).toBe('upgradeVersionTooHigh');
+  //   expect(checkVersion('8.3.1', '22.5.1')).toBe('upgradeVersionTooHigh');
+  //   expect(checkVersion('4.4.1', '4.5.1')).toBe('upgradeVersionTooHigh');
+
+  //   expect(checkVersion('4.3.1', '3.3.1')).toBe('upgradeVersionTooLow');
+  //   expect(checkVersion('4.3.1', '4.3.0')).toBe('upgradeVersionTooLow');
+  //   expect(checkVersion('4.3.1', '4.1.0')).toBe('upgradeVersionTooLow');
+  //   expect(checkVersion('6.3.1', '5.3.2')).toBe('upgradeVersionTooLow');
+
+  //   expect(checkVersion('4.3.1', '4.3.2')).toBe('');
+  //   expect(checkVersion('4.3.0', '4.3.2')).toBe('');
+  //   expect(checkVersion('4.3.5', '4.3.17')).toBe('');
+  // });
+
+  // it('isValidSudoku', () => {
+  //   // const board1 =
+  //   //   [['5', '3', '.', '.', '7', '.', '.', '.', '.'],
+  //   //   ['6', '.', '.', '1', '9', '5', '.', '.', '.'],
+  //   //   ['.', '9', '8', '.', '.', '.', '.', '6', '.'],
+  //   //   ['8', '.', '.', '.', '6', '.', '.', '.', '3'],
+  //   //   ['4', '.', '.', '8', '.', '3', '.', '.', '1'],
+  //   //   ['7', '.', '.', '.', '2', '.', '.', '.', '6'],
+  //   //   ['.', '6', '.', '.', '.', '.', '2', '8', '.'],
+  //   //   ['.', '.', '.', '4', '1', '9', '.', '.', '5'],
+  //   //   ['.', '.', '.', '.', '8', '.', '.', '7', '9']];
+
+  //   // expect(isValidSudoku(board1)).toBeTruthy();
+
+  //   // const board2 =
+  //   //   [['8', '3', '.', '.', '7', '.', '.', '.', '.'],
+  //   //   ['6', '.', '.', '1', '9', '5', '.', '.', '.'],
+  //   //   ['.', '9', '8', '.', '.', '.', '.', '6', '.'],
+  //   //   ['8', '.', '.', '.', '6', '.', '.', '.', '3'],
+  //   //   ['4', '.', '.', '8', '.', '3', '.', '.', '1'],
+  //   //   ['7', '.', '.', '.', '2', '.', '.', '.', '6'],
+  //   //   ['.', '6', '.', '.', '.', '.', '2', '8', '.'],
+  //   //   ['.', '.', '.', '4', '1', '9', '.', '.', '5'],
+  //   //   ['.', '.', '.', '.', '8', '.', '.', '7', '9']];
+
+  //   // expect(isValidSudoku(board2)).toBeFalsy();
+
+  //   const board3 = [
+  //     ['.', '.', '.', '.', '.', '.', '5', '.', '.'],
+  //     ['.', '.', '.', '.', '.', '.', '.', '.', '.'],
+  //     ['.', '.', '.', '.', '.', '.', '.', '.', '.'],
+  //     ['9', '3', '.', '.', '2', '.', '4', '.', '.'],
+  //     ['.', '.', '7', '.', '.', '.', '3', '.', '.'],
+  //     ['.', '.', '.', '.', '.', '.', '.', '.', '.'],
+  //     ['.', '.', '.', '3', '4', '.', '.', '.', '.'],
+  //     ['.', '.', '.', '.', '.', '3', '.', '.', '.'],
+  //     ['.', '.', '.', '.', '.', '5', '2', '.', '.']];
+
+  //   expect(isValidSudoku(board3)).toBeFalsy();
+  // });
+
+  // it('groupBy', () => {
+  //   //相邻的才分组
+  //   expect(groupBy(['1', '2', '2', '1', '3'])).toEqual([['1'], ['2', '2'], ['1'], ['3']]);
+  //   // expect(groupBy([1, 1, 2])).toEqual([[1, 1], [2]]);
+  //   // expect(groupBy([1, 2, 1, 1])).toEqual([[1], [2], [1, 1]]);
+  //   expect(groupBy(['1', '1', '1', '2', '2', '1']))
+  //     .toEqual([['1', '1', '1'], ['2', '2'], ['1']]);
+  //   // const objArr = [{ name: 'lzs', sex: '1' }, { name: 'ly', sex: '1' }, { name: 'he he', sex: '0' }];
+
+  //   // expect(groupBy(objArr, 'sex')).toEqual([
+  //   //   [{ name: 'lzs', sex: '1' }, { name: 'ly', sex: '1' }],
+  //   //   [{ name: 'he he', sex: '0' }]
+  //   // ]);
+  // });
+
+  // it('transformArr', () => {
+  //   expect(transformArr([['1']])).toEqual('11');
+  //   expect(transformArr([['1', '1']])).toEqual('21');
+  //   expect(transformArr([['2'], ['1']])).toEqual('1211');
+  //   expect(transformArr([['1', '1'], ['2']])).toEqual('2112');
+  // });
+
+  // it('countAndSay', () => {
+  //   // console.log(countAndSay(1));
+  //   // console.log(countAndSay(2));
+  //   // console.log(countAndSay(3));
+  //   // console.log(countAndSay(4));
+  //   // console.log(countAndSay(5));
+  //   // console.log(countAndSay(6));
+  // });
+
+  // it('combinationSum', () => {
+  //   const res = combinationSum([2, 3, 6, 7], 7);
+  // });
+
+  // it('combinationSum2', () => {
+  //   const res = combinationSum2([10, 1, 2, 7, 6, 1, 5], 8);
+  // });
+
+  // it('fullPermutation', () => {
+  //   fullPermutation([1, 2, 3, 4]);
+  // });
+
+  // it('firstMissingPositive', () => {
+  //   expect(firstMissingPositive([1, 0, 5, 4, 7])).toBe(2);
+  //   expect(firstMissingPositive([1])).toBe(2);
+  //   expect(firstMissingPositive([1, 1])).toBe(2);
+  //   expect(firstMissingPositive([2])).toBe(1);
+  //   expect(firstMissingPositive([-5])).toBe(1);
+  //   expect(firstMissingPositive([1, 2, 0])).toBe(3);
+  //   expect(firstMissingPositive([3, 4, -1, 1])).toBe(2);
+  //   expect(firstMissingPositive([7, 8, 9, 11, 12])).toBe(1);
+  // });
+
+  // it('getObjPath', () => {
+  //   const obj = {
+  //     a: { b: 1, c: 2 },
+  //     f: { z: 1 },
+  //     d: {
+  //       e: 3,
+  //       f: {
+  //         g: 4,
+  //         h: 5,
+  //         l: 7
+  //       },
+  //     },
+  //     i: {
+  //       j: 6,
+  //       k: {
+  //         l: 7,
+  //         m: 8,
+  //       },
+  //     },
+  //   };
+  //   const res = getObjPath(obj, { value: 7, key: 'l' });
+  // });
+
+  // it('permute', () => {
+  //   expect(permute([1, 2, 3]));
+  // });
+
+  // it('permuteUnique', () => {
+  //   // console.log(permuteUnique([1, 1, 2]));
+  //   // console.log(permuteUnique([1, 2, 1]));
+  //   // console.log(permuteUnique([1, 2, 3]));
+  // });
+
+  // it('rotateArr', () => {
+  //   const matrix = [[5, 1, 9, 11], [2, 4, 8, 10], [13, 3, 6, 7], [15, 14, 12, 16]];
+  //   rotateArr(matrix);
+  // });
+  //#endregion
+
+  it('judgeStr', () => {
+    expect(judgeStr1('eat', 'tea')).toBe(true);
+    expect(judgeStr1('tan', 'ate')).toBe(false);
+    expect(judgeStr1('ups', 'may')).toBe(false);
+    expect(judgeStr1('', '')).toBe(true);
   });
 
-  it('Find', () => {
-    // expect(Find(7, [])).toBe(false);
-    // expect(Find(7, [[1, 2, 8, 9], [2, 4, 9, 12], [4, 7, 10, 13], [6, 8, 11, 15]])).toBe(true);
-    // expect(Find(0, [[1, 2, 8, 9], [2, 4, 9, 12], [4, 7, 10, 13], [6, 8, 11, 15]])).toBe(false);
-    expect(Find(5, [[1, 2, 8, 9], [2, 4, 9, 12], [4, 7, 10, 13], [6, 8, 11, 15]])).toBe(false);
+  it('judgeStr33', () => {
+    judgeStr33('tttti', 'ttitt');
   });
 
-  it('searchRange', () => {
-    const invalid = [-1, -1];
-    expect(searchRange([], 1)).toEqual(invalid);
-    expect(searchRange([1], 1)).toEqual([0, 0]);
-    expect(searchRange([2, 2], 2)).toEqual([0, 1]);
-    expect(searchRange([2, 3], 1)).toEqual(invalid);
-    expect(searchRange([2, 3], 2)).toEqual([0, 0]);
-    expect(searchRange([3, 3, 3], 3)).toEqual([0, 2]);
-    expect(searchRange([3, 3, 3, 3, 3, 3], 3)).toEqual([0, 5]);
-    expect(searchRange([5, 7, 7, 8, 8, 10], 8)).toEqual([3, 4]);
-    expect(searchRange([5, 7, 7, 8, 8, 10], 6)).toEqual(invalid);
-  });
+  // it('groupAnagrams', () => {
+  //   const strArr = ['eat', 'tea', 'tan', 'ate', 'nat', 'bat'];
+  //   const res = groupAnagrams(strArr);
+  //   console.log(res);
 
-  it('quickSort', () => {
-    // const arr = [7, 34, 45, 13, 67, 87, 2, 3, 4, 5, 1, 4232, 43, 657, 869, 989, 45, 3423];
-    const arr1 = [4, 43, 54, 6, 1, 3, 8, 0];
-    quickSort(arr1);
-  });
+  //   console.log(groupAnagrams(['']));
+  //   console.log(groupAnagrams(['a']));
+  //   console.log(groupAnagrams(['', '', '']));
 
-  it('searchInsert', () => {
-    expect(searchInsert([], 1)).toBe(0);
-    expect(searchInsert([1], 1)).toBe(0);
-    expect(searchInsert([1, 3, 5, 6], 5)).toBe(2);
-    expect(searchInsert([1, 3, 5, 6], 2)).toBe(1);
-    expect(searchInsert([1, 3, 5, 6], 0)).toBe(0);
-    expect(searchInsert([1, 3, 5, 6], 4)).toBe(2);
-    expect(searchInsert([1, 3, 5, 6, 8], 7)).toBe(4);
-  });
-  it('searchInsertRecursion', () => {
-    expect(searchInsert([], 1)).toBe(0);
-    expect(searchInsertRecursion([1], 1)).toBe(0);
-    expect(searchInsertRecursion([1, 3, 5, 6], 5)).toBe(2);
-    expect(searchInsertRecursion([1, 3, 5, 6], 2)).toBe(1);
-    expect(searchInsertRecursion([1, 3, 5, 6], 0)).toBe(0);
-    expect(searchInsertRecursion([1, 3, 5, 6], 4)).toBe(2);
-    expect(searchInsertRecursion([1, 3, 5, 6, 8], 7)).toBe(4);
-  });
+  //   console.log(groupAnagrams(
+  //     ['ewe', 'oil', 'mac', 'mar', 'tog', 'won', 'rug', 'deb',
+  //       'nix', 'mia', 'ply', 'ali', 'mat', 'pro', 'mom', 'leo',
+  //       'len', 'tad', 'rob', 'pee', 'fix', 'hug', 'sis', 'bmw',
+  //       'cue', 'ger', 'may', 'guy', 'amy', 'got', 'ups', 'tod',
+  //       'hat', 'ida', 'imp', 'nov', 'caw', 'may', 'tom', 'doe',
+  //       'oat', 'flu', 'eye', 'yep', 'hui', 'vow', 'kim', 'bib',
+  //       'pin', 'ark', 'cot', 'rib', 'keg', 'wry']));
+  //   console.log(groupAnagrams(['rag', 'orr', 'err', 'bad', 'foe',
+  //     'ivy', 'tho', 'gem', 'len', 'cat', 'ron', 'ump', 'nev',
+  //     'cam', 'pen', 'dis', 'rob', 'tex', 'sin', 'col', 'buy',
+  //     'say', 'big', 'wed', 'eco', 'bet', 'fog', 'buy', 'san',
+  //     'kid', 'lox', 'sen', 'ani', 'mac', 'eta', 'wis', 'pot',
+  //     'sid', 'dot', 'ham', 'gay', 'oar', 'sid', 'had', 'paw',
+  //     'sod', 'sop']
+  //   ));
+  // });
 
-  it('checkVersion', () => {
-    expect(checkVersion('福.d.', '5.3.0')).toBe('error');
-    expect(checkVersion('4.d.', '5.3.0')).toBe('error');
-
-    expect(checkVersion('4.3', '5.3.1')).toBe('error');
-
-    expect(checkVersion('4.3.1', '5.3.1')).toBe('upgradeVersionTooHigh');
-    expect(checkVersion('4.3.1', '4.5.1')).toBe('upgradeVersionTooHigh');
-    expect(checkVersion('8.3.1', '22.5.1')).toBe('upgradeVersionTooHigh');
-    expect(checkVersion('4.4.1', '4.5.1')).toBe('upgradeVersionTooHigh');
-
-    expect(checkVersion('4.3.1', '3.3.1')).toBe('upgradeVersionTooLow');
-    expect(checkVersion('4.3.1', '4.3.0')).toBe('upgradeVersionTooLow');
-    expect(checkVersion('4.3.1', '4.1.0')).toBe('upgradeVersionTooLow');
-    expect(checkVersion('6.3.1', '5.3.2')).toBe('upgradeVersionTooLow');
-
-    expect(checkVersion('4.3.1', '4.3.2')).toBe('');
-    expect(checkVersion('4.3.0', '4.3.2')).toBe('');
-    expect(checkVersion('4.3.5', '4.3.17')).toBe('');
-  });
-
-  it('isValidSudoku', () => {
-    // const board1 =
-    //   [['5', '3', '.', '.', '7', '.', '.', '.', '.'],
-    //   ['6', '.', '.', '1', '9', '5', '.', '.', '.'],
-    //   ['.', '9', '8', '.', '.', '.', '.', '6', '.'],
-    //   ['8', '.', '.', '.', '6', '.', '.', '.', '3'],
-    //   ['4', '.', '.', '8', '.', '3', '.', '.', '1'],
-    //   ['7', '.', '.', '.', '2', '.', '.', '.', '6'],
-    //   ['.', '6', '.', '.', '.', '.', '2', '8', '.'],
-    //   ['.', '.', '.', '4', '1', '9', '.', '.', '5'],
-    //   ['.', '.', '.', '.', '8', '.', '.', '7', '9']];
-
-    // expect(isValidSudoku(board1)).toBeTruthy();
-
-    // const board2 =
-    //   [['8', '3', '.', '.', '7', '.', '.', '.', '.'],
-    //   ['6', '.', '.', '1', '9', '5', '.', '.', '.'],
-    //   ['.', '9', '8', '.', '.', '.', '.', '6', '.'],
-    //   ['8', '.', '.', '.', '6', '.', '.', '.', '3'],
-    //   ['4', '.', '.', '8', '.', '3', '.', '.', '1'],
-    //   ['7', '.', '.', '.', '2', '.', '.', '.', '6'],
-    //   ['.', '6', '.', '.', '.', '.', '2', '8', '.'],
-    //   ['.', '.', '.', '4', '1', '9', '.', '.', '5'],
-    //   ['.', '.', '.', '.', '8', '.', '.', '7', '9']];
-
-    // expect(isValidSudoku(board2)).toBeFalsy();
-
-    const board3 = [
-      ['.', '.', '.', '.', '.', '.', '5', '.', '.'],
-      ['.', '.', '.', '.', '.', '.', '.', '.', '.'],
-      ['.', '.', '.', '.', '.', '.', '.', '.', '.'],
-      ['9', '3', '.', '.', '2', '.', '4', '.', '.'],
-      ['.', '.', '7', '.', '.', '.', '3', '.', '.'],
-      ['.', '.', '.', '.', '.', '.', '.', '.', '.'],
-      ['.', '.', '.', '3', '4', '.', '.', '.', '.'],
-      ['.', '.', '.', '.', '.', '3', '.', '.', '.'],
-      ['.', '.', '.', '.', '.', '5', '2', '.', '.']];
-
-    expect(isValidSudoku(board3)).toBeFalsy();
-  });
-
-  it('groupBy', () => {
-    //相邻的才分组
-    expect(groupBy(['1', '2', '2', '1', '3'])).toEqual([['1'], ['2', '2'], ['1'], ['3']]);
-    // expect(groupBy([1, 1, 2])).toEqual([[1, 1], [2]]);
-    // expect(groupBy([1, 2, 1, 1])).toEqual([[1], [2], [1, 1]]);
-    expect(groupBy(['1', '1', '1', '2', '2', '1']))
-      .toEqual([['1', '1', '1'], ['2', '2'], ['1']]);
-    // const objArr = [{ name: 'lzs', sex: '1' }, { name: 'ly', sex: '1' }, { name: 'he he', sex: '0' }];
-
-    // expect(groupBy(objArr, 'sex')).toEqual([
-    //   [{ name: 'lzs', sex: '1' }, { name: 'ly', sex: '1' }],
-    //   [{ name: 'he he', sex: '0' }]
-    // ]);
-  });
-
-  it('transformArr', () => {
-    expect(transformArr([['1']])).toEqual('11');
-    expect(transformArr([['1', '1']])).toEqual('21');
-    expect(transformArr([['2'], ['1']])).toEqual('1211');
-    expect(transformArr([['1', '1'], ['2']])).toEqual('2112');
-  });
-
-  it('countAndSay', () => {
-    // console.log(countAndSay(1));
-    // console.log(countAndSay(2));
-    // console.log(countAndSay(3));
-    // console.log(countAndSay(4));
-    // console.log(countAndSay(5));
-    // console.log(countAndSay(6));
-  });
-
-  it('combinationSum', () => {
-    const res = combinationSum([2, 3, 6, 7], 7);
-  });
-
-  it('combinationSum2', () => {
-    const res = combinationSum2([10, 1, 2, 7, 6, 1, 5], 8);
-  });
-
-  it('fullPermutation', () => {
-    fullPermutation([1, 2, 3, 4]);
-  });
-
-  it('firstMissingPositive', () => {
-    expect(firstMissingPositive([1, 0, 5, 4, 7])).toBe(2);
-    expect(firstMissingPositive([1])).toBe(2);
-    expect(firstMissingPositive([1, 1])).toBe(2);
-    expect(firstMissingPositive([2])).toBe(1);
-    expect(firstMissingPositive([-5])).toBe(1);
-    expect(firstMissingPositive([1, 2, 0])).toBe(3);
-    expect(firstMissingPositive([3, 4, -1, 1])).toBe(2);
-    expect(firstMissingPositive([7, 8, 9, 11, 12])).toBe(1);
-  });
-
-  it('getObjPath', () => {
-    const obj = {
-      a: { b: 1, c: 2 },
-      f: { z: 1 },
-      d: {
-        e: 3,
-        f: {
-          g: 4,
-          h: 5,
-          l: 7
-        },
-      },
-      i: {
-        j: 6,
-        k: {
-          l: 7,
-          m: 8,
-        },
-      },
-    };
-    const res = getObjPath(obj, { value: 7, key: 'l' });
-  });
-
-  it('permute', () => {
-    expect(permute([1, 2, 3]));
-  });
-
-  it('permuteUnique', () => {
-    // console.log(permuteUnique([1, 1, 2]));
-    // console.log(permuteUnique([1, 2, 1]));
-    // console.log(permuteUnique([1, 2, 3]));
-  });
-
-  it('rotateArr', () => {
-    const matrix = [[5, 1, 9, 11], [2, 4, 8, 10], [13, 3, 6, 7], [15, 14, 12, 16]];
-    rotateArr(matrix);
-    console.log(matrix);
+  it('lengthOfLastWord', () => {
+    expect(lengthOfLastWord(' ')).toBe(0);
+    expect(lengthOfLastWord('a')).toBe(1);
+    expect(lengthOfLastWord('a ')).toBe(1);
+    expect(lengthOfLastWord(' a')).toBe(1);
+    expect(lengthOfLastWord('a a ')).toBe(1);
+    expect(lengthOfLastWord('aa ')).toBe(2);
+    expect(lengthOfLastWord('Hello World')).toBe(5);
+    expect(lengthOfLastWord('   fly me   to   the moon  ')).toBe(4);
+    expect(lengthOfLastWord('luffy is still joyboy')).toBe(6);
   });
 });

@@ -1447,19 +1447,19 @@ export function isValidSudoku(board: string[][]): boolean {
   return true;
 }
 
-// export function groupBy1<T>(arr: T[], key?: string) {
-//   const map = new Map<any, number>();
-//   return arr.reduce((acc, cur: any, index) => {
-//     const val = key ? cur[key] as any : cur;
-//     if (map.has(val)) {
-//       acc[map.get(val)!].push(cur);
-//     } else {
-//       map.set(val, acc.length);
-//       acc.push([cur]);
-//     }
-//     return acc;
-//   }, [] as T[][]);
-// }
+export function groupBy1<T>(arr: T[], key?: string) {
+  const map = new Map<any, number>();
+  return arr.reduce((acc, cur: any, index) => {
+    const val = key ? cur[key] as any : cur;
+    if (map.has(val)) {
+      acc[map.get(val)!].push(cur);
+    } else {
+      map.set(val, acc.length);
+      acc.push([cur]);
+    }
+    return acc;
+  }, [] as T[][]);
+}
 
 export function groupBy(arr: string[]) {
   const initVal: string[][] = [];
@@ -1810,7 +1810,6 @@ export function rotateArr(matrix: number[][]): void {
     let m = index - 1;
     let n = count++;
     while (m >= 0 && n < len) {
-      console.log(matrix[j][m], matrix[n][len - j - 1]);
       [matrix[j][m], matrix[n][len - j - 1]] = [matrix[n][len - j - 1], matrix[j][m]];
       m--;
       n++;
@@ -1819,9 +1818,117 @@ export function rotateArr(matrix: number[][]): void {
   }
 }
 
-/**
- * 5  1  9  11         11  9  1  5         15  13  2  5
- * 2  4  8  10    ==>  10  8  4  2    ==>  14  3   4  1
- * 13 3  6  7          7   6  3  13        12  6   8  9
- * 15 14 12 16         16  12 14 15        16  7   10 11
- */
+const getCount = (s: string, str: string) => {
+  let count = 0;
+  for (let i = 0; i < str.length; ++i) {
+    if (str[i] === s) {
+      count++;
+    }
+  }
+  return count;
+};
+export const judgeStr33 = (str: string, target: string) => {
+  if (str.length !== target.length) return false;
+  const letterToPrime = new Map<string, number>(
+    [
+      ['a', 2],
+      ['b', 3],
+      ['c', 5],
+      ['d', 7],
+      ['e', 11],
+      ['f', 13],
+      ['g', 17],
+      ['h', 19],
+      ['i', 101],
+      ['j', 23],
+      ['k', 29],
+      ['l', 31],
+      ['m', 37],
+      ['n', 41],
+      ['o', 43],
+      ['p', 47],
+      ['q', 53],
+      ['r', 59],
+      ['s', 61],
+      ['t', 67],
+      ['u', 71],
+      ['v', 73],
+      ['w', 79],
+      ['x', 83],
+      ['y', 89],
+      ['z', 97],
+    ]
+  );
+  const product1 = Array.from(str).reduce((acc, cur) => acc * letterToPrime.get(cur)!, 1);
+  const product2 = Array.from(target).reduce((acc, cur) => acc * letterToPrime.get(cur)!, 1);
+  return product1 === product2;
+};
+export const judgeStr1 = (str: string, targetStr: string) =>
+  str.length === targetStr.length
+  && Array.from(str).every((s) => targetStr.includes(s) && getCount(s, targetStr) === getCount(s, str));
+export function groupAnagrams(strs: string[]): string[][] {
+  const getCount = (s: string, str: string) => {
+    let count = 0;
+    for (let i = 0; i < str.length; ++i) {
+      if (str[i] === s) {
+        count++;
+      }
+    }
+    return count;
+  };
+  const judgeStr = (str: string, targetStr: string) =>
+    str.length === targetStr.length
+    && Array.from(str).every((s) => targetStr.includes(s) && getCount(s, targetStr) === getCount(s, str));
+
+  const map = new Map<string, number>();
+  return strs.reduce((acc, cur, index) => {
+    let flag = false;
+    if (map.has(cur)) {
+      flag = true;
+      acc[map.get(cur)!].push(cur);
+    } else {
+      map.set(cur, acc.length);
+    }
+    map.forEach((value, key) => {
+      if (judgeStr(key, cur) && !flag && key !== cur) {
+        flag = true;
+        if (acc[value]) {
+          acc[value].push(cur);
+        }
+        map.set(cur, value);
+      }
+    });
+
+    if (!flag) {
+      acc.push([cur]);
+    }
+    return acc;
+  }, [] as string[][]);
+}
+
+export function lengthOfLastWord(s: string): number {
+  if ((s.length === 0) || (s.length === 1 && s[0] === ' ')) {
+    return 0;
+  }
+  if (s.length === 1) {
+    return 1;
+  }
+
+  let start = 0;
+  let end = 0;
+  for (let i = s.length - 1; i >= 0; --i) {
+    if (s[i] === ' ' && end === 0) {
+      continue;
+    }
+
+    if (end === 0) {
+      end = i;
+    }
+
+    if (end !== 0 && s[i] === ' ') {
+      start = i + 1;
+      break;
+    }
+  }
+  return end - start + 1;
+}
