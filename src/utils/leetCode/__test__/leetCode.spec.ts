@@ -11,7 +11,8 @@ import {
   kthGrammar, Find, searchRange, searchInsert, searchInsertRecursion,
   checkVersion, isValidSudoku, countAndSay, groupBy, transformArr, combinationSum,
   fullPermutation, combinationSum2, firstMissingPositive, getObjPath,
-  permute, permuteUnique, rotateArr, groupAnagrams, judgeStr1, judgeStr33, lengthOfLastWord
+  permute, permuteUnique, rotateArr, groupAnagrams, judgeStr1, judgeStr33, lengthOfLastWord,
+  generateMatrix
 } from '..';
 import { useState } from '../../hooks';
 import _ from 'lodash';
@@ -685,16 +686,16 @@ describe('hooks.ts', () => {
   // });
   //#endregion
 
-  it('judgeStr', () => {
-    expect(judgeStr1('eat', 'tea')).toBe(true);
-    expect(judgeStr1('tan', 'ate')).toBe(false);
-    expect(judgeStr1('ups', 'may')).toBe(false);
-    expect(judgeStr1('', '')).toBe(true);
-  });
+  // it('judgeStr', () => {
+  //   expect(judgeStr1('eat', 'tea')).toBe(true);
+  //   expect(judgeStr1('tan', 'ate')).toBe(false);
+  //   expect(judgeStr1('ups', 'may')).toBe(false);
+  //   expect(judgeStr1('', '')).toBe(true);
+  // });
 
-  it('judgeStr33', () => {
-    judgeStr33('tttti', 'ttitt');
-  });
+  // it('judgeStr33', () => {
+  //   judgeStr33('tttti', 'ttitt');
+  // });
 
   // it('groupAnagrams', () => {
   //   const strArr = ['eat', 'tea', 'tan', 'ate', 'nat', 'bat'];
@@ -723,15 +724,23 @@ describe('hooks.ts', () => {
   //   ));
   // });
 
-  it('lengthOfLastWord', () => {
-    expect(lengthOfLastWord(' ')).toBe(0);
-    expect(lengthOfLastWord('a')).toBe(1);
-    expect(lengthOfLastWord('a ')).toBe(1);
-    expect(lengthOfLastWord(' a')).toBe(1);
-    expect(lengthOfLastWord('a a ')).toBe(1);
-    expect(lengthOfLastWord('aa ')).toBe(2);
-    expect(lengthOfLastWord('Hello World')).toBe(5);
-    expect(lengthOfLastWord('   fly me   to   the moon  ')).toBe(4);
-    expect(lengthOfLastWord('luffy is still joyboy')).toBe(6);
+  // it('lengthOfLastWord', () => {
+  //   expect(lengthOfLastWord(' ')).toBe(0);
+  //   expect(lengthOfLastWord('a')).toBe(1);
+  //   expect(lengthOfLastWord('a ')).toBe(1);
+  //   expect(lengthOfLastWord(' a')).toBe(1);
+  //   expect(lengthOfLastWord('a a ')).toBe(1);
+  //   expect(lengthOfLastWord('aa ')).toBe(2);
+  //   expect(lengthOfLastWord('Hello World')).toBe(5);
+  //   expect(lengthOfLastWord('   fly me   to   the moon  ')).toBe(4);
+  //   expect(lengthOfLastWord('luffy is still joyboy')).toBe(6);
+  // });
+
+  it('generateMatrix', () => {
+    // generateMatrix(2);
+    // generateMatrix(3);
+    // generateMatrix(4);
+    // generateMatrix(5);
+    generateMatrix(6);
   });
 });

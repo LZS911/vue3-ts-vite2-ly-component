@@ -1932,3 +1932,96 @@ export function lengthOfLastWord(s: string): number {
   }
   return end - start + 1;
 }
+
+/**
+ *
+ * @param n 给你一个正整数 n ，生成一个包含 1 到 n2 所有元素，且元素按顺时针顺序螺旋排列的 n x n 正方形矩阵 matrix 。
+ * @returns
+ */
+export function generateMatrix(n: number): number[][] {
+  const res: number[][] = [];
+
+  for (let i = 0; i < n; ++i) {
+    res[i] = [];
+  }
+
+  const sum = n * n;
+  const fn = (start: number, length: number, count: number) => {
+    //递归开始
+    if (start === sum) {
+      res[Math.floor(n / 2)][Math.floor(n / 2)] = sum;
+      return;
+    }
+    //生成数组的方法, 在此方法中给 start递增
+    const generateArr = (len: number) => {
+      const res: number[] = [];
+      for (let i = 0; i < len; ++i) {
+        res.push(start++);
+      }
+      return res;
+    };
+
+    //依次填充方形 四条边
+    //top:
+    generateArr(length).forEach((num, index) => {
+      res[count][count + index] = num;
+    });
+    //right:
+    generateArr(length - 1).forEach((num, index) => {
+      res[index + 1 + count][n - 1 - count] = num;
+    });
+
+    //bottom:
+    generateArr(length - 1).forEach((num, index) => {
+      res[n - 1 - count][n - count - 2 - index] = num;
+    });
+
+    //递归开始, 最后不需要填充左侧
+    if (length === 2) {
+      return;
+    }
+    //left
+    generateArr(length - 2).forEach((num, index) => {
+      res[n - 2 - count - index][count] = num;
+    });
+
+    fn(start, length - 2, count + 1);
+  };
+
+  //递归开始
+  fn(1, n, 0);
+  return res;
+}
+// 6
+// [[1,2,3,4,5,6],
+// [20,21,22,23,24,7],
+// [19,32,33,34,25,8],
+// [18,31,36,35,26,9],
+// [17,30,29,28,27,10],
+// [16,15,14,13,12,11]]
+
+// [[1,2,3],[8,9,4],[7,6,5]]
+/**
+ * 1 2 3
+ * 8 9 4
+ * 7 6 5
+ */
+
+//  [[1,2,3,4],[12,13,14,5],[11,16,15,6],[10,9,8,7]]
+
+/**
+ * 1  2  3  4
+ * 12 13 14 5
+ * 11 16 15 6
+ * 10  9  8 7
+ */
+
+//[[1,2,3,4,5],[16,17,18,19,6],[15,24,25,20,7],[14,23,22,21,8],[13,12,11,10,9]]
+
+/**
+ * 1  2  3  4  5
+ * 16 17 18 19 6
+ * 15 24 25 20 7
+ * 14 23 22 21 8
+ * 13 12 11 10 9
+ */

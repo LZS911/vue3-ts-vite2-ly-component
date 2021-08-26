@@ -6,7 +6,7 @@ export const baseType = () => {
   const numberTypeStr = typeof 911;
   const symbolTypeStr = typeof Symbol(123);
   const bigIntTypeStr = typeof BigInt(123);
-  const objTypeStr = typeof {};
+  const objTypeStr = typeof { };
   const arrTypeStr = typeof [];
   const funTypeStr = typeof (() => { });
   return {
@@ -27,13 +27,13 @@ export const testInstanceof = () => {
   const a: any[] = [];
   a instanceof Array; // true
   a instanceof Object; // true
-  const o = {};
+  const o = { };
   o instanceof Object; // true
   o instanceof Array; // false
 
   function Fn(): any { }
   // const f = new Fn();
-  const f = {};
+  const f = { };
   Object.setPrototypeOf(f, Fn.prototype);
   f instanceof Fn; // true
   f instanceof Object; // true
@@ -70,7 +70,7 @@ export const forEach = <T>(array: T[], cb: (item: T, index: number, array: T[]) 
 
 export const deepClone = (target: { [key in string]: any }, map = new WeakMap<{ [key in string]: any }, any>()) => {
   if (myTypeof(target) === 'object' || myTypeof(target) === 'array') {
-    const cloneTarget: any = myTypeof(target) === 'array' ? [] : {};
+    const cloneTarget: any = myTypeof(target) === 'array' ? [] : { };
     if (map.get(target)) {
       return map.get(target);
     }
