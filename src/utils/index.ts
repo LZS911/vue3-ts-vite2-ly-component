@@ -52,7 +52,7 @@ export const useSize = (width: number | string, sizeMap: Map<string, number>, si
 };
 
 export const findListByKey = (tableList: any[], value: any, key: string) =>
-  tableList.find((item) => item[key] === value) ?? {};
+  tableList.find((item) => item[key] === value) ?? { };
 
 export const findListByIndex = (tableList: any[], index: number, key: string) => {
   if (!tableList.length) {
@@ -78,3 +78,41 @@ export const filterListByValue = (tableList: any[], query: string) => {
 export const arrDifference = <T>(array: T[], ...value: T[]): T[] => Array.from(new Set([...array, ...value]));
 export const arrDistinct = <T>(array: T[], ...value: T[]): T[] => array.filter((arr) => !value.includes(arr));
 export const arrRemove = <T>(arr: T[], val: T): T[] => _.remove(arr, (t) => t !== val);
+
+export type InternalNamePath = (string | number)[];
+export interface FieldError {
+  name: InternalNamePath;
+  errors: string[];
+  warnings: string[];
+}
+export function allPromiseFinish(promiseList: Promise<FieldError>[]): Promise<FieldError[]> {
+  let hasError = false;
+  let count = promiseList.length;
+  const result: FieldError[] = [];
+
+  if (count === 0) {
+    return Promise.resolve(result);
+  }
+
+  return new Promise((resolve, reject) => {
+    promiseList.forEach((promise, index) => {
+      promise
+        .catch((e) => {
+          hasError = true;
+          return e;
+        })
+        .then((res) => {
+          count -= 1;
+          result[index] = res;
+
+          if (count > 0) {
+            return;
+          }
+          if (hasError) {
+            reject(result);
+          }
+          resolve(result);
+        });
+    });
+  });
+}

@@ -1938,60 +1938,6 @@ export function lengthOfLastWord(s: string): number {
  * @param n 给你一个正整数 n ，生成一个包含 1 到 n2 所有元素，且元素按顺时针顺序螺旋排列的 n x n 正方形矩阵 matrix 。
  * @returns
  */
-export function generateMatrix(n: number): number[][] {
-  const res: number[][] = [];
-
-  for (let i = 0; i < n; ++i) {
-    res[i] = [];
-  }
-
-  const sum = n * n;
-  const fn = (start: number, length: number, count: number) => {
-    //递归开始
-    if (start === sum) {
-      res[Math.floor(n / 2)][Math.floor(n / 2)] = sum;
-      return;
-    }
-    //生成数组的方法, 在此方法中给 start递增
-    const generateArr = (len: number) => {
-      const res: number[] = [];
-      for (let i = 0; i < len; ++i) {
-        res.push(start++);
-      }
-      return res;
-    };
-
-    //依次填充方形 四条边
-    //top:
-    generateArr(length).forEach((num, index) => {
-      res[count][count + index] = num;
-    });
-    //right:
-    generateArr(length - 1).forEach((num, index) => {
-      res[index + 1 + count][n - 1 - count] = num;
-    });
-
-    //bottom:
-    generateArr(length - 1).forEach((num, index) => {
-      res[n - 1 - count][n - count - 2 - index] = num;
-    });
-
-    //递归开始, 最后不需要填充左侧
-    if (length === 2) {
-      return;
-    }
-    //left
-    generateArr(length - 2).forEach((num, index) => {
-      res[n - 2 - count - index][count] = num;
-    });
-
-    fn(start, length - 2, count + 1);
-  };
-
-  //递归开始
-  fn(1, n, 0);
-  return res;
-}
 // 6
 // [[1,2,3,4,5,6],
 // [20,21,22,23,24,7],
@@ -2025,3 +1971,165 @@ export function generateMatrix(n: number): number[][] {
  * 14 23 22 21 8
  * 13 12 11 10 9
  */
+
+export function generateMatrix(n: number): number[][] {
+  const res: number[][] = [];
+
+  for (let i = 0; i < n; ++i) {
+    res[i] = [];
+  }
+
+  const sum = n * n;
+  const fn = (start: number, length: number, count: number) => {
+    //递归结束
+    if (start === sum) {
+      res[Math.floor(n / 2)][Math.floor(n / 2)] = sum;
+      return;
+    }
+    //生成数组的方法, 在此方法中给 start递增
+    const generateArr = (len: number) => {
+      const res: number[] = [];
+      for (let i = 0; i < len; ++i) {
+        res.push(start++);
+      }
+      return res;
+    };
+
+    //依次填充方形 四条边
+    //top:
+    generateArr(length).forEach((num, index) => {
+      res[count][count + index] = num;
+    });
+    //right:
+    generateArr(length - 1).forEach((num, index) => {
+      res[index + 1 + count][n - 1 - count] = num;
+    });
+
+    //bottom:
+    generateArr(length - 1).forEach((num, index) => {
+      res[n - 1 - count][n - count - 2 - index] = num;
+    });
+
+    //递归结束, 最后不需要填充左侧
+    if (length === 2) {
+      return;
+    }
+    //left
+    generateArr(length - 2).forEach((num, index) => {
+      res[n - 2 - count - index][count] = num;
+    });
+
+    fn(start, length - 2, count + 1);
+  };
+
+  //递归开始
+  fn(1, n, 0);
+  return res;
+}
+
+export function getPermutation(n: number, k: number): string {
+  const arr = Array.from({ length: n }, (v, i) => i + 1);
+  const allArr = permuteUnique(arr);
+  const tmpArr = allArr.map((item) => Number(item.toString().replace(/,/g, '')));
+  return String(tmpArr.sort((a, b) => a - b)[k - 1]) ?? '';
+}
+
+/**
+ *
+ * @param head 给你一个链表的头节点 head ，旋转链表，将链表每个节点向右移动 k 个位置。
+输入：head = [1,2,3,4,5], k = 2
+输出：[4,5,1,2,3]
+ * @param k
+ */
+export function rotateRight(head: ListNode | null, k: number): ListNode | null {
+  //边界情况判断
+  if (head === null || k === 0) {
+    return head;
+  }
+
+  //获取链表长度
+  let len = 1;
+  let lenTmp = head;
+  let res = new ListNode();
+  while (lenTmp.next) {
+    lenTmp = lenTmp.next;
+    len++;
+  }
+  //当长度相等或者链表长度为1时, 直接返回head
+  if (len === k || len === 1) {
+    return head;
+  }
+  //获取旋转后排在头部的序号
+  let sum = k > len ? k % len : k;
+
+  //为0时, 也直接返回head
+  if (sum === 0) {
+    return head;
+  }
+
+  /**
+   * 利用快慢指针拿到倒数第 sum 的节点
+   */
+  let fast = head;
+  let slow = head;
+  while (sum > 0) {
+    fast = fast.next!;
+    sum--;
+  }
+
+  /**
+   * p1 为头部节点, p2为头部前一个
+   */
+  while (fast.next) {
+    fast = fast.next;
+    slow = slow.next!;
+  }
+  // 获取头部节点
+  res = slow.next!;
+  //将head后半部分置空
+  slow.next = null;
+
+  console.log(res, slow);
+  let tmp = res!;
+  while (tmp.next) {
+    tmp = tmp?.next;
+  }
+  //拼接后半部分
+  tmp.next = head;
+
+  return res;
+}
+
+/**
+ * 反转单向链表
+ * @param head
+ */
+export function reverseList(head: ListNode | null): ListNode | null {
+  if (!head || !head.next) {
+    return head;
+  }
+
+  let cur: ListNode | null = head;
+  let prev: ListNode | null = null;
+
+  while (cur !== null) {
+    // const tmp: ListNode | null = cur.next;
+    // cur.next = prev;
+    // prev = cur;
+    // cur = tmp;
+
+    [cur.next, prev, cur] = [prev, cur, cur.next];
+  }
+  return prev;
+
+  // const reverse = (prev: ListNode | null, cur: ListNode | null): ListNode | null => {
+  //   if (!cur) {
+  //     return prev;
+  //   }
+  //   const nextP = cur.next;
+  //   cur.next = prev;
+  //   return reverse(cur, nextP);
+  // };
+
+  // return reverse(null, head);
+}

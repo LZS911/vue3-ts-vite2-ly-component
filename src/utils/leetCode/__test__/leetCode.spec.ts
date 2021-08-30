@@ -12,7 +12,7 @@ import {
   checkVersion, isValidSudoku, countAndSay, groupBy, transformArr, combinationSum,
   fullPermutation, combinationSum2, firstMissingPositive, getObjPath,
   permute, permuteUnique, rotateArr, groupAnagrams, judgeStr1, judgeStr33, lengthOfLastWord,
-  generateMatrix
+  generateMatrix, getPermutation, rotateRight, reverseList
 } from '..';
 import { useState } from '../../hooks';
 import _ from 'lodash';
@@ -742,5 +742,92 @@ describe('hooks.ts', () => {
     // generateMatrix(4);
     // generateMatrix(5);
     generateMatrix(6);
+  });
+
+  it('getPermutation', () => {
+    expect(getPermutation(3, 3)).toBe('213');
+    expect(getPermutation(4, 9)).toBe('2314');
+    expect(getPermutation(3, 1)).toBe('123');
+  });
+
+  it('rotateRight', () => {
+    const head1: ListNode = {
+      val: 1,
+      next: {
+        val: 2,
+        next: {
+          val: 3,
+          next: {
+            val: 4,
+            next: {
+              val: 5,
+              next: null
+            }
+          }
+        }
+      }
+    };
+
+    const head2: ListNode = {
+      val: 0,
+      next: {
+        val: 1,
+        next: {
+          val: 2,
+          next: null
+        }
+      }
+    };
+
+    const head3: ListNode = {
+      val: 1,
+      next: {
+        val: 2,
+        next: {
+          val: 3,
+          next: null,
+        }
+      }
+    };
+
+    const head4: ListNode = {
+      val: 1,
+      next: null
+    };
+
+    // console.log(rotateRight(head3, 2000000000));
+
+    // console.log(rotateRight(head2, 4));
+    // console.log(rotateRight(head1, 2));
+    // console.log(rotateRight(head1, 10));
+    // console.log(rotateRight(head4, 99));
+  });
+
+  it('reverseList', () => {
+    const head1: ListNode = {
+      val: 1,
+      next: {
+        val: 2,
+        next: null
+      }
+    };
+    const head2: ListNode = {
+      val: 1,
+      next: {
+        val: 2,
+        next: {
+          val: 3,
+          next: null
+        }
+      }
+    };
+
+    const head3: ListNode = {
+      val: 1,
+      next: null
+    };
+    console.log(reverseList(head1), 'xixi');
+    console.log(reverseList(head2), 'haha');
+    console.log(reverseList(head3), 'haha');
   });
 });
