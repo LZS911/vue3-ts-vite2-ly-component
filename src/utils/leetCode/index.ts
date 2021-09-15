@@ -22,7 +22,9 @@ export const digitalRoot = (n: number): number => {
   if (String(n).length === 1) {
     return n;
   }
-  const sum = Array.from(String(n)).map((item) => Number(item)).reduce((item, current) => item + current);
+  const sum = Array.from(String(n))
+    .map((item) => Number(item))
+    .reduce((item, current) => item + current);
 
   return digitalRoot(sum);
 };
@@ -31,7 +33,7 @@ interface IObjToTree {
   id: number;
   name: string;
   pid: number;
-  children?: IObjToTree[]
+  children?: IObjToTree[];
 }
 
 export const objToTree = (arr: IObjToTree[]) => {
@@ -63,13 +65,13 @@ export const objToTree = (arr: IObjToTree[]) => {
  * }
  */
 export class ListNode {
-  val: number
+  val: number;
 
-  next: ListNode | null
+  next: ListNode | null;
 
   constructor(val?: number, next?: ListNode | null) {
-    this.val = (val === undefined ? 0 : val);
-    this.next = (next === undefined ? null : next);
+    this.val = val === undefined ? 0 : val;
+    this.next = next === undefined ? null : next;
   }
 }
 export function addTwoNumbers(l1: ListNode | null, l2: ListNode | null): ListNode | null {
@@ -100,9 +102,10 @@ export function addTwoNumbers(l1: ListNode | null, l2: ListNode | null): ListNod
   return res.next;
 }
 
-const addRemote = async (a: number, b: number) => new Promise<number>((resolve) => {
-  setTimeout(() => resolve(a + b), 1000);
-});
+const addRemote = async (a: number, b: number) =>
+  new Promise<number>((resolve) => {
+    setTimeout(() => resolve(a + b), 1000);
+  });
 
 export async function add(...inputs: number[]) {
   if (inputs.length === 0) {
@@ -140,7 +143,7 @@ export function convert(target: string, numRows: number): string {
   const len = target.length;
   if (len <= 2 || numRows === 1 || len <= numRows) return target;
   let res = '';
-  const map = new Map<{ x: number, y: number }, string>();
+  const map = new Map<{ x: number; y: number }, string>();
   let i = 0;
 
   //计算总共横向数量
@@ -172,7 +175,7 @@ export function convert(target: string, numRows: number): string {
 export function myAtoi(target: string): number {
   ///^[\+\-]?\d+/  好好学正则吧 ...
   const str = target.trim().match(/^\+?[\-|0-9][0-9]*/);
-  const res = str ? +str[0] ? +str[0] : 0 : 0;
+  const res = str ? (+str[0] ? +str[0] : 0) : 0;
   if (res < MIN_NUMBER) return MIN_NUMBER;
   if (res > MAX_NUMBER) return MAX_NUMBER;
   return res;
@@ -254,7 +257,7 @@ export function maxArea(nums: number[]): number {
 }
 export function isSpecial(num: number) {
   //只考虑 为10 的整数倍
-  if ((num > 10 && num % 10)) return false;
+  if (num > 10 && num % 10) return false;
   while (num > 10) {
     num /= 10;
   }
@@ -310,7 +313,8 @@ export function intToRoman(num: number): string {
         p = 'M';
         q = '';
         break;
-      default: break;
+      default:
+        break;
     }
 
     //计算倍数
@@ -365,9 +369,20 @@ export function inToRoman2(num: number) {
   if (num < 1 || num > 3999) return res;
 
   const map = new Map<number, string>([
-    [1000, 'M'], [900, 'CM'], [500, 'D'], [400, 'CD'],
-    [100, 'C'], [90, 'XC'], [50, 'L'], [40, 'XL'], [10, 'X'], [9, 'IX'],
-    [5, 'V'], [4, 'IV'], [1, 'I']]);
+    [1000, 'M'],
+    [900, 'CM'],
+    [500, 'D'],
+    [400, 'CD'],
+    [100, 'C'],
+    [90, 'XC'],
+    [50, 'L'],
+    [40, 'XL'],
+    [10, 'X'],
+    [9, 'IX'],
+    [5, 'V'],
+    [4, 'IV'],
+    [1, 'I']
+  ]);
   map.forEach((val, key) => {
     while (num >= key) {
       num -= key;
@@ -427,7 +442,7 @@ export function threeSum(nums: number[]): number[][] {
   nums.forEach((item) => {
     let tmp: number[] = [];
     list = removeArr(list, item);
-    tmp = (getArrByAdd(list, getOppositeNumber(item)));
+    tmp = getArrByAdd(list, getOppositeNumber(item));
     if (tmp.length > 0) {
       for (let i = 0; i < tmp.length; i += 2) {
         const val = [item, ...tmp.slice(i, i + 2)].sort((a, b) => a - b);
@@ -483,7 +498,7 @@ export function threeSumClosest(nums: number[], target: number): number {
       if (val < target) {
         if (++j === i) ++j;
       }
-      if ((val > target)) {
+      if (val > target) {
         if (--k === i) --k;
       }
       tmp.push(val);
@@ -500,9 +515,12 @@ export function letterCombinations(digits: string) {
   if (!digits || Array.from(digits).some((item) => +item < 2)) return res;
   const map = new Map([
     [2, ['a', 'b', 'c']],
-    [3, ['d', 'e', 'f']], [4, ['g', 'h', 'i']],
-    [5, ['j', 'k', 'l']], [6, ['m', 'n', 'o']],
-    [7, ['p', 'q', 'r', 's']], [8, ['t', 'u', 'v']],
+    [3, ['d', 'e', 'f']],
+    [4, ['g', 'h', 'i']],
+    [5, ['j', 'k', 'l']],
+    [6, ['m', 'n', 'o']],
+    [7, ['p', 'q', 'r', 's']],
+    [8, ['t', 'u', 'v']],
     [9, ['w', 'x', 'y', 'z']]
   ]);
 
@@ -517,8 +535,10 @@ export function letterCombinations(digits: string) {
 
 //数组降维
 export function flatArray<T>(arr: any[]): T[] {
-  return arr.reduce((res, current) => Array.isArray(current) ? [...res, ...flatArray(current)] :
-    [...res, current], []);
+  return arr.reduce(
+    (res, current) => (Array.isArray(current) ? [...res, ...flatArray(current)] : [...res, current]),
+    []
+  );
 }
 
 export function fourSum(nums: number[], target: number): number[][] {
@@ -645,7 +665,7 @@ s 仅由括号 '()[]{}' 组成
  */
 export function isValid(s: string): boolean {
   //添加限制
-  if (s.length < 1 || s.length > 104 || !(/^[\{\}\(\)\[\]]+$/.test(s))) return false;
+  if (s.length < 1 || s.length > 104 || !/^[\{\}\(\)\[\]]+$/.test(s)) return false;
   //奇数直接false
   if (s.length % 2) return false;
 
@@ -662,14 +682,12 @@ export function isValid(s: string): boolean {
   for (let i = 0; i < s.length; ++i) {
     // 如果当前为左括号 将左括号对应的右括号push进数组
     if (map[s[i]]) st.push(map[s[i]]);
-
     /**
      * 当前分支为s[i]为 右括号 值
      * pop:弹出数组最后push进去的元素(栈 后进先出原则)
      * 利用数组pop函数的返回值(移出的元素), 用来和s[i]对比,
      * 如果符合对称关系, 则其应该相等, 如若有不相等, 则返回false
-     */
-    else if (s[i] !== st.pop()) {
+     */ else if (s[i] !== st.pop()) {
       return false;
     }
   }
@@ -1335,7 +1353,12 @@ export function searchInsert(nums: number[], target: number): number {
   return left + 1;
 }
 
-export function searchInsertRecursion(nums: number[], target: number, start: number = 0, end: number = nums.length - 1): number {
+export function searchInsertRecursion(
+  nums: number[],
+  target: number,
+  start: number = 0,
+  end: number = nums.length - 1
+): number {
   if (nums.length === 0) return 0;
   if (end - start < 1) {
     if (nums[start] >= target) {
@@ -1356,7 +1379,7 @@ export const checkVersion = (version: string, currentVersion: string) => {
   const versionArr = version.split('.');
   const currentArr = currentVersion.split('.');
 
-  if (!(/^\d+.\d+.\d+$/.test(version)) || !(/^\d+.\d+.\d+$/.test(currentVersion))) {
+  if (!/^\d+.\d+.\d+$/.test(version) || !/^\d+.\d+.\d+$/.test(currentVersion)) {
     return 'error';
   }
 
@@ -1377,14 +1400,16 @@ export function isValidSudoku(board: string[][]): boolean {
      实现一个id生成器, 将 . 转化成 不相同且以1递增的参数
      当然也有别的处理方式, 这里这样处理只是因为最近有看到讲闭包的文章用这个栗子, 于是试下手
   */
-  const integer = (from: number, to: number = Infinity, step: number = 1) => () => {
-    if (from < to) {
-      const result = from;
-      from += step;
-      return result;
-    }
-    return -1;
-  };
+  const integer =
+    (from: number, to: number = Infinity, step: number = 1) =>
+      () => {
+        if (from < to) {
+          const result = from;
+          from += step;
+          return result;
+        }
+        return -1;
+      };
 
   //创建id生成器, 以10开始, 避免和已有数据冲突
   const generateId = integer(10);
@@ -1407,7 +1432,7 @@ export function isValidSudoku(board: string[][]): boolean {
    * 1. 判断数组中是否含有-1, 若有, 则为false
    * 2. 判断数组中时候含有重复的数据, 通过 ES6 Set 转换后比较长度即可, 当长度不相同时, 即包含重复值, 返回false
    */
-  const checkValid = (arr: number[]) => !arr.includes(-1) && (([...new Set(arr)]).length === arr.length);
+  const checkValid = (arr: number[]) => !arr.includes(-1) && [...new Set(arr)].length === arr.length;
 
   for (let i = 0; i < board.length; ++i) {
     // 对二维数组中横向数组做校验, 有不符合规则的直接返回false
@@ -1450,7 +1475,7 @@ export function isValidSudoku(board: string[][]): boolean {
 export function groupBy1<T>(arr: T[], key?: string) {
   const map = new Map<any, number>();
   return arr.reduce((acc, cur: any, index) => {
-    const val = key ? cur[key] as any : cur;
+    const val = key ? (cur[key] as any) : cur;
     if (map.has(val)) {
       acc[map.get(val)!].push(cur);
     } else {
@@ -1697,7 +1722,7 @@ export function jumpEnd(nums: number[]) {
     {value:7, key:'l'}  ===> ['i', 'k', 'l']
     {value:7, key:'m'}  ===> null
  */
-export function getObjPath(obj: { [key in string]: any }, keyValue: { key: string, value: number }): string[][] {
+export function getObjPath(obj: { [key in string]: any }, keyValue: { key: string; value: number }): string[][] {
   const result: string[][] = [];
   const fn = (o: { [key in string]: any }, count: number = 0) => {
     const res = Object.keys(o).reduce((acc, cur) => {
@@ -1753,7 +1778,10 @@ export function permute(nums: number[]): number[][] {
     }
     for (let i = 0; i < arr.length; ++i) {
       const tmp = [...path, arr[i]];
-      fn(tmp, arr.filter((item) => item !== arr[i]));
+      fn(
+        tmp,
+        arr.filter((item) => item !== arr[i])
+      );
     }
   };
 
@@ -1829,43 +1857,41 @@ const getCount = (s: string, str: string) => {
 };
 export const judgeStr33 = (str: string, target: string) => {
   if (str.length !== target.length) return false;
-  const letterToPrime = new Map<string, number>(
-    [
-      ['a', 2],
-      ['b', 3],
-      ['c', 5],
-      ['d', 7],
-      ['e', 11],
-      ['f', 13],
-      ['g', 17],
-      ['h', 19],
-      ['i', 101],
-      ['j', 23],
-      ['k', 29],
-      ['l', 31],
-      ['m', 37],
-      ['n', 41],
-      ['o', 43],
-      ['p', 47],
-      ['q', 53],
-      ['r', 59],
-      ['s', 61],
-      ['t', 67],
-      ['u', 71],
-      ['v', 73],
-      ['w', 79],
-      ['x', 83],
-      ['y', 89],
-      ['z', 97],
-    ]
-  );
+  const letterToPrime = new Map<string, number>([
+    ['a', 2],
+    ['b', 3],
+    ['c', 5],
+    ['d', 7],
+    ['e', 11],
+    ['f', 13],
+    ['g', 17],
+    ['h', 19],
+    ['i', 101],
+    ['j', 23],
+    ['k', 29],
+    ['l', 31],
+    ['m', 37],
+    ['n', 41],
+    ['o', 43],
+    ['p', 47],
+    ['q', 53],
+    ['r', 59],
+    ['s', 61],
+    ['t', 67],
+    ['u', 71],
+    ['v', 73],
+    ['w', 79],
+    ['x', 83],
+    ['y', 89],
+    ['z', 97]
+  ]);
   const product1 = Array.from(str).reduce((acc, cur) => acc * letterToPrime.get(cur)!, 1);
   const product2 = Array.from(target).reduce((acc, cur) => acc * letterToPrime.get(cur)!, 1);
   return product1 === product2;
 };
 export const judgeStr1 = (str: string, targetStr: string) =>
-  str.length === targetStr.length
-  && Array.from(str).every((s) => targetStr.includes(s) && getCount(s, targetStr) === getCount(s, str));
+  str.length === targetStr.length &&
+  Array.from(str).every((s) => targetStr.includes(s) && getCount(s, targetStr) === getCount(s, str));
 export function groupAnagrams(strs: string[]): string[][] {
   const getCount = (s: string, str: string) => {
     let count = 0;
@@ -1877,8 +1903,8 @@ export function groupAnagrams(strs: string[]): string[][] {
     return count;
   };
   const judgeStr = (str: string, targetStr: string) =>
-    str.length === targetStr.length
-    && Array.from(str).every((s) => targetStr.includes(s) && getCount(s, targetStr) === getCount(s, str));
+    str.length === targetStr.length &&
+    Array.from(str).every((s) => targetStr.includes(s) && getCount(s, targetStr) === getCount(s, str));
 
   const map = new Map<string, number>();
   return strs.reduce((acc, cur, index) => {
@@ -1907,7 +1933,7 @@ export function groupAnagrams(strs: string[]): string[][] {
 }
 
 export function lengthOfLastWord(s: string): number {
-  if ((s.length === 0) || (s.length === 1 && s[0] === ' ')) {
+  if (s.length === 0 || (s.length === 1 && s[0] === ' ')) {
     return 0;
   }
   if (s.length === 1) {
@@ -2132,4 +2158,35 @@ export function reverseList(head: ListNode | null): ListNode | null {
   // };
 
   // return reverse(null, head);
+}
+
+export function mergerTwoArrOrderByToFlatArr(multiArr: number[][], order: 'asc' | 'desc' = 'asc'): number[] {
+  if (multiArr.length === 0) {
+    return [];
+  }
+  /**
+   * 直接使用工具方法:
+   */
+  // return multiArr.flat().sort((a, b) =>
+  //   order === 'desc'
+  //     ? b - a
+  //     : a - b);
+
+  /**
+   * 自己实现数组降维:
+   */
+  const flat = (arr: any[], depth: number = 1): any[] => {
+    if (depth >= 0) {
+      return arr.reduce(
+        (acc, cur) =>
+          Array.isArray(cur)
+            ? [...flat(cur, depth - 1), ...acc].sort((a, b) => (order === 'desc' ? b - a : a - b))
+            : [cur, ...acc].sort((a, b) => (order === 'desc' ? b - a : a - b)),
+        []
+      );
+    }
+    return arr;
+  };
+
+  return flat(multiArr);
 }

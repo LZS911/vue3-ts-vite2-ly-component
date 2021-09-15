@@ -12,7 +12,7 @@ import {
   checkVersion, isValidSudoku, countAndSay, groupBy, transformArr, combinationSum,
   fullPermutation, combinationSum2, firstMissingPositive, getObjPath,
   permute, permuteUnique, rotateArr, groupAnagrams, judgeStr1, judgeStr33, lengthOfLastWord,
-  generateMatrix, getPermutation, rotateRight, reverseList
+  generateMatrix, getPermutation, rotateRight, reverseList, mergerTwoArrOrderByToFlatArr
 } from '..';
 import { useState } from '../../hooks';
 import _ from 'lodash';
@@ -736,98 +736,110 @@ describe('hooks.ts', () => {
   //   expect(lengthOfLastWord('luffy is still joyboy')).toBe(6);
   // });
 
-  it('generateMatrix', () => {
-    // generateMatrix(2);
-    // generateMatrix(3);
-    // generateMatrix(4);
-    // generateMatrix(5);
-    generateMatrix(6);
-  });
+  // it('generateMatrix', () => {
+  //   // generateMatrix(2);
+  //   // generateMatrix(3);
+  //   // generateMatrix(4);
+  //   // generateMatrix(5);
+  //   generateMatrix(6);
+  // });
 
-  it('getPermutation', () => {
-    expect(getPermutation(3, 3)).toBe('213');
-    expect(getPermutation(4, 9)).toBe('2314');
-    expect(getPermutation(3, 1)).toBe('123');
-  });
+  // it('getPermutation', () => {
+  //   expect(getPermutation(3, 3)).toBe('213');
+  //   expect(getPermutation(4, 9)).toBe('2314');
+  //   expect(getPermutation(3, 1)).toBe('123');
+  // });
 
-  it('rotateRight', () => {
-    const head1: ListNode = {
-      val: 1,
-      next: {
-        val: 2,
-        next: {
-          val: 3,
-          next: {
-            val: 4,
-            next: {
-              val: 5,
-              next: null
-            }
-          }
-        }
-      }
-    };
+  // it('rotateRight', () => {
+  //   const head1: ListNode = {
+  //     val: 1,
+  //     next: {
+  //       val: 2,
+  //       next: {
+  //         val: 3,
+  //         next: {
+  //           val: 4,
+  //           next: {
+  //             val: 5,
+  //             next: null
+  //           }
+  //         }
+  //       }
+  //     }
+  //   };
 
-    const head2: ListNode = {
-      val: 0,
-      next: {
-        val: 1,
-        next: {
-          val: 2,
-          next: null
-        }
-      }
-    };
+  //   const head2: ListNode = {
+  //     val: 0,
+  //     next: {
+  //       val: 1,
+  //       next: {
+  //         val: 2,
+  //         next: null
+  //       }
+  //     }
+  //   };
 
-    const head3: ListNode = {
-      val: 1,
-      next: {
-        val: 2,
-        next: {
-          val: 3,
-          next: null,
-        }
-      }
-    };
+  //   const head3: ListNode = {
+  //     val: 1,
+  //     next: {
+  //       val: 2,
+  //       next: {
+  //         val: 3,
+  //         next: null,
+  //       }
+  //     }
+  //   };
 
-    const head4: ListNode = {
-      val: 1,
-      next: null
-    };
+  //   const head4: ListNode = {
+  //     val: 1,
+  //     next: null
+  //   };
 
-    // console.log(rotateRight(head3, 2000000000));
+  //   // console.log(rotateRight(head3, 2000000000));
 
-    // console.log(rotateRight(head2, 4));
-    // console.log(rotateRight(head1, 2));
-    // console.log(rotateRight(head1, 10));
-    // console.log(rotateRight(head4, 99));
-  });
+  //   // console.log(rotateRight(head2, 4));
+  //   // console.log(rotateRight(head1, 2));
+  //   // console.log(rotateRight(head1, 10));
+  //   // console.log(rotateRight(head4, 99));
+  // });
 
-  it('reverseList', () => {
-    const head1: ListNode = {
-      val: 1,
-      next: {
-        val: 2,
-        next: null
-      }
-    };
-    const head2: ListNode = {
-      val: 1,
-      next: {
-        val: 2,
-        next: {
-          val: 3,
-          next: null
-        }
-      }
-    };
+  // it('reverseList', () => {
+  //   const head1: ListNode = {
+  //     val: 1,
+  //     next: {
+  //       val: 2,
+  //       next: null
+  //     }
+  //   };
+  //   const head2: ListNode = {
+  //     val: 1,
+  //     next: {
+  //       val: 2,
+  //       next: {
+  //         val: 3,
+  //         next: null
+  //       }
+  //     }
+  //   };
 
-    const head3: ListNode = {
-      val: 1,
-      next: null
-    };
-    console.log(reverseList(head1), 'xixi');
-    console.log(reverseList(head2), 'haha');
-    console.log(reverseList(head3), 'haha');
+  //   const head3: ListNode = {
+  //     val: 1,
+  //     next: null
+  //   };
+  //   console.log(reverseList(head1), 'xixi');
+  //   console.log(reverseList(head2), 'haha');
+  //   console.log(reverseList(head3), 'haha');
+  // });
+
+  /**
+   * 合并二维有序数组成一维有序数组，归并排序的思路
+   *
+   */
+  it('合并二维有序数组成一维有序数组，归并排序的思路', () => {
+    expect(mergerTwoArrOrderByToFlatArr([])).toEqual([]);
+    expect(mergerTwoArrOrderByToFlatArr([[1]])).toEqual([1]);
+    expect(mergerTwoArrOrderByToFlatArr([[1, 4], [2, 3]])).toEqual([1, 2, 3, 4]);
+    expect(mergerTwoArrOrderByToFlatArr([[1, 4], [2, 3]], 'asc')).toEqual([1, 2, 3, 4]);
+    expect(mergerTwoArrOrderByToFlatArr([[1, 4], [2, 3]], 'desc')).toEqual([4, 3, 2, 1]);
   });
 });
