@@ -1,6 +1,6 @@
 /* eslint-disable guard-for-in */
 import {
-  baseType, myTypeof, myInstanceof, deepClone, forEach
+  baseType, myTypeof, myInstanceof, deepClone, forEach, cacheStringFunction
 } from '..';
 
 describe('base type', () => {
@@ -107,27 +107,36 @@ describe('base type', () => {
     // });
   });
 
-  it('deepClone', () => {
-    const target: any = {
-      field1: 1,
-      field2: undefined,
-      field3: 'ly',
-      field4: {
-        child: 'child',
-        child2: {
-          child2: 'child2'
-        }
-      },
-      field5: () => 'function',
-      field6: { arr: [2, 4, 8] }
-    };
+  // it('deepClone', () => {
+  //   const target: any = {
+  //     field1: 1,
+  //     field2: undefined,
+  //     field3: 'ly',
+  //     field4: {
+  //       child: 'child',
+  //       child2: {
+  //         child2: 'child2'
+  //       }
+  //     },
+  //     field5: () => 'function',
+  //     field6: { arr: [2, 4, 8] }
+  //   };
 
-    target.target = target;
+  //   target.target = target;
 
-    const clone = deepClone(target);
-    expect(clone.field5()).toBe('function');
-    clone.field6.arr.push(123);
-    clone.target = {};
-    console.log(clone, target);
+  //   const clone = deepClone(target);
+  //   expect(clone.field5()).toBe('function');
+  //   clone.field6.arr.push(123);
+  //   clone.target = {};
+  //   console.log(clone, target);
+  // });
+
+  it('cacheStringFunction', () => {
+    const fn = (str: string) => `${str}xi`;
+    const catchFn = cacheStringFunction(fn);
+
+    const res = catchFn('12');
+    console.log(res);
+    console.log(catchFn('12'));
   });
 });

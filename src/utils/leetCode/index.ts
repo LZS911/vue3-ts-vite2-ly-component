@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 /* eslint-disable no-lonely-if */
 /* eslint-disable no-multi-assign */
 /* eslint-disable prefer-const */
@@ -1696,8 +1697,23 @@ export function firstMissingPositive(nums: number[]): number {
 0 <= nums[i] <= 1000
  */
 export function jumpEnd(nums: number[]) {
-  //需要跳的总数
-  const needJump = nums.length - 1;
+  const len = nums.length;
+  const start = nums[0];
+  let step = 0;
+  let end = 0;
+
+  if (start === len - 1 && start !== 0) {
+    return 1;
+  }
+  let max = 0;
+  for (let i = 0; i < len - 1; ++i) {
+    max = Math.max(max, i + nums[i]);
+    if (i === end) {
+      end = max;
+      step++;
+    }
+  }
+  return step;
 }
 
 /**
@@ -2189,4 +2205,93 @@ export function mergerTwoArrOrderByToFlatArr(multiArr: number[][], order: 'asc' 
   };
 
   return flat(multiArr);
+}
+
+/**
+ *
+假如有一排房子，共 n 个，每个房子可以被粉刷成红色、蓝色或者绿色这三种颜色中的一种，你需要粉刷所有的房子并且使其相邻的两个房子颜色不能相同。
+
+当然，因为市场上不同颜色油漆的价格不同，所以房子粉刷成不同颜色的花费成本也是不同的。每个房子粉刷成不同颜色的花费是以一个 n x 3 的正整数矩阵 costs 来表示的。
+
+例如，costs[0][0] 表示第 0 号房子粉刷成红色的成本花费；costs[1][2] 表示第 1 号房子粉刷成绿色的花费，以此类推。
+
+请计算出粉刷完所有房子最少的花费成本。
+ * @returns
+ */
+export function minCost(costs: number[][]) {
+  // const len = costs.length;
+
+  // if (len === 1) {
+  //   return Math.min(...costs[0]);
+  // }
+
+  // const fn = (prevIndex: number, count: number, res: number): number => {
+  //   if (count === len) {
+  //     return res;
+  //   }
+  //   const map = new Map<number, number[]>(
+  //     [
+  //       [0, [1, 2]],
+  //       [1, [0, 2]],
+  //       [2, [0, 1]],
+  //     ]
+  //   );
+  //   const arr = map.get(prevIndex)!;
+  //   return Math.min(...arr.map((v) => fn(v, count + 1, res + costs[count][v])));
+  // };
+
+  // const a1 = fn(0, 1, costs[0][0]);
+  // const a2 = fn(1, 1, costs[0][1]);
+  // const a3 = fn(2, 1, costs[0][2]);
+  // return Math.min(a1, a2, a3);
+
+  // const len = costs.length;
+
+  // const fn = (id: number, prevIndex: number) => {
+  //   let res = 0;
+
+  // };
+  // let dp: number[][] = [[]];
+  // for (let i = 0; i < 3; ++i) {
+  //   dp[0][i] = costs[0][i];
+  // }
+
+  // for (let i = 1; i < costs.length; ++i) {
+  //   dp[i] = [];
+  //   dp[i][0] = Math.min(dp[i - 1][1], dp[i - 1][2]) + costs[i][0];
+  //   dp[i][1] = Math.min(dp[i - 1][0], dp[i - 1][2]) + costs[i][1];
+  //   dp[i][2] = Math.min(dp[i - 1][0], dp[i - 1][1]) + costs[i][2];
+  // }
+  // return Math.min(...dp[dp.length - 1]);
+
+  let [a, b, c] = costs[0];
+  for (let i = 1; i < costs.length; ++i) {
+    [a, b, c] = [
+      Math.min(b, c) + costs[i][0],
+      Math.min(a, c) + costs[i][1],
+      Math.min(a, b) + costs[i][2],
+    ];
+  }
+  return Math.min(a, b, c);
+}
+
+export function findSwapValues(array1: number[], array2: number[]): number[] {
+  const getSum = (arr: number[]): number => arr.reduce((acc, cur) => cur + acc);
+  const fn = () => {
+    const flag: number[] = [];
+    array1.forEach((v) => {
+      if (flag.length === 2) {
+        return;
+      }
+      let temp = array2.find((p) => sum1 - v + p === sum2 - p + v);
+      if (!!temp) {
+        flag.push(v);
+        flag.push(temp);
+      }
+    });
+    return flag;
+  };
+  const sum1 = getSum(array1);
+  const sum2 = getSum(array2);
+  return fn();
 }

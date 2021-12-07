@@ -12,7 +12,7 @@ import {
   checkVersion, isValidSudoku, countAndSay, groupBy, transformArr, combinationSum,
   fullPermutation, combinationSum2, firstMissingPositive, getObjPath,
   permute, permuteUnique, rotateArr, groupAnagrams, judgeStr1, judgeStr33, lengthOfLastWord,
-  generateMatrix, getPermutation, rotateRight, reverseList, mergerTwoArrOrderByToFlatArr
+  generateMatrix, getPermutation, rotateRight, reverseList, mergerTwoArrOrderByToFlatArr, minCost, jumpEnd, findSwapValues
 } from '..';
 import { useState } from '../../hooks';
 import _ from 'lodash';
@@ -835,11 +835,82 @@ describe('hooks.ts', () => {
    * 合并二维有序数组成一维有序数组，归并排序的思路
    *
    */
-  it('合并二维有序数组成一维有序数组，归并排序的思路', () => {
-    expect(mergerTwoArrOrderByToFlatArr([])).toEqual([]);
-    expect(mergerTwoArrOrderByToFlatArr([[1]])).toEqual([1]);
-    expect(mergerTwoArrOrderByToFlatArr([[1, 4], [2, 3]])).toEqual([1, 2, 3, 4]);
-    expect(mergerTwoArrOrderByToFlatArr([[1, 4], [2, 3]], 'asc')).toEqual([1, 2, 3, 4]);
-    expect(mergerTwoArrOrderByToFlatArr([[1, 4], [2, 3]], 'desc')).toEqual([4, 3, 2, 1]);
+  // it('合并二维有序数组成一维有序数组，归并排序的思路', () => {
+  //   expect(mergerTwoArrOrderByToFlatArr([])).toEqual([]);
+  //   expect(mergerTwoArrOrderByToFlatArr([[1]])).toEqual([1]);
+  //   expect(mergerTwoArrOrderByToFlatArr([[1, 4], [2, 3]])).toEqual([1, 2, 3, 4]);
+  //   expect(mergerTwoArrOrderByToFlatArr([[1, 4], [2, 3]], 'asc')).toEqual([1, 2, 3, 4]);
+  //   expect(mergerTwoArrOrderByToFlatArr([[1, 4], [2, 3]], 'desc')).toEqual([4, 3, 2, 1]);
+  // });
+
+});
+
+// describe('粉刷房子', () => {
+//   // it('单个房子', () => {
+//   //   const costs = [[7, 6, 2]];
+//   //   expect(minCost(costs)).toBe(2);
+//   // });
+
+//   // it('多个房子', () => {
+//   //   const costs = [[17, 2, 17], [16, 16, 5], [14, 3, 19]];
+//   //   expect(minCost(costs)).toBe(10);
+//   // });
+
+//   // it('最后两个相邻不能使用相同颜色的情况', () => {
+//   //   const costs = [[3, 5, 3], [6, 17, 6], [7, 13, 18], [9, 10, 18]];
+//   //   expect(minCost(costs)).toBe(26);
+//   // });
+
+//   // it('头三个最优分配情况', () => {
+//   //   const costs = [[3, 5, 3], [5, 5, 6], [13, 7, 18], [9, 10, 18]];
+//   //   expect(minCost(costs)).toBe(24);
+//   // });
+
+//   // it('error', () => {
+//   //   const costs = [[5, 8, 6], [19, 14, 13], [7, 5, 12], [14, 15, 17], [3, 20, 10]];
+//   //   expect(minCost(costs)).toBe(43);
+//   // });
+
+//   // it('timeout', () => {
+//   //   const costs = [[12, 1, 19], [15, 1, 10], [3, 11, 10], [9, 3, 10], [4, 8, 7], [4, 18, 2], [16, 6, 6], [3, 3, 6], [10, 18, 16], [5, 4, 8], [5, 3, 16], [11, 8, 19], [18, 15, 18], [16, 4, 15], [10, 7, 13], [11, 10, 14], [3, 9, 8], [5, 2, 2], [3, 2, 5], [2, 19, 14], [17, 3, 6], [6, 4, 17], [5, 15, 19], [2, 14, 14], [19, 4, 16]];
+//   //   console.log(minCost(costs));
+//   // });
+// });
+
+// describe('跳跃游戏', () => {
+//   it('test getMaxAndIndex', () => {
+//     const arr = [2, 3, 0, 1, 4, 3, 5, 7, 3, 4, 5, 6, 7, 3, 1, 8, 9, 7, 5, 4, 4, 3, 4, 5, 3, 3, 4, 5, 4, 5, 3, 2, 3, 5, 7, 8, 8, 9, 7, 6, 5, 4, 6, 6, 6, 5, 4, 4];
+//     const step = jumpEnd([1]);
+//     console.log(step);
+//   });
+// });
+
+describe('交换和', () => {
+  it('相等', () => {
+    const arr1 = [1, 2, 3];
+    const arr2 = [1, 1, 4];
+    expect(findSwapValues(arr1, arr2)).toEqual([1, 1]);
+  });
+  it('相等但无', () => {
+    const arr1 = [1, 2, 3];
+    const arr2 = [0, 6];
+    expect(findSwapValues(arr1, arr2)).toEqual([]);
+  });
+  it('无', () => {
+    const arr1 = [1, 2, 3];
+    const arr2 = [4, 5, 6];
+    expect(findSwapValues(arr1, arr2)).toEqual([]);
+  });
+
+  it('左大于右', () => {
+    const arr1 = [3, 6, 3, 3];
+    const arr2 = [4, 1, 2, 1, 1, 2];
+    console.log(findSwapValues(arr1, arr2));
+  });
+
+  it('右大于右左', () => {
+    const arr1 = [4, 1, 2, 1, 1, 2];
+    const arr2 = [3, 6, 3, 3];
+    console.log(findSwapValues(arr1, arr2));
   });
 });
